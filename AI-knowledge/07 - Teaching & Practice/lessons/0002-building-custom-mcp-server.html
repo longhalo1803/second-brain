@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 0002: Model Context Protocol (MCP) & Tự Tạo MCP Server</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #38bdf8;
+      --accent: #a855f7;
+      --green: #22c55e;
+      --orange: #f97316;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      padding: 2rem 1rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    header { margin-bottom: 2rem; border-bottom: 1px solid var(--card-border); padding-bottom: 1.5rem; }
+    h1 { font-size: 1.8rem; color: var(--primary); margin-bottom: 0.5rem; }
+    .subtitle { color: var(--text-muted); font-size: 0.95rem; }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2);
+    }
+    h2 { font-size: 1.3rem; color: var(--accent); margin-bottom: 1rem; border-left: 4px solid var(--primary); padding-left: 0.5rem; }
+    h3 { font-size: 1.1rem; color: var(--primary); margin: 1rem 0 0.5rem; }
+    p, li { margin-bottom: 0.75rem; color: #e2e8f0; }
+    ul, ol { padding-left: 1.5rem; }
+    code { font-family: var(--font-mono); background: #090d16; color: #38bdf8; padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
+    pre {
+      background: #090d16;
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      padding: 1rem;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      margin: 1rem 0;
+    }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-top: 1rem; }
+    .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.8rem; font-weight: bold; }
+    .badge-tool { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid #38bdf8; }
+    .badge-resource { background: rgba(34, 197, 94, 0.2); color: #22c55e; border: 1px solid #22c55e; }
+    .badge-prompt { background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid #c084fc; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Bài Học 0002: Model Context Protocol (MCP) & Tự Tạo MCP Server</h1>
+    <p class="subtitle">Hiểu sâu bản chất USB-C cho AI | Kiến trúc Client-Server | Hướng dẫn tạo Server Python với FastMCP</p>
+  </header>
+
+  <section class="card">
+    <h2>1. Tại Sao Thế Giới Cần MCP?</h2>
+    <p>Trước khi có MCP, mỗi ứng dụng AI kết nối với Database hoặc API theo cách thủ công (viết glue code, viết prompt dài mô tả endpoint). Nếu API đổi hoặc model đổi, toàn bộ tích hợp bị gãy.</p>
+    <p><strong>MCP (Chuẩn mở do Anthropic khởi xướng)</strong> đóng vai trò như cổng <strong>USB-C cho AI</strong>: cung cấp giao thức chuẩn hóa để mô hình AI tự khám phá và sử dụng công cụ một cách tự động.</p>
+  </section>
+
+  <section class="card">
+    <h2>2. Ba Khối Năng Lực (3 Primitives Của MCP)</h2>
+    <div class="grid-3">
+      <div style="background: #090d16; padding: 1rem; border-radius: 6px; border: 1px solid var(--card-border);">
+        <span class="badge badge-tool">1. TOOLS (Hành Động)</span>
+        <h3 style="margin-top: 0.5rem;">Thực thi hàm</h3>
+        <p style="font-size: 0.85rem; color: #94a3b8;">Hàm mà Model có thể chủ động gọi kèm tham số (gửi email, query database, tính toán).</p>
+      </div>
+
+      <div style="background: #090d16; padding: 1rem; border-radius: 6px; border: 1px solid var(--card-border);">
+        <span class="badge badge-resource">2. RESOURCES (Dữ Liệu)</span>
+        <h3 style="margin-top: 0.5rem;">Tài nguyên chỉ đọc</h3>
+        <p style="font-size: 0.85rem; color: #94a3b8;">Dữ liệu ngữ cảnh thụ động định danh bằng URI (file log, schema bảng, tài liệu PDF).</p>
+      </div>
+
+      <div style="background: #090d16; padding: 1rem; border-radius: 6px; border: 1px solid var(--card-border);">
+        <span class="badge badge-prompt">3. PROMPTS (Mẫu Chỉ Dẫn)</span>
+        <h3 style="margin-top: 0.5rem;">Mẫu tương tác</h3>
+        <p style="font-size: 0.85rem; color: #94a3b8;">Các template prompt tạo sẵn giúp người dùng kích hoạt tác vụ cụ thể nhanh chóng.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>3. 4 Bước Tự Viết MCP Server Cho Riêng Bạn</h2>
+    <ol>
+      <li><strong>Cài đặt</strong>: <code>pip install mcp</code></li>
+      <li><strong>Viết code với FastMCP</strong>:
+        <pre>
+from mcp.server.fastmcp import FastMCP
+
+mcp = FastMCP("My-Server")
+
+@mcp.tool()
+def read_vault_note(file_name: str) -> str:
+    """Đọc nội dung một ghi chú trong Obsidian Vault."""
+    with open(f"/path/to/vault/{file_name}", "r") as f:
+        return f.read()
+
+if __name__ == "__main__":
+    mcp.run(transport="stdio")
+        </pre>
+      </li>
+      <li><strong>Test với MCP Inspector</strong>: <code>npx @modelcontextprotocol/inspector python3 server.py</code></li>
+      <li><strong>Cấu hình vào Claude Desktop / Cursor</strong>: Thêm lệnh chạy vào file <code>claude_desktop_config.json</code>.</li>
+    </ol>
+  </section>
+</body>
+</html>

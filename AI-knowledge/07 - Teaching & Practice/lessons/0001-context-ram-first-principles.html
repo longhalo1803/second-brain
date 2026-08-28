@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 0001: Bản Chất Context RAM & Luồng Xử Lý LLM (First Principles)</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #38bdf8;
+      --accent: #a855f7;
+      --green: #22c55e;
+      --orange: #f97316;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      padding: 2rem 1rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    header { margin-bottom: 2rem; border-bottom: 1px solid var(--card-border); padding-bottom: 1.5rem; }
+    h1 { font-size: 1.8rem; color: var(--primary); margin-bottom: 0.5rem; }
+    .subtitle { color: var(--text-muted); font-size: 0.95rem; }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2);
+    }
+    h2 { font-size: 1.3rem; color: var(--accent); margin-bottom: 1rem; border-left: 4px solid var(--primary); padding-left: 0.5rem; }
+    h3 { font-size: 1.1rem; color: var(--primary); margin: 1rem 0 0.5rem; }
+    p, li { margin-bottom: 0.75rem; color: #e2e8f0; }
+    ul, ol { padding-left: 1.5rem; }
+    code { font-family: var(--font-mono); background: #0f172a; color: #38bdf8; padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
+    pre {
+      background: #090d16;
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      padding: 1rem;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      margin: 1rem 0;
+    }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media(max-width: 700px) { .grid-2 { grid-template-columns: 1fr; } }
+    .pill { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.8rem; font-weight: bold; }
+    .pill-blue { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid #38bdf8; }
+    .pill-green { background: rgba(34, 197, 94, 0.2); color: #22c55e; border: 1px solid #22c55e; }
+    .pill-orange { background: rgba(249, 115, 22, 0.2); color: #f97316; border: 1px solid #f97316; }
+    
+    /* Interactive Simulator */
+    .sim-box { background: #0b1120; border: 1px dashed var(--primary); border-radius: 8px; padding: 1.25rem; margin-top: 1rem; }
+    .btn { background: var(--primary); color: #0f172a; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+    .btn:hover { background: #7dd3fc; }
+    .token-chip { display: inline-block; padding: 2px 6px; margin: 2px; border-radius: 4px; font-family: var(--font-mono); font-size: 0.8rem; }
+    .t-sys { background: #1e3a8a; color: #93c5fd; }
+    .t-mem { background: #065f46; color: #6ee7b7; }
+    .t-user { background: #7c2d12; color: #fdba74; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Bài Học 0001: Bản Chất Context RAM & LLM Inference</h1>
+    <p class="subtitle">Giải thích từ Nguyên Lý Đầu Tiên (First Principles) | Phân định vị trí thực thi & Cơ chế Attention</p>
+  </header>
+
+  <section class="card">
+    <h2>1. Nguyên Lý Đầu Tiên: LLM Là Gì Trong Thực Tế?</h2>
+    <p>Hãy loại bỏ mọi từ ngữ bóng bẩy. Ở mức cơ bản nhất:</p>
+    <div style="text-align: center; margin: 1rem 0; font-size: 1.2rem; font-family: var(--font-mono); color: var(--primary);">
+      $$y = \text{LLM}(x_1, x_2, \dots, x_N)$$
+    </div>
+    <ul>
+      <li><strong>Stateless Function (Không có trạng thái):</strong> LLM không có ký ức sau khi tắt phiên. Nó chỉ là một file trọng số (Weights Matrix) nằm trên RAM của card đồ họa (GPU VRAM).</li>
+      <li><strong>Input $x$:</strong> Một mảng số nguyên biểu diễn các từ/ký tự (Tokens).</li>
+      <li><strong>Context RAM thực chất là gì?</strong> Nó <em>không phải</em> là một con chip hay một AI phụ. Nó chỉ là <strong>chuỗi văn bản (String Payload)</strong> được phần mềm điều khiển (Harness) lắp ghép lại từ nhiều nguồn rồi gửi cho LLM.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>2. Logic Xử Lý Nằm Ở Đâu: Máy User Hay Máy Chủ Provider?</h2>
+    <div class="grid-2">
+      <div style="background: #090d16; padding: 1rem; border-radius: 6px; border: 1px solid var(--card-border);">
+        <span class="pill pill-blue">TẦNG 1: AGENT RUNTIME (ORCHESTRATOR)</span>
+        <h3 style="margin-top: 0.5rem;">Nơi Lắp Ghép Context RAM</h3>
+        <p><strong>Nơi chạy:</strong></p>
+        <ul style="font-size: 0.9rem;">
+          <li><strong>Máy của User:</strong> Nếu dùng Antigravity, Claude Code, Cursor, Local Python script.</li>
+          <li><strong>Cloud Server ứng dụng:</strong> Nếu dùng ChatGPT Web, Perplexity (server backend của họ).</li>
+        </ul>
+        <p><strong>Nhiệm vụ:</strong> Code thông thường (Python/Node.js) thực hiện: Đọc file <code>SKILL.md</code>, query Vector DB, query SQL, ghép chuỗi JSON.</p>
+      </div>
+
+      <div style="background: #090d16; padding: 1rem; border-radius: 6px; border: 1px solid var(--card-border);">
+        <span class="pill pill-green">TẦNG 2: LLM PROVIDER</span>
+        <h3 style="margin-top: 0.5rem;">Nơi "Xào Nấu" Trí Tuệ (Inference)</h3>
+        <p><strong>Nơi chạy:</strong></p>
+        <ul style="font-size: 0.9rem;">
+          <li><strong>Data Center của Provider:</strong> OpenAI, Anthropic, Google Cloud GPU clusters.</li>
+          <li><strong>Hoặc Local GPU:</strong> Nếu chạy Ollama / vLLM trên máy bạn.</li>
+        </ul>
+        <p><strong>Nhiệm vụ:</strong> Nhận chuỗi JSON từ Tầng 1 qua API, chạy ma trận <em>Self-Attention</em> để liên kết dữ liệu giữa các câu và sinh câu trả lời.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>3. Model LLM Hứng Cái Gì Từ Context RAM?</h2>
+    <p>Context RAM không tự "suy nghĩ" hay "tóm tắt trước" (trừ khi lập trình viên chủ động gọi một Summarizer Agent trước đó). Model LLM nhận <strong>toàn bộ gói JSON nguyên khối</strong>:</p>
+    <pre>
+POST https://api.openai.com/v1/chat/completions
+{
+  "model": "gpt-4o",
+  "messages": [
+    {
+      "role": "system",
+      "content": "[PROCEDURAL]: Làm theo các bước sau...\n[SEMANTIC FACTS]: User tên là Ryuuki, thích First Principles...\n[EPISODIC LOGS]: Hôm qua đã thảo luận về Harness..."
+    },
+    {
+      "role": "user",
+      "content": "Context RAM hoạt động thế nào?"
+    }
+  ]
+}
+    </pre>
+    <p><strong>Quá trình "xào nấu" thực sự:</strong></p>
+    <p>Khi toàn bộ đoạn text trên biến thành Tokens trên GPU, cơ chế <strong>Self-Attention</strong> sẽ cho phép từ <em>"Ryuuki"</em> trong Semantic Memory kết nối với từ <em>"tôi"</em> trong câu hỏi của User, từ đó sinh ra câu trả lời chính xác.</p>
+  </section>
+
+  <section class="card">
+    <h2>4. Mô Phỏng Trực Quan Quá Trình Đóng Gói Context</h2>
+    <div class="sim-box">
+      <p style="margin-bottom: 0.5rem;"><strong>Bấm để xem Agent Runtime lắp ghép các khối bộ nhớ thành Context RAM:</strong></p>
+      <button class="btn" onclick="runSimulation()">Lắp Ghép & Gửi Tới Model</button>
+      <div id="sim-output" style="margin-top: 1rem; display: none;">
+        <p style="color: var(--primary); font-size: 0.9rem; margin-bottom: 0.5rem;"><strong>1. Chuỗi Tokens nạp vào GPU VRAM (Context RAM):</strong></p>
+        <div id="token-stream" style="line-height: 2;"></div>
+        <p style="color: var(--green); font-size: 0.9rem; margin-top: 1rem; margin-bottom: 0.5rem;"><strong>2. Kết quả sau khi Transformer Attention tính toán:</strong></p>
+        <div style="background: #090d16; padding: 0.75rem; border-radius: 4px; font-family: var(--font-mono); font-size: 0.85rem; color: #a7f3d0;">
+          LLM nhận diện được toàn bộ quy tắc, thông tin cá nhân và câu hỏi trong cùng một không gian ma trận để sinh phản hồi tối ưu.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function runSimulation() {
+      const out = document.getElementById('sim-output');
+      const stream = document.getElementById('token-stream');
+      out.style.display = 'block';
+      stream.innerHTML = `
+        <span class="token-chip t-sys">[SYSTEM: Procedural Skill]</span>
+        <span class="token-chip t-sys">You are Antigravity</span>
+        <span class="token-chip t-mem">[SEMANTIC: Facts]</span>
+        <span class="token-chip t-mem">User: Ryuuki</span>
+        <span class="token-chip t-mem">Goal: Learn AI Agent</span>
+        <span class="token-chip t-mem">[EPISODIC: History]</span>
+        <span class="token-chip t-mem">Previous: Sean Video</span>
+        <span class="token-chip t-user">[USER PROMPT]</span>
+        <span class="token-chip t-user">Explain Context RAM</span>
+      `;
+    }
+  </script>
+</body>
+</html>

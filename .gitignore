@@ -1,0 +1,19 @@
+# --- Skip the entire Obsidian configuration folder ---
+**/.obsidian/
+.obsidian/
+
+# --- Secrets & Environment Variables ---
+.env
+.env.*
+*.key
+*.token
+*credentials.json
+
+# --- OS & Editor Artifacts ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/settings.json
+*.swp
+*.tmp

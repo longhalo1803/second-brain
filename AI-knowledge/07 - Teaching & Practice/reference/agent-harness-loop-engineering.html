@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cheat Sheet: AI Agent Harness & Loop Engineering</title>
+  <style>
+    :root {
+      --bg: #fafafa;
+      --card-bg: #ffffff;
+      --text: #1a1a1a;
+      --muted: #666;
+      --border: #e5e7eb;
+      --primary: #2563eb;
+      --accent: #059669;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      background: var(--bg);
+      color: var(--text);
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+    h1, h2, h3 { color: #111; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+    h1 { border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; font-size: 1.8rem; }
+    h2 { font-size: 1.3rem; border-left: 4px solid var(--primary); padding-left: 0.5rem; }
+    .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; margin-bottom: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.95rem; }
+    th, td { border: 1px solid var(--border); padding: 0.6rem 0.8rem; text-align: left; }
+    th { background: #f3f4f6; font-weight: 600; }
+    code { font-family: var(--font-mono); background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
+    pre { background: #0f172a; color: #f8fafc; padding: 1rem; border-radius: 6px; overflow-x: auto; font-family: var(--font-mono); font-size: 0.85rem; }
+    .tag { display: inline-block; padding: 0.2rem 0.5rem; font-size: 0.75rem; border-radius: 4px; font-weight: bold; background: #e0e7ff; color: #3730a3; }
+  </style>
+</head>
+<body>
+  <h1>AI Agent Harness & Loop Engineering: Quick Reference</h1>
+  <p style="color: var(--muted); font-size: 0.9rem;">Dựa trên bài giảng của Sean (John) | Tri-Memory, Loop Control, LLMOps & Evals</p>
+
+  <div class="card">
+    <h2>1. Ẩn Dụ Cốt Lõi: The Horse & The Harness</h2>
+    <ul>
+      <li><strong>The Horse (LLM)</strong>: Động cơ thông minh, sinh từ theo xác suất (probabilistic), ngẫu nhiên, không có tri thức về bối cảnh cá nhân/doanh nghiệp.</li>
+      <li><strong>The Harness (Bộ cương)</strong>: Khung kiểm soát bao quanh LLM (LangGraph, PydanticAI) để định hướng hành vi, cấp phát bộ nhớ, hạn chế tính ngẫu nhiên.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>2. Bảng Phân Loại Trí Nhớ (Tri-Memory Architecture)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Tầng Trí Nhớ</th>
+          <th>Bản Chất</th>
+          <th>Lưu Trữ</th>
+          <th>Cơ Chế Truy Xuất</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Context RAM</strong></td>
+          <td>Tạm thời (Ephemeral)</td>
+          <td>LLM Window</td>
+          <td>In-memory trực tiếp</td>
+        </tr>
+        <tr>
+          <td><strong>Procedural</strong></td>
+          <td>Quy trình / Kỹ năng</td>
+          <td>Markdown (<code>SKILL.md</code>), DB</td>
+          <td>Inject vào System Prompt</td>
+        </tr>
+        <tr>
+          <td><strong>Semantic</strong></td>
+          <td>Durable Facts, User Profile</td>
+          <td>Vector Store</td>
+          <td>RAG (Top-K Semantic Search)</td>
+        </tr>
+        <tr>
+          <td><strong>Episodic</strong></td>
+          <td>Time-series chat & events</td>
+          <td>SQL DB + Vector DB</td>
+          <td>Hybrid: SQL (Recency) + RAG (Relevance)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><em>* Tối ưu hóa:</em> Dùng <strong>Summarizer Agent</strong> (chạy model nhỏ, rẻ) tự động nén lịch sử mỗi $N$ cuộc hội thoại -> trích xuất facts -> lưu vào Semantic Memory.</p>
+  </div>
+
+  <div class="card">
+    <h2>3. Loop Engineering & End-Loop Guardrails</h2>
+    <pre>User Request -> LLM Planning -> [Tool Call -> Observation -> Tool Call] -> End-Loop Guardrail -> Final Response</pre>
+    <ul>
+      <li><strong>Mục đích vòng lặp (Loop)</strong>: Cho phép tác tử gọi nhiều công cụ liên tiếp để giải quyết bài toán phức tạp.</li>
+      <li><strong>End-Loop Guardrails</strong>: Tiêu chí dừng bắt buộc để tránh vòng lặp vô hạn (Infinite Loop) và lãng phí token:
+        <ul>
+          <li>Điều kiện hoàn thành mục tiêu (Task completion criteria).</li>
+          <li>Xác nhận từ con người (Human-in-the-loop) khi gặp tác vụ nhạy cảm / hoàn tiền.</li>
+          <li>Proactive alerts khi chờ cấp quyền.</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>4. LLMOps & Evaluation: Vòng Phản Hồi Tự Tiến Hóa</h2>
+    <ol>
+      <li><strong>Tracing (LangFuse / LangSmith)</strong>: Ghi lại Trace Tree: Query -> RAG context -> Tool calls -> Latency & Token metrics.</li>
+      <li><strong>Evaluation</strong>: LLM-as-a-Judge + Deterministic Assertions đánh giá độ chính xác và sức khỏe hệ thống.</li>
+      <li><strong>Diagnosis</strong>: Phân tích nguyên nhân gốc khi latency tăng hoặc tool thất bại.</li>
+      <li><strong>Continuous Deployment</strong>: Tự động cập nhật System Prompt, Hyperparameters hoặc kích hoạt Coding Agent sửa code.</li>
+    </ol>
+  </div>
+</body>
+</html>
