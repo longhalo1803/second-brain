@@ -32,7 +32,7 @@ Trong các hệ thống RDBMS truyền thống, khi một giao dịch đang `UPD
 Để giải quyết triệt để vấn đề này, các Database hiện đại (PostgreSQL, MySQL InnoDB, Oracle, SQL Server Snapshot) áp dụng cơ chế **MVCC (Kiểm soát đồng thời đa phiên bản)**.
 
 > [!TIP]
-> **Triết lý MVCC:** *"Readers do not block Writers, and Writers do not block Readers."* (Người Đọc không bao giờ chặn người Ghi, và người Ghi không bao giờ chặn người Đọc).
+> **Triết lý MVCC:** _"Readers do not block Writers, and Writers do not block Readers."_ (Người Đọc không bao giờ chặn người Ghi, và người Ghi không bao giờ chặn người Đọc).
 
 ---
 
@@ -50,12 +50,14 @@ Mỗi khi có thao tác thêm/sửa/xóa, Database không ghi đè trực tiếp
 ## 3. Cái giá phải trả của MVCC: Rác và Phình Bảng (Table Bloat)
 
 Vì các bản ghi cũ không bị xóa vật lý ngay, sau hàng triệu thao tác Update/Delete, ổ đĩa sẽ chứa đầy **Dead Tuples**:
+
 - Bảng thực tế chỉ có vài nghìn dòng sử dụng, nhưng dung lượng chiếm hàng chục Gigabyte.
 - Để dọn dẹp các Dead Tuples này, Database cần đến **Tiến trình Dọn rác**.
-👉 Xem chi tiết tại: **[[VACUUM & Dọn rác Database]]**.
+  👉 Xem chi tiết tại: **[[VACUUM & Dọn rác Database]]**.
 
 ---
 
 ## 🔗 Liên kết Mở rộng
-- Khái niệm liên quan: [[VACUUM & Dọn rác Database]], [[Lock]], [[Deadlock]], [[Block (Page)]]
-- Nguyên lý & Case Study: [[Case - Table 0 row nhưng truy vấn vẫn cực chậm]]
+
+- Khái niệm liên quan: [[Write-Ahead Logging (WAL)]], [[VACUUM & Dọn rác Database]], [[Lock]], [[Deadlock]], [[Block (Page)]]
+- Nguyên lý & Thực chiến: [[Vận hành ngầm của câu lệnh DML (INSERT Internals)]], [[Case - Table 0 row nhưng truy vấn vẫn cực chậm]]

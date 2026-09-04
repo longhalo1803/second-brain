@@ -27,7 +27,7 @@ updated: 2026-08-26
 
 **Execution Plan (Kế hoạch thực thi)** là bản đồ chỉ đường chi tiết do **[[SQL Optimizer]]** tự động sinh ra, mô tả chính xác từng thao tác tuần tự mà Database Engine sẽ thực hiện để lấy dữ liệu cho một câu lệnh SQL.
 
-SQL là một ngôn ngữ **khai báo (Declarative Language)**: Bạn chỉ nói cho Database biết bạn *muốn lấy cái gì* (`SELECT ... FROM ... WHERE ...`), chứ không ra lệnh *lấy như thế nào*. Execution Plan chính là câu trả lời của Database cho câu hỏi *lấy như thế nào*.
+SQL là một ngôn ngữ **khai báo (Declarative Language)**: Bạn chỉ nói cho Database biết bạn _muốn lấy cái gì_ (`SELECT ... FROM ... WHERE ...`), chứ không ra lệnh _lấy như thế nào_. Execution Plan chính là câu trả lời của Database cho câu hỏi _lấy như thế nào_.
 
 ![[Pasted image 20260616161013.png]]
 
@@ -42,12 +42,13 @@ Một Execution Plan chuẩn thường có dạng **Cây thực thi (Execution T
 | Id  | Operation                     | Name          | Rows  | Bytes | Cost (%CPU)| Time        |
 --------------------------------------------------------------------------------------------------
 |   0 | SELECT STATEMENT              |               |     1 |    45 |     3   (0)| 00:00:00.01 |
-|   1 |  TABLE ACCESS BY INDEX ROWID  | CUSTOMERS     |     1 |    45 |     3   (0)| 00:00:00.01 |
-|*  2 |   INDEX UNIQUE SCAN           | PK_CUSTOMERS  |     1 |       |     2   (0)| 00:00:00.01 |
+|   1 | TABLE ACCESS BY INDEX ROWID   | CUSTOMERS     |     1 |    45 |     3   (0)| 00:00:00.01 |
+|*  2 | INDEX UNIQUE SCAN             | PK_CUSTOMERS  |     1 |       |     2   (0)| 00:00:00.01 |
 --------------------------------------------------------------------------------------------------
 ```
 
 ### Các Thành phần Trọng yếu:
+
 1. **Operation (Thao tác):** Cách thức Database đọc dữ liệu ([[Data Access Methods]]) hoặc cách kết nối các bảng ([[Join Methods]]).
    - Ví dụ: `TABLE ACCESS FULL`, `INDEX RANGE SCAN`, `NESTED LOOPS`, `HASH JOIN`.
 2. **Rows (Cardinality):** Số lượng bản ghi ước tính mà thao tác đó sẽ trả về (dựa trên [[Statistics (Thống kê Database)]]).
@@ -74,5 +75,6 @@ Một Execution Plan chuẩn thường có dạng **Cây thực thi (Execution T
 ---
 
 ## 🔗 Liên kết & Khái niệm Mở rộng
+
 - Khái niệm liên quan: [[SQL Optimizer]], [[Cost]], [[Data Access Methods]], [[Join Methods]], [[Statistics (Thống kê Database)]]
 - Nguyên lý: [[Quy trình 6 bước xử lý câu lệnh SQL]], [[Tư duy tối ưu Database (Database Tuning Mindset)]]

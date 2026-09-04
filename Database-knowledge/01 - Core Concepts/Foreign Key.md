@@ -29,6 +29,20 @@ updated: 2026-08-26
 
 Tuy nhiên, về mặt vật lý, mỗi khi có thao tác sửa đổi trên bảng Cha hoặc bảng Con, Database Engine phải ngầm thực hiện các bước kiểm tra tính toàn vẹn (Integrity Checks) và **thiết lập các cơ chế Khóa ([[Lock]]) ngầm định**.
 
+### 🔍 Tác động ngầm khi INSERT: Phát sinh Logical Reads trên Bảng Cha
+
+Khi bạn thực hiện câu lệnh chèn dữ liệu vào bảng Con:
+
+```sql
+INSERT INTO employees (emp_id, emp_name, department_id) VALUES (10, 'Huy', 5);
+```
+
+Dù chỉ ghi vào bảng `employees`, kết quả thống kê I/O (`SET STATISTICS IO ON`) sẽ cho thấy **phát sinh thêm Logical Reads trên bảng cha `departments`**.
+
+- **Bản chất:** Database bắt buộc phải đọc khối dữ liệu hoặc Primary Key Index của bảng Cha để xác minh phòng ban `department_id = 5` có tồn tại hay không.
+- Nếu dữ liệu bảng cha chưa có trên [[Buffer Cache]], thao tác `INSERT` đơn giản này sẽ kéo theo **Physical Disk Reads** làm suy giảm tốc độ ghi.
+- Xem chi tiết tại: **[[Vận hành ngầm của câu lệnh DML (INSERT Internals)]]**.
+
 ---
 
 ## 2. Cái Bẫy Tử Huyệt: Thiếu Index trên Cột Khóa Ngoại
@@ -37,6 +51,7 @@ Tuy nhiên, về mặt vật lý, mỗi khi có thao tác sửa đổi trên b�
 > Hầu hết các RDBMS (như Oracle, PostgreSQL, SQL Server) **KHÔNG TỰ ĐỘNG TẠO INDEX** trên cột Khóa ngoại của Bảng Con khi bạn khai báo ràng buộc `FOREIGN KEY` (chỉ có MySQL InnoDB là tự tạo).
 
 ### Kịch bản Thảm họa Treo Hệ thống:
+
 - Giả sử bạn có bảng Cha `CUSTOMERS` (1 triệu dòng) và bảng Con `ORDERS` (20 triệu dòng).
 - Bảng `ORDERS` có cột `customer_id` làm khóa ngoại trỏ về `CUSTOMERS`, nhưng **chưa được đánh Index**.
 - Khi một giao dịch chạy lệnh `DELETE FROM CUSTOMERS WHERE id = 999;` hoặc `UPDATE` khóa chính:
@@ -57,5 +72,6 @@ Tuy nhiên, về mặt vật lý, mỗi khi có thao tác sửa đổi trên b�
 ---
 
 ## 🔗 Liên kết Mở rộng
+
 - Khái niệm liên quan: [[Lock]], [[Deadlock]], [[Index]], [[Full Table Scan]]
 - Thực chiến: [[Case - Tối ưu Foreign Key và Lock leo thang]], [[Tổng hợp Lock và Deadlock trong Database]]

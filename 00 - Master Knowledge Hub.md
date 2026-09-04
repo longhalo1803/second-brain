@@ -43,7 +43,7 @@ flowchart TD
 
     subgraph D3["🗄️ DATABASE ENGINE & TUNING"]
         DB["[[Database-knowledge/00 - Maps of Content/MOC - Database Overview|Database Overview MOC]]"]
-        DB_S["Disk Block, Page & Buffer Cache"]
+        DB_S["Disk Block, Page, Buffer Cache & WAL"]
         DB_O["Index B+Tree & Cost Optimizer"]
         DB_L["Lock, MVCC & Deadlock"]
     end

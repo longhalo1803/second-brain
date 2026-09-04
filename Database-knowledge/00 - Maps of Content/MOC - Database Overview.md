@@ -60,11 +60,11 @@ mindmap
 
 ## 📌 Các Hub Tri thức Chuyên đề (Sub-MOCs)
 
-| Hub Tri thức | Mô tả | Các chủ đề trọng tâm |
-| :--- | :--- | :--- |
-| 🚀 **[[MOC - Query Optimization]]** | Tối ưu hóa truy vấn SQL | [[Execution Plan]], [[SQL Optimizer]], [[Cost]], [[Data Access Methods]], [[Join Methods]], [[Quy trình 6 bước xử lý câu lệnh SQL]] |
-| 💾 **[[MOC - Storage & Engine]]** | Cấu trúc lưu trữ vật lý & Bộ nhớ | [[Block (Page)]], [[Record (Tuple)]], [[Buffer Cache]], [[Database Instance]], [[Transaction & MVCC]], [[VACUUM & Dọn rác Database]] |
-| 🔒 **[[MOC - Concurrency & Lock]]** | Quản trị đồng thời & Tranh chấp | [[Lock]], [[Deadlock]], [[Foreign Key]], [[Nguyên lý Không va chạm trong tối ưu SQL]], [[Tổng hợp Lock và Deadlock trong Database]] |
+| Hub Tri thức                        | Mô tả                            | Các chủ đề trọng tâm                                                                                                                 |
+| :---------------------------------- | :------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------- |
+| 🚀 **[[MOC - Query Optimization]]** | Tối ưu hóa truy vấn SQL          | [[Execution Plan]], [[SQL Optimizer]], [[Cost]], [[Data Access Methods]], [[Join Methods]], [[Quy trình 6 bước xử lý câu lệnh SQL]]  |
+| 💾 **[[MOC - Storage & Engine]]**   | Cấu trúc lưu trữ vật lý & Bộ nhớ | [[Block (Page)]], [[Record (Tuple)]], [[Buffer Cache]], [[Database Instance]], [[Transaction & MVCC]], [[VACUUM & Dọn rác Database]] |
+| 🔒 **[[MOC - Concurrency & Lock]]** | Quản trị đồng thời & Tranh chấp  | [[Lock]], [[Deadlock]], [[Foreign Key]], [[Nguyên lý Không va chạm trong tối ưu SQL]], [[Tổng hợp Lock và Deadlock trong Database]]  |
 
 ---
 
@@ -81,6 +81,7 @@ mindmap
 5. **[[Quy trình 6 bước xử lý câu lệnh SQL]]:** Từ Syntax Check, Semantic Check, Hard Parse, Soft Parse đến Execution Plan. Sức mạnh của Bind Variables.
 6. **[[Nguyên lý Không va chạm trong tối ưu SQL]]:** Triết lý phân luồng tác vụ để triệt tiêu thời gian chờ (Wait Time) trong các hệ thống High Concurrency.
 7. **[[Tư duy tối ưu hóa cho Software Architect]]:** Tầm nhìn kiến trúc cho hệ thống chịu tải lớn, ổn định cao như Core Banking, Sàn giao dịch.
+8. **[[Vận hành ngầm của câu lệnh DML (INSERT Internals)]]:** 3 bài toán kiến trúc của Database Engine khi chạy DML: Tính nhất quán hệ sinh thái Table, Crash Recovery và Cơ chế Hoàn tác (kèm bản vẽ 🎨 [[Vận hành ngầm đằng sau 1 câu lệnh INSERT.excalidraw]]).
 
 ---
 
@@ -90,6 +91,7 @@ mindmap
   - [[Block (Page)]] - Đơn vị I/O cơ bản của Database (8KB - 64KB).
   - [[Record (Tuple)]] - Bản ghi/dòng dữ liệu nằm bên trong Block.
   - [[Buffer Cache]] - Bộ nhớ đệm dữ liệu trên RAM, giảm thiểu đọc đĩa vật lý.
+  - [[Write-Ahead Logging (WAL)]] - Cơ chế ghi nhật ký tuần tự trước khi ghi dữ liệu (Redo Log, WAL, Transaction Log).
   - [[Database Instance]] - Cấu trúc bộ nhớ (SGA/Buffer Pool) và các tiến trình nền (Background Processes).
 - **Chỉ mục & Tối ưu Tìm kiếm:**
   - [[Index]] - Cấu trúc B-Tree & Doubly Linked List, Primary, Secondary, Clustered, Composite, Covering Index.
