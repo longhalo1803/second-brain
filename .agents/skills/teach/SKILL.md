@@ -43,7 +43,7 @@ graph TD
 ### Pha 1: Dò Biên (Probe)
 
 - **Bắt buộc gọi `ask_question`:** Đặt 1-2 câu trắc nghiệm chẩn đoán để định vị sàn (đã biết chắc) và trần (chỗ hổng/ngộ nhận).
-- **Quy tắc câu hỏi:** Các lựa chọn có độ dài/văn phong tương đương; đáp án sai phải là ngộ nhận thực tế phổ biến; không mớm đáp án.
+- **Tuân thủ 100% Quy chuẩn Trắc nghiệm bên dưới.**
 
 ### Pha 2: Lập Kế Hoạch (Plan)
 
@@ -58,10 +58,22 @@ Thực hiện tuần tự cho từng node trên sơ đồ:
 1. **Motivate:** Nêu vấn đề thực tế nếu thiếu khái niệm này.
 2. **Establish:** Giải thích bản chất, công thức bắt buộc dùng $\LaTeX$ (`$O(\log N)$`, `$$...$$`).
 3. **Connect:** Chỉ rõ mối liên hệ nhân quả với node trước.
-4. **Quiz Lock:** Gọi `ask_question` với câu hỏi tư duy suy luận. Chỉ chuyển node khi người học trả lời đúng.
+4. **Quiz Lock:** Gọi `ask_question` với câu hỏi tư duy suy luận sâu sắc (tuân thủ Quy chuẩn Trắc nghiệm). Chỉ chuyển node khi người học trả lời đúng.
 5. **Auto-Sync:** Gọi `write_to_file` xuất file Note `.md` chuẩn vào `[Tên-Vault]/01 - Core Concepts/` hoặc `[Tên-Vault]/02 - Core Principles/`. Cập nhật liên kết vào MOC tương ứng bằng `replace_file_content`.
 
 ---
+
+## 🎯 Quy Chuẩn Thiết Kế Trắc Nghiệm (Quiz Engineering Standards)
+
+Mọi câu hỏi trắc nghiệm gọi qua `ask_question` (cả Pha 1 Probe lẫn Pha 3 Quiz Lock) **BẮT BUỘC** tuân thủ 5 nguyên tắc sắt đá:
+
+1. **Tối thiểu 4 lựa chọn (>= 4 Options):** Tuyệt đối không tạo câu hỏi chỉ có 2 hoặc 3 options nghèo nàn. Luôn thiết kế đúng 4 options đầy đặn (hoặc 5 nếu bài toán có nhiều ngộ nhận).
+2. **Xáo trộn vị trí đáp án đúng (Randomize Correct Answer):**
+   - **CẤM TUYỆT ĐỐI** việc luôn đặt đáp án đúng ở vị trí Option 1.
+   - Đáp án đúng phải được xáo trộn ngẫu nhiên (nằm ở Option 2, 3, hoặc 4) qua các câu hỏi khác nhau để triệt tiêu hoàn toàn thói quen đoán mò theo vị trí.
+3. **Tuyệt đối KHÔNG gắn `(Recommended)`:** Đây là bài kiểm tra tư duy kỹ thuật, không phải menu lựa chọn tính năng. Không được mớm bất kỳ dấu hiệu nào cho đáp án đúng.
+4. **Đáp án nhiễu tinh vi (High-Quality Distractors):** Các đáp án sai phải phản ánh đúng những ngộ nhận kinh điển trong thực tế (ví dụ: ngộ nhận về thuật toán, hiểu sai cơ chế phần cứng, nhầm lẫn giữa Time vs Space, hoặc nhầm giữa Seek vs Scan).
+5. **Đồng nhất về văn phong & độ dài:** Cả 4 lựa chọn phải có độ dài tương đương, văn phong kỹ thuật chuẩn chỉ và cấu trúc câu đối xứng. Người học không thể dựa vào mẹo "câu dài nhất/ngắn nhất là đáp án đúng".
 
 ## 📋 Chuẩn Định Dạng Note Obsidian
 

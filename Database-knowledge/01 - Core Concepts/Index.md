@@ -107,6 +107,10 @@ Khái niệm **Index** gắn liền với **[[Block (Page)]]**. Nếu [[Block (P
 1. **Cây B-Tree (Hạ cánh thẳng đứng - Vertical Traverse):** Từ Root Node -> Branch Node -> Leaf Node. Quãng đường từ gốc đến mọi nút lá là như nhau (độ sâu thông thường chỉ 3 - 4 tầng kể cả với bảng hàng chục triệu dòng). Giúp tìm ra bản ghi đầu tiên trong tích tắc ([[Index Seek]]).
 2. **Danh sách liên kết đôi (Quét ngang - Horizontal Scan):** Tại tầng Nút lá (Leaf Nodes), các block Index móc nối với nhau theo cả 2 chiều (trước - sau). Nhờ dữ liệu đã sắp xếp, Database chỉ cần trượt ngang qua trái/phải để gom toàn bộ các bản ghi thỏa điều kiện mà không cần duyệt lại cây.
 
+> [!TIP] Mô Hình Kiến Trúc Trực Quan Tận Đáy (Architecture & Storage Pathways)
+> ![[database-index-architecture.svg|850]]
+> _Sơ đồ 1: Kiến trúc phân tầng B+Tree Index từ Buffer Cache đến các lối truy xuất vật lý (Clustered, Secondary với Bookmark Lookup, và Covering Index)._
+
 ---
 
 ## 🔬 4. Phân Tích Kỹ Thuật Tận Đáy: Giải Phẫu 1 Index Page ($8\text{ KB}$)

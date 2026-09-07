@@ -48,14 +48,16 @@ flowchart TD
 ```text
 [Bạn]: Dùng skill teach để dạy tôi về B+Tree Index trong Database. Lưu vào Database-knowledge/01 - Core Concepts/
 
-[AI]: (Pha 1 - Probe: Bắn popup trắc nghiệm trên Terminal)
+[AI]: (Pha 1 - Probe: Bắn popup trắc nghiệm trên Terminal với 4 options ngẫu nhiên vị trí)
 ┌────────────────────────────────────────────────────────────────────────┐
 │ ? Tại sao khi tìm kiếm trên ổ cứng, người ta ít dùng Binary Search Tree?│
-│ > 1. Chiều cao cây quá lớn, tốn nhiều Disk I/O                         │
-│   2. Cây nhị phân không sắp xếp thứ tự các phần tử                     │
+│   1. Cây nhị phân không thể lưu trữ các giá trị khóa kiểu chuỗi ký tự  │
+│   2. Tốc độ tìm kiếm O(log N) trên RAM chậm hơn giải thuật B+Tree       │
+│ > 3. Chiều cao cây quá lớn, gây bão Random Disk I/O làm tê liệt hệ thống│
+│   4. Bộ đệm Buffer Cache không hỗ trợ cấu trúc dữ liệu dạng cây        │
 └────────────────────────────────────────────────────────────────────────┘
 
-[Bạn]: (Chọn đáp án 1)
+[Bạn]: (Chọn đáp án 3)
 
 [AI]: (Pha 2 - Plan: Vẽ Mermaid DAG & xin duyệt)
       Disk Block (4KB) -> Fan-out cao -> B+Tree Node = Page -> O(log_B N)
