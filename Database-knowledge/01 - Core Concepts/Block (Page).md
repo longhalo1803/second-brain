@@ -45,6 +45,7 @@ Khi lập trình viên viết câu lệnh `SELECT name FROM users WHERE id = 10;
 ![[Pasted image 20260618024834.png]]
 
 ### 📖 Hình ảnh Ẩn dụ: Quyển sách và Trang giấy
+
 - Hãy tưởng tượng toàn bộ Database của bạn là một **Quyển sách dày cộp**.
 - Mỗi **[[Block (Page)]]** chính là một **Trang giấy A4** trong quyển sách đó.
 - Mỗi **[[Record (Tuple)]]** là một **Dòng chữ** được viết trên trang A4.
@@ -84,5 +85,6 @@ Một Block không chỉ chứa dữ liệu thuần túy mà được chia làm 
 ---
 
 ## 🔗 Liên kết & Khái niệm Mở rộng
+
 - Khái niệm liên quan: [[Record (Tuple)]], [[Buffer Cache]], [[Cost]], [[Index]], [[Data Access Methods]]
 - Nguyên lý ứng dụng: [[Nguyên lý 3+2 trong Database]], [[Tư duy tối ưu Database (Database Tuning Mindset)]]

@@ -140,6 +140,7 @@ Index Seek khác Index Scan ở điểm cốt lõi nào về cơ chế duyệt c
 
 - **Index Seek:** Duyệt cây theo **chiều dọc** (từ Root $\to$ Branch $\to$ Leaf) dựa trên phép so sánh nhị phân của điều kiện tìm kiếm, chỉ đọc các node trên đường đi dẫn đến giá trị cần tìm ($\mathcal{O}(\log_B N)$).
 - **Index Scan:** Duyệt theo **chiều ngang** (quét tuần tự qua danh sách liên kết đôi giữa các Leaf Nodes) trên một khoảng giá trị hoặc toàn bộ cây chỉ mục.
+
 <!--ID: 1725345600006-->
 
 ---

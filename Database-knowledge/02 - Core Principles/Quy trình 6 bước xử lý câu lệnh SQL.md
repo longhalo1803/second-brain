@@ -49,14 +49,17 @@ graph TD
 ```
 
 ### Bước 1: Kiểm tra Cú pháp (Syntax Check)
+
 - Kiểm tra lỗi chính tả ngữ pháp SQL (ví dụ: gõ thiếu `FROM`, viết sai chữ `SELECT`).
 - Nếu sai, dừng lại và báo lỗi ngay lập tức. Tiêu tốn cực ít tài nguyên.
 
 ### Bước 2: Kiểm tra Ngữ nghĩa (Semantic Check)
+
 - Kiểm tra các Bảng (Table) và Cột (Column) có thực sự tồn tại trong Data Dictionary không.
 - Kiểm tra người dùng (User/Role) có quyền (`SELECT`, `UPDATE`...) trên đối tượng đó không.
 
 ### Bước 3 & Bước 4: Phân tích & Lập Kế hoạch (**Hard Parse**)
+
 - Hệ thống kiểm tra trong Cache xem câu lệnh này đã từng chạy trước đây chưa.
 - Nếu là câu lệnh mới hoàn toàn, **[[SQL Optimizer]]** phải thực hiện **Hard Parse**:
   - Phân tích toàn bộ các đường đi khả thi.
@@ -66,6 +69,7 @@ graph TD
   > **TỬ HUYỆT HIỆU NĂNG:** Quá trình Hard Parse tiêu tốn **rất nhiều CPU và RAM**, có thể chiếm tới 90% tổng thời gian thực thi của câu lệnh!
 
 ### Bước 5 & Bước 6: Tái sử dụng Kế hoạch (**Soft Parse**) & Trả Kết quả (Fetch)
+
 - Nếu câu lệnh đã có sẵn trong Cache, Database lấy luôn Execution Plan ra dùng (**Soft Parse**), bỏ qua hoàn toàn bước tính toán tốn kém.
 - Thực thi câu lệnh: Nạp [[Block (Page)]] vào [[Buffer Cache]] và trả dữ liệu về cho ứng dụng.
 
@@ -75,15 +79,16 @@ graph TD
 
 Thử nghiệm chạy vòng lặp **100.000 câu lệnh SELECT** tìm kiếm theo Primary Key:
 
-| Tiêu chí | Viết Giá trị Tĩnh (Gây Hard Parse liên tục) | Dùng Biến Truyền vào - Bind Variable (Tận dụng Soft Parse) |
-| :--- | :--- | :--- |
-| **Mã SQL** | `WHERE id = 1`<br>`WHERE id = 2`<br>`WHERE id = 3`... | `WHERE id = :B1` |
-| **Cách DB nhìn nhận** | Coi đây là **100.000 câu lệnh hoàn toàn khác biệt**. | Coi đây là **1 câu lệnh duy nhất** chạy 100.000 lần với tham số khác nhau. |
-| **Cách DB xử lý** | Bắt buộc thực hiện **Hard Parse 100.000 lần**. | Chỉ Hard Parse **1 lần đầu tiên**, 99.999 lần sau đều là **Soft Parse**. |
-| **Thời gian chạy** | **5 phút 06 giây** (CPU 100%). | **Chỉ đúng 3 giây** (Nhanh gấp ~100 lần!). |
+| Tiêu chí              | Viết Giá trị Tĩnh (Gây Hard Parse liên tục)           | Dùng Biến Truyền vào - Bind Variable (Tận dụng Soft Parse)                 |
+| :-------------------- | :---------------------------------------------------- | :------------------------------------------------------------------------- |
+| **Mã SQL**            | `WHERE id = 1`<br>`WHERE id = 2`<br>`WHERE id = 3`... | `WHERE id = :B1`                                                           |
+| **Cách DB nhìn nhận** | Coi đây là **100.000 câu lệnh hoàn toàn khác biệt**.  | Coi đây là **1 câu lệnh duy nhất** chạy 100.000 lần với tham số khác nhau. |
+| **Cách DB xử lý**     | Bắt buộc thực hiện **Hard Parse 100.000 lần**.        | Chỉ Hard Parse **1 lần đầu tiên**, 99.999 lần sau đều là **Soft Parse**.   |
+| **Thời gian chạy**    | **5 phút 06 giây** (CPU 100%).                        | **Chỉ đúng 3 giây** (Nhanh gấp ~100 lần!).                                 |
 
 ---
 
 ## 🔗 Liên kết Điều hướng
+
 - MOC liên quan: [[MOC - Query Optimization]], [[MOC - Database Overview]]
 - Khái niệm nền tảng: [[SQL Optimizer]], [[Execution Plan]], [[Cost]], [[Buffer Cache]]

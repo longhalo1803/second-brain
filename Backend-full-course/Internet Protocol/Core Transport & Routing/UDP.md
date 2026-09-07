@@ -41,7 +41,7 @@ UDP hoạt động dựa trên cơ chế gửi và nhận trực tiếp bằng d
 - Datagram được gửi xuống IP layer để định tuyến.
 
 - Thiết bị nhận nhận datagram và chuyển lên ứng dụng thông qua port tương ứng.  
- 
+   
 
 Không có bước xác nhận, không có tái truyền, không có kiểm soát phiên. Dữ liệu được gửi đi liên tục, giúp đạt tốc độ xử lý tối đa. Các hệ thống real-time thường chấp nhận một tỷ lệ mất gói nhỏ để đổi lại tốc độ truyền nhanh và trải nghiệm mượt mà.
 
@@ -103,11 +103,11 @@ UDP là lựa chọn lý tưởng trong các trường hợp:
 
 - Ứng dụng cần real-time, chấp nhận mất một số gói: livestream, video call, VoIP, game online.
 
-- Khi tốc độ quan trọng hơn độ chính xác tuyệt đối.  
-- Hệ thống yêu cầu gửi broadcast hoặc multicast, ví dụ DHCP hoặc truyền thông IoT.  
-- Mạng có độ ổn định thấp, cần cơ chế truyền nhanh.  
+- Khi tốc độ quan trọng hơn độ chính xác tuyệt đối.
+- Hệ thống yêu cầu gửi broadcast hoặc multicast, ví dụ DHCP hoặc truyền thông IoT.
+- Mạng có độ ổn định thấp, cần cơ chế truyền nhanh.
 - Ứng dụng nhẹ, cần giảm tải CPU và tài nguyên hệ thống.  
- 
+   
 
 Trong khi đó, các ứng dụng yêu cầu dữ liệu chính xác như transfer file, giao dịch thanh toán, web application thì nên chọn TCP thay thế.
 

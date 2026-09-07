@@ -30,12 +30,12 @@ aliases:
 
 ## 2. Các Cấp Độ Space Complexity Thường Gặp
 
-| Cấp Độ | Tên Gọi & Hành Vi | Ví Dụ Điển Hình |
-| :--- | :--- | :--- |
-| [[O(1) - Constant Time\|$O(1)$ Space]] | **Hoạt động tại chỗ (In-place):** Bộ nhớ phụ trợ cố định, chỉ dùng vài biến con trỏ hoặc biến tạm. | Tìm kiếm nhị phân dạng vòng lặp (Iterative [[Binary Search]]), kỹ thuật [[Two Pointers Pattern\|Hai con trỏ]]. |
-| [[O(log n) - Logarithmic Time\|$O(\log n)$ Space]] | **Chi phí ẩn của Ngăn xếp gọi hàm (Call Stack):** Mỗi lần đệ quy chia đôi dữ liệu, hệ thống lưu một stack frame trong RAM. | Đệ quy [[Binary Search]], đệ quy [[Quick Sort]]. |
-| [[O(n) - Linear Time\|$O(n)$ Space]] | **Cấp phát cấu trúc dữ liệu mới có kích thước tỷ lệ với $N$:** Tạo mảng phụ, bảng băm hoặc danh sách mới. | [[Merge Sort]] (cần mảng phụ để merge), khởi tạo [[Hash Table & HashSet\|Hash Table]] để lưu $n$ phần tử, BFS [[Queue & Deque\|Queue]]. |
-| [[O(n^2) - Quadratic Time\|$O(n^2)$ Space]] | **Ma trận lưới $N \times N$:** Cấp phát bảng 2 chiều. | Biểu diễn [[Graph Representations & Traversal\|Đồ thị bằng Ma trận kề (Adjacency Matrix)]] kích thước $V \times V$. |
+| Cấp Độ                                             | Tên Gọi & Hành Vi                                                                                                          | Ví Dụ Điển Hình                                                                                                                         |
+| :------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------- |
+| [[O(1) - Constant Time\|$O(1)$ Space]]             | **Hoạt động tại chỗ (In-place):** Bộ nhớ phụ trợ cố định, chỉ dùng vài biến con trỏ hoặc biến tạm.                         | Tìm kiếm nhị phân dạng vòng lặp (Iterative [[Binary Search]]), kỹ thuật [[Two Pointers Pattern\|Hai con trỏ]].                          |
+| [[O(log n) - Logarithmic Time\|$O(\log n)$ Space]] | **Chi phí ẩn của Ngăn xếp gọi hàm (Call Stack):** Mỗi lần đệ quy chia đôi dữ liệu, hệ thống lưu một stack frame trong RAM. | Đệ quy [[Binary Search]], đệ quy [[Quick Sort]].                                                                                        |
+| [[O(n) - Linear Time\|$O(n)$ Space]]               | **Cấp phát cấu trúc dữ liệu mới có kích thước tỷ lệ với $N$:** Tạo mảng phụ, bảng băm hoặc danh sách mới.                  | [[Merge Sort]] (cần mảng phụ để merge), khởi tạo [[Hash Table & HashSet\|Hash Table]] để lưu $n$ phần tử, BFS [[Queue & Deque\|Queue]]. |
+| [[O(n^2) - Quadratic Time\|$O(n^2)$ Space]]        | **Ma trận lưới $N \times N$:** Cấp phát bảng 2 chiều.                                                                      | Biểu diễn [[Graph Representations & Traversal\|Đồ thị bằng Ma trận kề (Adjacency Matrix)]] kích thước $V \times V$.                     |
 
 ---
 
@@ -44,6 +44,7 @@ aliases:
 Xem chi tiết ví dụ minh họa chiếc hộp thứ 3 tại [[Time Complexity#3. Trade-off (Sự Đánh Đổi) giữa Time Complexity và Space Complexity|Time vs Space Trade-off]].
 
 Khi tối ưu hóa thuật toán:
+
 - Muốn tốc độ nhanh: Cấp phát thêm bộ nhớ phụ như [[Hash Table & HashSet|Hash Table]], [[Recursion & Memoization|Bảng ghi nhớ Memoization]] để đưa thời gian từ $O(n^2) \to O(n)$.
 - Khi bộ nhớ bị giới hạn nghiêm ngặt ($O(1)$ Space bắt buộc): Không được dùng Hash Table. Thay vào đó, ta sử dụng các kỹ thuật xử lý tại chỗ như sắp xếp In-place hoặc [[Two Pointers Pattern|Hai con trỏ]].
 
@@ -57,6 +58,7 @@ Khi tối ưu hóa thuật toán:
 ---
 
 ## 🧠 Thẻ Ghi Nhớ Nhanh (Spaced Repetition)
+
 Phân biệt Space Complexity và Auxiliary Space? #card
 ?
 **Space Complexity** = Bộ nhớ dữ liệu đầu vào (Input) + Bộ nhớ phụ trợ (Auxiliary Space). Khi đánh giá hiệu quả thuật toán, các kỹ sư thường tập trung vào **Auxiliary Space** (bộ nhớ phát sinh thêm do thuật toán yêu cầu).

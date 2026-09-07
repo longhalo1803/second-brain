@@ -107,6 +107,10 @@ Khái niệm **Index** gắn liền với **[[Block (Page)]]**. Nếu [[Block (P
 1. **Cây B-Tree (Hạ cánh thẳng đứng - Vertical Traverse):** Từ Root Node -> Branch Node -> Leaf Node. Quãng đường từ gốc đến mọi nút lá là như nhau (độ sâu thông thường chỉ 3 - 4 tầng kể cả với bảng hàng chục triệu dòng). Giúp tìm ra bản ghi đầu tiên trong tích tắc ([[Index Seek]]).
 2. **Danh sách liên kết đôi (Quét ngang - Horizontal Scan):** Tại tầng Nút lá (Leaf Nodes), các block Index móc nối với nhau theo cả 2 chiều (trước - sau). Nhờ dữ liệu đã sắp xếp, Database chỉ cần trượt ngang qua trái/phải để gom toàn bộ các bản ghi thỏa điều kiện mà không cần duyệt lại cây.
 
+> [!TIP] Mô Hình Kiến Trúc Trực Quan Tận Đáy (Architecture & Storage Pathways)
+> ![[database-index-architecture.svg|850]]
+> _Sơ đồ 1: Kiến trúc phân tầng B+Tree Index từ Buffer Cache đến các lối truy xuất vật lý (Clustered, Secondary với Bookmark Lookup, và Covering Index)._
+
 ---
 
 ## 🔬 4. Phân Tích Kỹ Thuật Tận Đáy: Giải Phẫu 1 Index Page ($8\text{ KB}$)
@@ -339,6 +343,7 @@ Tại sao B+Tree lại ưu việt hơn B-Tree truyền thống trong vai trò c�
 
 1. **Fan-out lớn hơn:** B+Tree loại bỏ dữ liệu thực ra khỏi các node gốc và nhánh, chỉ lưu khóa và con trỏ trang. Một trang $8\text{ KB}$ chứa được nhiều khóa hơn gấp nhiều lần, giúp giảm chiều cao cây $h$ xuống còn $3 - 4$ tầng (giảm số lần đọc đĩa).
 2. **Range Scan siêu tốc:** Toàn bộ dữ liệu nằm ở nút lá và được liên kết bằng danh sách liên kết đôi (Doubly Linked List). Chỉ cần 1 lần Seek tới đầu dải rồi trượt ngang tuần tự $\mathcal{O}(1)$, không phải duyệt lên xuống cây như B-Tree.
+
 <!--ID: 1725700000001-->
 
 ---
@@ -351,6 +356,7 @@ Index được sắp xếp ưu tiên theo `A`, sau đó đến `B`, rồi đến
 
 - Bắt buộc phải có điều kiện trên cột dẫn đầu `A` thì Index mới có thể Seek. Nếu chỉ lọc theo `B` hoặc `C`, Index Seek bị vô hiệu hóa.
 - Nếu gặp toán tử so sánh khoảng (range) ở cột nào (ví dụ `WHERE A = 10 AND B > 5 AND C = 20`), Index chỉ Seek được đến hết cột `B`. Từ cột `C` trở đi, Database chỉ dùng để Filter các dòng đã lấy chứ không thể Seek trên B-Tree được nữa.
+
 <!--ID: 1725700000002-->
 
 ---

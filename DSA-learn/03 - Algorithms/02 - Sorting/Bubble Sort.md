@@ -20,6 +20,7 @@ aliases:
 ---
 
 ## 1. Bản Chất Cốt Lõi (Mental Model)
+
 - **Ý tưởng:** Liên tục so sánh 2 phần tử liền kề nhau (`arr[i]` và `arr[i+1]`), nếu sai thứ tự thì hoán đổi (swap). Sau mỗi lượt duyệt, phần tử lớn nhất sẽ "nổi bọt" về cuối mảng.
 - **Độ phức tạp:**
   - Worst & Average: [[O(n^2) - Quadratic Time\|$O(n^2)$]] (2 vòng lặp lồng nhau).

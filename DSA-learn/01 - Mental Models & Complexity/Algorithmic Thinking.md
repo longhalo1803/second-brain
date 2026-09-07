@@ -34,10 +34,10 @@ aliases:
 Để bẻ nhỏ bài toán thành các bước máy tính hiểu được, giải pháp của bạn phải thỏa mãn 5 tiêu chí:
 
 1. **Định nghĩa rõ Input & Output cùng Điều Kiện Tiên Quyết (Preconditions):**
-   - *Ví dụ:* Muốn tìm một số trong danh sách: Input là dãy số và số cần tìm, Output là vị trí index (hoặc thông báo `-1`).
-   - *Điều kiện tiên quyết:* Để áp dụng [[Binary Search|Tìm kiếm nhị phân $O(\log n)$]], Input **bắt buộc phải được sắp xếp trước**.
+   - _Ví dụ:_ Muốn tìm một số trong danh sách: Input là dãy số và số cần tìm, Output là vị trí index (hoặc thông báo `-1`).
+   - _Điều kiện tiên quyết:_ Để áp dụng [[Binary Search|Tìm kiếm nhị phân $O(\log n)$]], Input **bắt buộc phải được sắp xếp trước**.
 2. **Thứ tự thực hiện xác định (Specific Order):** Máy tính là thực thể tuân lệnh mù quáng. Đảo lộn thứ tự các bước sẽ dẫn đến sụp đổ toàn bộ logic.
-3. **Mỗi bước phải tường minh và đơn lẻ (Explicit & Atomic):** Không dùng các lệnh mơ hồ kiểu *"tìm đến khi thấy"*. Mỗi lệnh phải là một thao tác cơ bản (so sánh, gán, tăng biến đếm).
+3. **Mỗi bước phải tường minh và đơn lẻ (Explicit & Atomic):** Không dùng các lệnh mơ hồ kiểu _"tìm đến khi thấy"_. Mỗi lệnh phải là một thao tác cơ bản (so sánh, gán, tăng biến đếm).
 4. **Luôn trả về kết quả (Produce a result):** Chương trình phải trả về một kết quả rõ ràng (dù là `null`, `-1` hay `false`) để hệ thống biết đã xử lý xong.
 5. **Tính hữu hạn (Finiteness):** Thuật toán bắt buộc phải kết thúc sau một số bước hữu hạn, không được rơi vào vòng lặp vô tận (infinite loop).
 
@@ -55,30 +55,34 @@ aliases:
 
 ## 4. Nghiên Cứu Tình Huống: Trò Chơi Đoán Số (The Guessing Game)
 
-*Bài toán: Đoán một số nguyên bí mật nằm trong khoảng từ $1$ đến $100$ với số lần hỏi ít nhất.*
+_Bài toán: Đoán một số nguyên bí mật nằm trong khoảng từ $1$ đến $100$ với số lần hỏi ít nhất._
 
 ### Cách 1: Đoán tuần tự (Brute-force)
+
 - **Bản chất:** Áp dụng [[Linear Search|Tìm kiếm tuyến tính]]. Đoán lần lượt $1, 2, 3, \dots$
 - **Hiệu năng:** Rơi vào độ phức tạp [[O(n) - Linear Time|$O(n)$]]. Trong trường hợp xấu nhất, bạn mất đúng 100 lần đoán.
 
 ### Cách 2: Chia để trị (Divide and Conquer)
+
 - **Bản chất:** Áp dụng [[Binary Search|Tìm kiếm nhị phân]]. Hỏi số đó lớn hơn hay nhỏ hơn $50$? Cắt bỏ $50\%$ phạm vi không phù hợp. Lặp lại với điểm giữa mới ($25$ hoặc $75$).
 - **Hiệu năng:** Độ phức tạp [[O(log n) - Logarithmic Time|$O(\log n)$]]. Với 100 số, bạn chỉ mất tối đa $\approx \lceil \log_2(100) \rceil = 7$ lần đoán. Với $1$ triệu số, bạn chỉ mất tối đa $20$ lần đoán!
 
 ---
 
 ## 🧠 Thẻ Ghi Nhớ & Câu Hỏi Tự Vấn (Active Recall)
+
 Nêu 5 nguyên tắc vàng của một thuật toán máy tính? #card
 ?
+
 1. Input/Output & Preconditions rõ ràng.
 2. Thứ tự các bước xác định.
 3. Mỗi bước tường minh (Atomic).
 4. Luôn trả về kết quả hữu ích.
 5. Thời gian chạy hữu hạn.
-Khi tiếp cận một bài toán DSA mới, thứ tự tư duy đúng đắn là gì? #card
-?
-1. Làm rõ Input/Output và Edge Cases.
-2. Đưa ra giải pháp Brute-force và tính Big-O.
-3. Tìm nút thắt cổ chai (Bottleneck) để tối ưu bằng cấu trúc dữ liệu/Pattern.
-4. Đánh giá Trade-off Time/Space.
-5. Viết code sạch và test các trường hợp biên.
+   Khi tiếp cận một bài toán DSA mới, thứ tự tư duy đúng đắn là gì? #card
+   ?
+6. Làm rõ Input/Output và Edge Cases.
+7. Đưa ra giải pháp Brute-force và tính Big-O.
+8. Tìm nút thắt cổ chai (Bottleneck) để tối ưu bằng cấu trúc dữ liệu/Pattern.
+9. Đánh giá Trade-off Time/Space.
+10. Viết code sạch và test các trường hợp biên.

@@ -60,18 +60,22 @@ Khi bạn cần tìm Record của một nhân viên tên "An", Database không t
 ## 3. Các Vấn đề Hiệu năng Cần Lưu ý về Record
 
 ### 3.1. Row Chaining (Nối dòng)
+
 Xảy ra khi kích thước của một Record **vượt quá kích thước của 1 Block** (ví dụ: Record chứa các cột text dài, JSON, BLOB có kích thước 20KB trong khi Block chỉ có 8KB). Database buộc phải chia Record này thành nhiều mảnh và lưu trữ rải rác trên nhiều Block khác nhau, nối với nhau bằng con trỏ.
 👉 **Hậu quả:** Để đọc 1 dòng duy nhất, Database phải thực hiện nhiều lần I/O đĩa.
 
 ### 3.2. Row Migration (Di cư dòng)
+
 Xảy ra khi một Record ban đầu có kích thước nhỏ, nhưng sau đó lệnh `UPDATE` làm dung lượng dòng tăng lên trong khi Block hiện tại không còn đủ Free Space (PCTFREE). Database phải chuyển toàn bộ dữ liệu dòng sang một Block mới hoàn toàn, và để lại một con trỏ (Pointer) ở Block cũ.
 👉 **Hậu quả:** Khi truy vấn theo Index trỏ vào RowID cũ, Database phải tốn thêm 1 bước nhảy (Double Hop) sang Block mới để lấy dữ liệu.
 
 ### 3.3. Lầm tưởng: "Bảng ít Record thì chắc chắn câu lệnh chạy nhanh"
+
 Tốc độ truy vấn không phụ thuộc vào số lượng Record trả về, mà phụ thuộc vào **số lượng Block** mà câu lệnh phải duyệt qua. Một bảng có 0 record nhưng chiếm 200.000 Block vẫn chạy cực kỳ chậm (Xem: **[[Case - Table 0 row nhưng truy vấn vẫn cực chậm]]**).
 
 ---
 
 ## 🔗 Liên kết Liên quan
+
 - Khái niệm liên quan: [[Block (Page)]], [[Buffer Cache]], [[Index]], [[VACUUM & Dọn rác Database]]
 - Trường hợp thực tế: [[Case - Table 0 row nhưng truy vấn vẫn cực chậm]]

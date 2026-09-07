@@ -5,14 +5,16 @@
 - **Status**: Completed
 
 ## 1. Bản Chất Đồng Nhất & Khác Biệt Giữa Các MCP Server
+
 - **Điểm đồng nhất (The Protocol Standard)**: Mọi MCP Server đều tuân theo cùng 1 chuẩn giao tiếp JSON-RPC 2.0 (Tools, Resources, Prompts) và cấu hình giống hệt nhau trên các Client (Claude, Cursor, Antigravity).
 - **Điểm khác biệt (The Under-the-hood Execution)**: Tùy loại ứng dụng đích mà logic bên trong hàm tool sẽ khác nhau:
-  1. *Local / OS Tools (Git, File, Shell)*: Gọi Subprocess hoặc File I/O trực tiếp.
-  2. *Cloud SaaS (GitHub, Slack, Jira, Notion)*: Gọi REST / GraphQL API kèm Bearer Token / OAuth.
-  3. *Databases (PostgreSQL, Redis, Vector DB)*: Dùng DB Driver qua kết nối TCP wire socket.
-  4. *Browser / GUI Apps (Chrome, Blender)*: Dùng CDP (Chrome DevTools Protocol) hoặc WebSocket RPC.
+  1. _Local / OS Tools (Git, File, Shell)_: Gọi Subprocess hoặc File I/O trực tiếp.
+  2. _Cloud SaaS (GitHub, Slack, Jira, Notion)_: Gọi REST / GraphQL API kèm Bearer Token / OAuth.
+  3. _Databases (PostgreSQL, Redis, Vector DB)_: Dùng DB Driver qua kết nối TCP wire socket.
+  4. _Browser / GUI Apps (Chrome, Blender)_: Dùng CDP (Chrome DevTools Protocol) hoặc WebSocket RPC.
 
 ## 2. 5 Trụ Cột Tối Ưu Hóa MCP Server
+
 1. **Token Budget & Context Optimization**:
    - Viết Tool Description ngắn gọn, súc tích (1-2 câu).
    - Cắt ngắn (Truncate) và Phân trang (Pagination) output của Tool; không bao giờ trả về toàn bộ 100MB log.

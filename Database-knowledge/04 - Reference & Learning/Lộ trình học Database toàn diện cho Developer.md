@@ -39,6 +39,7 @@ graph TD
 ---
 
 ## 🧱 Giai đoạn 1: Nền móng - Đánh chiếm 80% Nền tảng Chung
+
 Mọi cơ sở dữ liệu quan hệ (RDBMS) đều vận hành dựa trên các nguyên lý vật lý và toán học giống nhau:
 
 - **Kiến trúc Bộ nhớ & Lưu trữ:**
@@ -62,6 +63,7 @@ Mọi cơ sở dữ liệu quan hệ (RDBMS) đều vận hành dựa trên các
 ---
 
 ## 🔍 Giai đoạn 2: Sự Khác biệt - Khai phá 20% Đặc thù Từng Hệ Quản trị
+
 Mỗi loại Database Engine có những "đặc sản" và cơ chế ngầm định riêng:
 
 - **Oracle Database vs SQL Server:** Cơ chế Undo/Redo, Lock Escalation, Result Cache, Benchmark CBO bằng Hint (`WITH (INDEX)` vs `/*+ INDEX */`).
@@ -72,6 +74,7 @@ Mỗi loại Database Engine có những "đặc sản" và cơ chế ngầm đ�
 ---
 
 ## 🛠️ Giai đoạn 3: Thực chiến - Xử lý "Nỗi đau" Dự án (Troubleshooting)
+
 Đối mặt và giải quyết trực tiếp các sự cố thực tế trên Production:
 
 - **Bài toán Bảng 0 row vẫn chậm:** [[Case - Table 0 row nhưng truy vấn vẫn cực chậm]].
@@ -84,6 +87,7 @@ Mỗi loại Database Engine có những "đặc sản" và cơ chế ngầm đ�
 ---
 
 ## 🚀 Giai đoạn 4: Đỉnh cao - Tối ưu Toàn diện & Mở rộng (Tuning & Scaling)
+
 - **Tối ưu Cấu trúc Lớn:** Partitioning (Phân vùng bảng), Sharding (Phân mảnh ngang), Database Replication (Master - Slave / Active - Active).
 - **Kiến trúc Tải cao:** Tầm nhìn của [[Tư duy tối ưu hóa cho Software Architect]].
 - **Công nghệ Hiện đại:** NewSQL, Distributed SQL, Vector Database cho AI.
@@ -105,5 +109,6 @@ Mỗi loại Database Engine có những "đặc sản" và cơ chế ngầm đ�
 ---
 
 ## 🔗 Liên kết Điều hướng
+
 - Hub tổng quan: [[MOC - Database Overview]]
 - Bộ câu hỏi ôn tập: [[Tổng hợp câu hỏi ôn tập & phỏng vấn Database]]

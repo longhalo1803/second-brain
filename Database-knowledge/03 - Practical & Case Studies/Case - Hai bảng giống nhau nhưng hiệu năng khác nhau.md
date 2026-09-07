@@ -66,7 +66,9 @@ graph TD
 ## 4. Cách Xử lý & Bài học Rút ra
 
 ### Cách Xử lý
+
 Chạy lệnh thu thập lại thông số thống kê cho bảng mới:
+
 ```sql
 -- Oracle
 EXEC DBMS_STATS.GATHER_TABLE_STATS('SCHEMA_NAME', 'POST_BK');
@@ -77,14 +79,17 @@ ANALYZE post_bk;
 -- MySQL
 ANALYZE TABLE post_bk;
 ```
+
 Ngay sau khi cập nhật Statistics, Optimizer nhận diện chính xác 17 triệu dòng, tự động chuyển sang `Hash Join` và câu lệnh chạy nhanh trở lại.
 
 ### Bài học cho Developer & DBA
+
 1. **Hiệu năng do Execution Plan quyết định:** Hai bảng giống nhau về mặt vật lý nhưng khác nhau về Statistics sẽ dẫn đến Kế hoạch thực thi hoàn toàn khác biệt.
 2. **Quy trình bắt buộc sau Migration / Import Data:** Sau khi đổ dữ liệu lớn vào bảng mới, bắt buộc phải chạy lệnh cập nhật Statistics trước khi cho phép ứng dụng truy vấn.
 
 ---
 
 ## 🔗 Liên kết Liên quan
+
 - Khái niệm nền tảng: [[Statistics (Thống kê Database)]], [[SQL Optimizer]], [[Execution Plan]], [[Join Methods]]
 - Nguyên lý: [[Tư duy tối ưu Database (Database Tuning Mindset)]], [[Nguyên lý 3+2 trong Database]]

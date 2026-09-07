@@ -52,9 +52,10 @@ Database chỉ đọc và ghi theo đơn vị **[[Block (Page)]]**. Một bảng
 
 ## 3. Sự thật 2: Tại sao có Index nhưng Database Quyết định Ngó lơ?
 
-Rất nhiều Dev bức xúc: *"Tôi đã tạo Index trên cột đó rồi, tại sao câu lệnh vẫn chạy Full Table Scan?"*
+Rất nhiều Dev bức xúc: _"Tôi đã tạo Index trên cột đó rồi, tại sao câu lệnh vẫn chạy Full Table Scan?"_
 
 **Lý do:** Trình tối ưu (**[[SQL Optimizer]]**) tính toán thấy rằng:
+
 - Dữ liệu bạn cần lấy chiếm tỷ lệ lớn trong bảng (ví dụ > 20%).
 - Việc dùng Index sẽ bắt Database phải làm thao tác **xe máy chở từng chuyến (Random I/O)** nhảy từ Index về Table hàng triệu lần.
 - Database quyết định từ chối Index để dùng **xe tải lớn ([[Full Table Scan]])** quét một lèo toàn bộ bảng nhanh hơn gấp nhiều lần!
@@ -66,6 +67,7 @@ Rất nhiều Dev bức xúc: *"Tôi đã tạo Index trên cột đó rồi, t�
 ## 4. Sự thật 3: Cùng Bảng, Cùng Dữ liệu, Cùng SQL nhưng đổi Database thì Tốc độ khác hẳn
 
 Tại sao chạy trên PostgreSQL thì nhanh mà sang MySQL lại chậm, hoặc chạy trên Oracle thì mượt mà sang SQL Server lại bị Lock?
+
 - Khác biệt về cơ chế khóa mặc định và kiến trúc bộ nhớ ([[Database Instance]]).
 - Khác biệt về giải thuật dọn rác ([[VACUUM & Dọn rác Database]] vs Purge).
 - Khác biệt về thuật toán Join ([[Join Methods]]) và bộ tính toán chi phí ([[Cost]]).
@@ -73,5 +75,6 @@ Tại sao chạy trên PostgreSQL thì nhanh mà sang MySQL lại chậm, hoặc
 ---
 
 ## 🔗 Liên kết Điều hướng
+
 - MOC liên quan: [[MOC - Database Overview]], [[MOC - Query Optimization]]
 - Bài học liên quan: [[Nguyên lý 3+2 trong Database]], [[3 Yếu tố cốt lõi làm Database nhanh]], [[Quy trình 6 bước xử lý câu lệnh SQL]]

@@ -22,6 +22,7 @@ aliases:
 ---
 
 ## 1. Bản Chất Cốt Lõi (Mental Model)
+
 - **Chiến lược loại bỏ:** **LRU (Least Recently Used)** — Khi bộ nhớ đệm (Cache) bị đầy giới hạn dung lượng ($Capacity$), hệ thống sẽ tự động vứt bỏ phần tử **ít được sử dụng nhất trong thời gian dài nhất** để nhường chỗ cho dữ liệu mới.
 - **Yêu cầu kỹ thuật khắc nghiệt:** Cả 2 thao tác `get(key)` (đọc) và `put(key, value)` (ghi/cập nhật) **bắt buộc phải chạy trong [[O(1) - Constant Time\|$O(1)$]]**.
 
@@ -48,6 +49,7 @@ aliases:
 ---
 
 ## 3. Ứng Dụng Thực Tế Trong Công Nghiệp
+
 - **Hệ điều hành:** Quản lý Page Replacement trong Bộ nhớ ảo (Virtual Memory).
 - **Trình duyệt Web:** Cache các tài nguyên hình ảnh/CSS tải gần nhất.
 - **Cơ sở dữ liệu & Backend:** Buffer Pool trong InnoDB (MySQL), tầng Caching bộ nhớ ứng dụng.
@@ -55,10 +57,12 @@ aliases:
 ---
 
 ## 🧠 Thẻ Ghi Nhớ Nhanh (Spaced Repetition)
+
 Tại sao LRU Cache lại phải kết hợp cả Hash Table và Doubly Linked List? #card
 ?
+
 - **Hash Table** giúp tìm kiếm và trỏ tới node trong **$O(1)$**.
 - **Doubly Linked List** giúp xóa node bất kỳ và đẩy lên đầu (cập nhật thứ tự sử dụng) trong **$O(1)$**.
-Khi cache đầy và cần chèn thêm phần tử mới, node ở vị trí nào sẽ bị loại bỏ? #card
-?
-Node nằm ở **đuôi (Tail)** của Doubly Linked List (phần tử Least Recently Used).
+  Khi cache đầy và cần chèn thêm phần tử mới, node ở vị trí nào sẽ bị loại bỏ? #card
+  ?
+  Node nằm ở **đuôi (Tail)** của Doubly Linked List (phần tử Least Recently Used).

@@ -50,5 +50,6 @@ graph TD
 ---
 
 ## 🔗 Liên kết Liên quan
+
 - Khái niệm liên quan: [[Execution Plan]], [[Cost]], [[Statistics (Thống kê Database)]], [[Data Access Methods]], [[Join Methods]]
 - Nguyên lý & Thực chiến: [[Quy trình 6 bước xử lý câu lệnh SQL]], [[Tư duy tối ưu Database (Database Tuning Mindset)]], [[Tại sao Database không chọn Index (Bản chất Cost-Based Optimizer)]]

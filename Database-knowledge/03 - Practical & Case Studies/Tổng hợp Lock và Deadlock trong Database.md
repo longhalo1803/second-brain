@@ -43,26 +43,29 @@ graph TD
 
 ## 2. Ma trận Tương thích Khóa (Lock Compatibility Matrix)
 
-| Khóa đang giữ \ Khóa xin cấp | Shared Lock (S - Đọc) | Exclusive Lock (X - Ghi) |
-| :--- | :---: | :---: |
-| **Shared Lock (S)** | ✅ Cho phép (Tương thích) | ❌ Chặn lại (Conflict - Phải chờ) |
-| **Exclusive Lock (X)** | ❌ Chặn lại (Conflict - Phải chờ) | ❌ Chặn lại (Conflict - Phải chờ) |
+| Khóa đang giữ \ Khóa xin cấp |       Shared Lock (S - Đọc)       |     Exclusive Lock (X - Ghi)      |
+| :--------------------------- | :-------------------------------: | :-------------------------------: |
+| **Shared Lock (S)**          |     ✅ Cho phép (Tương thích)     | ❌ Chặn lại (Conflict - Phải chờ) |
+| **Exclusive Lock (X)**       | ❌ Chặn lại (Conflict - Phải chờ) | ❌ Chặn lại (Conflict - Phải chờ) |
 
 ---
 
 ## 3. Các Dạng Deadlock Phổ biến trong Thực tế & Cách Xử lý
 
 ### Dạng 1: Deadlock do Đảo ngược Thứ tự Cập nhật (Reverse Order)
+
 - **Tình huống:**
   - Luồng 1: Cập nhật Tài khoản A, sau đó cập nhật Tài khoản B.
   - Luồng 2: Cập nhật Tài khoản B, sau đó cập nhật Tài khoản A.
 - **Khắc phục:** Chuẩn hóa quy tắc nghiệp vụ trong code: Luôn sắp xếp ID trước khi Lock (ví dụ: luôn cập nhật tài khoản có `ID` nhỏ hơn trước).
 
 ### Dạng 2: Deadlock do Nâng cấp Khóa (Lock Conversion / Escalation)
+
 - **Tình huống:** Hai giao dịch cùng giữ S-Lock trên một dòng dữ liệu, sau đó cả hai cùng muốn `UPDATE` dòng đó (xin nâng cấp lên X-Lock). Cả hai bên đều chờ bên kia nhả S-Lock -> Deadlock.
 - **Khắc phục:** Dùng cú pháp `SELECT ... FOR UPDATE` ngay từ đầu để giữ X-Lock, không cho phép cấp S-Lock đồng thời.
 
 ### Dạng 3: Deadlock do Thiếu Index trên Foreign Key
+
 - **Tình huống:** Thao tác trên bảng Cha gây Lock lan truyền toàn bộ bảng Con.
 - **Khắc phục:** Đánh Index ngay lập tức trên tất cả các cột khóa ngoại (Xem: **[[Case - Tối ưu Foreign Key và Lock leo thang]]**).
 
@@ -79,5 +82,6 @@ graph TD
 ---
 
 ## 🔗 Liên kết Điều hướng
+
 - Khái niệm nền tảng: [[Lock]], [[Deadlock]], [[Foreign Key]], [[Transaction & MVCC]]
 - Nguyên lý & Case Study: [[Nguyên lý Không va chạm trong tối ưu SQL]], [[Case - Tối ưu Foreign Key và Lock leo thang]], [[3 Yếu tố cốt lõi làm Database nhanh]]

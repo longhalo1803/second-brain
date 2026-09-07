@@ -225,6 +225,7 @@ Khi thiết kế Database Engine, 3 bài toán lớn nhất cần giải quyết
 1. **Tính nhất quán dữ liệu:** Xử lý hệ sinh thái quanh bảng (Constraints, Indexes, Triggers, Partitioning).
 2. **Khôi phục khi có sự cố (Crash Recovery):** Đảm bảo ghi nhanh và không mất dữ liệu bằng cơ chế Write-Ahead Logging (WAL / Redo Log).
 3. **Cơ chế hoàn tác (Rollback):** Đưa trạng thái dữ liệu quay về quá khứ nếu giao dịch bị hủy hoặc người dùng không muốn xác nhận (Undo Segment / Transaction Log / Dead Tuples).
+
 <!--ID: 1725345600005-->
 
 ---

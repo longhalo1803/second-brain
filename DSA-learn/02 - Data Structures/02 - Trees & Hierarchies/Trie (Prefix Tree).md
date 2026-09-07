@@ -22,6 +22,7 @@ aliases:
 ---
 
 ## 1. Bản Chất Cốt Lõi (Mental Model)
+
 - **Định nghĩa:** Là một cấu trúc cây cây nhiều nhánh chuyên biệt dùng để lưu trữ tập hợp các chuỗi ký tự (Strings). Mỗi cạnh hoặc nút đại diện cho một ký tự, và tất cả các từ có chung **tiền tố (prefix)** sẽ dùng chung nhánh cây đó.
 - **Hình dung:** Giống như cây thư mục từ điển: gõ chữ `c` $\to$ rẽ vào nhánh `c`, gõ tiếp chữ `a` $\to$ rẽ tiếp vào nhánh `a`, gõ tiếp `t` $\to$ tìm thấy từ `cat`.
 
@@ -47,10 +48,12 @@ Gọi $L$ là độ dài của từ khóa cần tìm kiếm/chèn, và $N$ là t
 ---
 
 ## 🧠 Thẻ Ghi Nhớ Nhanh (Spaced Repetition)
+
 Điểm vượt trội nhất của Trie so với Hash Table là gì? #card
 ?
 Khả năng **tìm kiếm theo tiền tố (Prefix Search / `startsWith`)** cực nhanh trong thời gian $O(L)$ (phụ thuộc độ dài từ, hoàn toàn độc lập với số lượng hàng triệu từ trong từ điển).
 2 ứng dụng thực tế phổ biến nhất của Trie trong phần mềm? #card
 ?
+
 1. Tính năng **Tự động điền & Gợi ý từ khóa (Autocomplete / Typeahead)** của Google Search, IDE.
 2. **Bộ định tuyến URL (Router Matching)** trong các Web Framework (như Gin trong Go, Express).

@@ -22,8 +22,10 @@ aliases:
 ---
 
 ## 1. Triết Lý Cốt Lõi
+
 Trong kỹ thuật phần mềm và thiết kế hệ thống quy mô lớn:
-> *"Không có giải pháp hoàn hảo. Mọi quyết định kỹ thuật đều là một **Sự Đánh Đổi (Trade-off)** có chủ đích."*
+
+> _"Không có giải pháp hoàn hảo. Mọi quyết định kỹ thuật đều là một **Sự Đánh Đổi (Trade-off)** có chủ đích."_
 
 Nhiệm vụ của người kỹ sư/kiến trúc sư không phải là tìm ra cấu trúc "xịn nhất", mà là chọn cấu trúc có **ưu điểm giải quyết đúng nút thắt cổ chai** và **nhược điểm nằm trong ngưỡng chấp nhận được** của hệ thống.
 
@@ -31,19 +33,19 @@ Nhiệm vụ của người kỹ sư/kiến trúc sư không phải là tìm ra 
 
 ## 2. Bảng Ma Trận Đánh Đổi Cốt Lõi (Core Trade-off Matrix)
 
-| Chiều Đánh Đổi | Lựa Chọn A (Tối ưu tiêu chí này) | Lựa Chọn B (Tối ưu tiêu chí kia) | Bối Cảnh Thực Tế |
-| :--- | :--- | :--- | :--- |
-| **Thời Gian vs Không Gian (Time vs Space)** | Dùng [[Hash Table & HashSet\|Hash Table]] ($O(1)$ Time) $\to$ Tốn thêm $O(n)$ RAM | Dùng In-place [[Two Pointers Pattern\|Two Pointers]] ($O(1)$ Space) $\to$ Mất công sort $O(n \log n)$ | Hệ thống nhúng (Embedded) chọn B; Máy chủ Backend chọn A. |
-| **Đọc Nhanh vs Ghi Nhanh (Read-heavy vs Write-heavy)** | Dùng [[Array & Dynamic Array\|Array]] / B-Tree Index $\to$ Đọc cực nhanh $O(1)/O(\log n)$, nhưng ghi/chèn chậm do phải re-index | Dùng [[Linked List]] / LSM-Tree $\to$ Ghi chớp nhoáng $O(1)$ Append-only, nhưng đọc phải quét qua memtable | CSDL SQL (Read-heavy) chọn A; CSDL Time-series / Log (Write-heavy) chọn B. |
-| **Độ Chính Xác vs Tiết Kiệm RAM (Exact vs Probabilistic)** | Dùng `HashSet` lưu toàn bộ String $\to$ Chính xác $100\%$, ngốn hàng chục GB RAM | Dùng [[Bloom Filter]] $\to$ Chỉ tốn vài chục MB RAM, chấp nhận rủi ro $1\%$ Dương tính giả | Kiểm tra URL độc hại, ngăn chặn Cache Penetration chọn B. |
-| **Sắp Xếp In-place vs Ổn Định Tuyệt Đối (Stability vs Space)** | Dùng [[Quick Sort]] $\to$ In-place $O(\log n)$ Space, nhưng Unstable và có thể dính Worst-case | Dùng [[Merge Sort]] $\to$ Luôn luôn $O(n \log n)$ và Stable, nhưng tốn $O(n)$ RAM phụ | Sắp xếp dữ liệu trong RAM chọn A; Sắp xếp dữ liệu Linked List hoặc trên đĩa chọn B. |
+| Chiều Đánh Đổi                                                 | Lựa Chọn A (Tối ưu tiêu chí này)                                                                                                | Lựa Chọn B (Tối ưu tiêu chí kia)                                                                           | Bối Cảnh Thực Tế                                                                    |
+| :------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------- |
+| **Thời Gian vs Không Gian (Time vs Space)**                    | Dùng [[Hash Table & HashSet\|Hash Table]] ($O(1)$ Time) $\to$ Tốn thêm $O(n)$ RAM                                               | Dùng In-place [[Two Pointers Pattern\|Two Pointers]] ($O(1)$ Space) $\to$ Mất công sort $O(n \log n)$      | Hệ thống nhúng (Embedded) chọn B; Máy chủ Backend chọn A.                           |
+| **Đọc Nhanh vs Ghi Nhanh (Read-heavy vs Write-heavy)**         | Dùng [[Array & Dynamic Array\|Array]] / B-Tree Index $\to$ Đọc cực nhanh $O(1)/O(\log n)$, nhưng ghi/chèn chậm do phải re-index | Dùng [[Linked List]] / LSM-Tree $\to$ Ghi chớp nhoáng $O(1)$ Append-only, nhưng đọc phải quét qua memtable | CSDL SQL (Read-heavy) chọn A; CSDL Time-series / Log (Write-heavy) chọn B.          |
+| **Độ Chính Xác vs Tiết Kiệm RAM (Exact vs Probabilistic)**     | Dùng `HashSet` lưu toàn bộ String $\to$ Chính xác $100\%$, ngốn hàng chục GB RAM                                                | Dùng [[Bloom Filter]] $\to$ Chỉ tốn vài chục MB RAM, chấp nhận rủi ro $1\%$ Dương tính giả                 | Kiểm tra URL độc hại, ngăn chặn Cache Penetration chọn B.                           |
+| **Sắp Xếp In-place vs Ổn Định Tuyệt Đối (Stability vs Space)** | Dùng [[Quick Sort]] $\to$ In-place $O(\log n)$ Space, nhưng Unstable và có thể dính Worst-case                                  | Dùng [[Merge Sort]] $\to$ Luôn luôn $O(n \log n)$ và Stable, nhưng tốn $O(n)$ RAM phụ                      | Sắp xếp dữ liệu trong RAM chọn A; Sắp xếp dữ liệu Linked List hoặc trên đĩa chọn B. |
 
 ---
 
 ## 3. Kiến Trúc Sư Áp Dụng DSA Vào Đời Thực Như Thế Nào?
 
 ```
-[Web Client] 
+[Web Client]
      │
      ▼
 [Nginx / API Gateway] ──► Trie Prefix Tree (Khớp Router URL trong O(L))
@@ -66,6 +68,7 @@ Nhiệm vụ của người kỹ sư/kiến trúc sư không phải là tìm ra 
 ---
 
 ## 🧠 Thẻ Ghi Nhớ Nhanh (Spaced Repetition)
+
 Khi nào một hệ thống chấp nhận đánh đổi độ chính xác tuyệt đối để dùng cấu trúc dữ liệu xác suất như Bloom Filter? #card
 ?
 Khi quy mô dữ liệu quá khổng lồ (hàng tỷ bản ghi), việc lưu trữ chính xác tốn hàng trăm GB RAM, và hệ thống chấp nhận một tỷ lệ **dương tính giả cực nhỏ** mà không làm ảnh hưởng đến tính toàn vẹn của nghiệp vụ.

@@ -21,6 +21,7 @@ aliases:
 ---
 
 ## 1. Bản Chất Cốt Lõi (Mental Model)
+
 - **Mục tiêu:** Tìm $K$ phần tử lớn nhất, nhỏ nhất hoặc có tần suất xuất hiện nhiều nhất trong tập dữ liệu mà không cần phải sắp xếp toàn bộ danh sách ($O(n \log n)$).
 - **Vũ khí bí mật:** Sử dụng [[Binary Heap & Priority Queue|Cây vun đống (Heap)]] có kích thước tối đa là $K$:
   - Để tìm **K phần tử lớn nhất:** Dùng một **Min-Heap** kích thước $K$.
@@ -32,6 +33,7 @@ aliases:
 ---
 
 ## 2. Các Bài Toán Thực Chiến
+
 - **Kth Largest Element in an Array (LeetCode 215)**
 - **Top K Frequent Elements (LeetCode 347)**
 - **Find K Closest Points to Origin (LeetCode 973)**

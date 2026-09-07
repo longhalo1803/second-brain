@@ -37,13 +37,14 @@ updated: 2026-08-26
 
 Tốc độ truy xuất giữa RAM và Ổ đĩa (kể cả SSD NVMe hiện đại nhất) có sự chênh lệch hàng nghìn lần:
 
-| Thiết bị Lưu trữ | Độ trễ Truy xuất (Latency) | Tương quan Tốc độ |
-| :--- | :--- | :--- |
-| **RAM (Buffer Cache)** | ~ 10 - 100 nano-giây (ns) | Nhanh gấp ~1.000 - 10.000 lần |
-| **SSD NVMe (Flash)** | ~ 50 - 150 micro-giây ($\mu$s) | Nhanh trung bình |
-| **HDD (Quay cơ học)** | ~ 5 - 10 mili-giây (ms) | Rất chậm (Nút thắt cổ chai) |
+| Thiết bị Lưu trữ       | Độ trễ Truy xuất (Latency)     | Tương quan Tốc độ             |
+| :--------------------- | :----------------------------- | :---------------------------- |
+| **RAM (Buffer Cache)** | ~ 10 - 100 nano-giây (ns)      | Nhanh gấp ~1.000 - 10.000 lần |
+| **SSD NVMe (Flash)**   | ~ 50 - 150 micro-giây ($\mu$s) | Nhanh trung bình              |
+| **HDD (Quay cơ học)**  | ~ 5 - 10 mili-giây (ms)        | Rất chậm (Nút thắt cổ chai)   |
 
 Khi một câu lệnh SQL yêu cầu dữ liệu:
+
 1. **Logical Read (Buffer Hit):** Database tìm thấy Block mong muốn đã nằm sẵn trên Buffer Cache. Dữ liệu được trả về ngay lập tức với tốc độ RAM (Microseconds).
 2. **Physical Read (Buffer Miss):** Block chưa có trên RAM. Database phải phát tín hiệu I/O đọc Block từ Ổ đĩa nạp vào Buffer Cache rồi mới xử lý tiếp (Milliseconds).
 
@@ -76,5 +77,6 @@ Vì dung lượng RAM luôn có hạn trong khi dung lượng ổ đĩa ngày c�
 ---
 
 ## 🔗 Liên kết Liên quan
+
 - Khái niệm liên quan: [[Block (Page)]], [[Database Instance]], [[Cost]], [[Execution Plan]]
 - Nguyên lý ứng dụng: [[Nguyên lý 3+2 trong Database]], [[3 Yếu tố cốt lõi làm Database nhanh]]

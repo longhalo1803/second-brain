@@ -20,6 +20,7 @@ aliases:
 ---
 
 ## 1. Bản Chất Cốt Lõi (Mental Model)
+
 - **Ý tưởng:** Ở mỗi lượt duyệt, tìm phần tử nhỏ nhất (Min) trong đoạn chưa sắp xếp, sau đó hoán đổi nó với phần tử ở đầu đoạn đó.
 - **Độ phức tạp:**
   - Luôn luôn là [[O(n^2) - Quadratic Time\|$O(n^2)$]] trong cả Best, Average và Worst case vì bắt buộc phải quét hết mảng để tìm Min.

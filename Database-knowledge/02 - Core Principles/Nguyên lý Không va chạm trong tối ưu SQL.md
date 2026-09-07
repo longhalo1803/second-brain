@@ -27,6 +27,7 @@ link: https://youtu.be/HH6z5jCY7-Y?si=rXFw0Yi7eqZq4B9G
 ## 1. Nỗi đau Lớn nhất của Hệ thống Tải cao (High Concurrency)
 
 Khi hệ thống có hàng chục nghìn người dùng đồng thời, phần lớn thời gian câu lệnh SQL bị chậm **không phải do thời gian tính toán CPU**, mà là do **thời gian chờ đợi (Wait Time)**:
+
 - Chờ khóa giải phóng do người khác đang giữ ([[Lock]] contention).
 - Chờ I/O đĩa do quá nhiều tiến trình cùng tranh nhau đọc/ghi một vùng dữ liệu.
 - Chờ tài nguyên bộ nhớ đệm Buffer Cache.
@@ -65,5 +66,6 @@ graph TD
 ---
 
 ## 🔗 Liên kết Điều hướng
+
 - MOC liên quan: [[MOC - Concurrency & Lock]], [[MOC - Database Overview]]
 - Khái niệm liên quan: [[Lock]], [[Deadlock]], [[Foreign Key]], [[3 Yếu tố cốt lõi làm Database nhanh]]

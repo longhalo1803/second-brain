@@ -20,6 +20,7 @@ aliases:
 ---
 
 ## 1. Bản Chất Cốt Lõi (Mental Model)
+
 - **Ý tưởng:** Giống như cách bạn xếp các lá bài tây trên tay khi chơi bài: Lấy từng lá bài mới, so sánh và chèn nó vào đúng vị trí trong tập các lá bài đã được sắp xếp bên tay trái.
 - **Độ phức tạp:**
   - Worst & Average: [[O(n^2) - Quadratic Time\|$O(n^2)$]].

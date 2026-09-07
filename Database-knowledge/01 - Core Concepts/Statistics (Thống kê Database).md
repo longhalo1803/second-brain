@@ -43,6 +43,7 @@ updated: 2026-08-26
 ## 3. Thảm họa "Stale Statistics" (Thống kê Lạc hậu)
 
 Khi bạn thực hiện đổ dữ liệu lớn (Batch Insert / Data Migration), số lượng dòng thực tế tăng từ 0 lên 17 triệu dòng nhưng thông số thống kê chưa được cập nhật:
+
 - Optimizer vẫn tưởng bảng chỉ có 0 dòng.
 - Nó quyết định dùng thuật toán `[[Nested Loop Join]]`.
 - **Hậu quả:** Hệ thống bị treo cứng, cạn kiệt tài nguyên CPU và RAM.
@@ -52,5 +53,6 @@ Khi bạn thực hiện đổ dữ liệu lớn (Batch Insert / Data Migration),
 ---
 
 ## 🔗 Liên kết Mở rộng
+
 - Khái niệm liên quan: [[SQL Optimizer]], [[Cost]], [[Execution Plan]], [[Join Methods]]
 - Case study: [[Case - Hai bảng giống nhau nhưng hiệu năng khác nhau]]

@@ -27,9 +27,11 @@ link: https://youtu.be/xSpXYB8v1NY?si=h2LTzOxRPvkiA0ER
 ## 1. Hiện tượng Nghịch lý
 
 Một bảng hoàn toàn không có dữ liệu nào (**0 bản ghi / 0 row**), không có ai đang khóa bảng. Khi chạy một câu lệnh truy vấn đơn giản:
+
 ```sql
 SELECT * FROM vk;
 ```
+
 Hệ thống mất tới **2 - 3 giây** (thậm chí vài phút trong môi trường thực tế) mới hoàn thành!
 
 ---
@@ -48,11 +50,14 @@ Hệ thống mất tới **2 - 3 giây** (thậm chí vài phút trong môi trư
 ## 3. Nguyên nhân Cốt lõi: Góc nhìn Vật lý của Database
 
 ### Đơn vị Làm việc của Database là [[Block (Page)]]
+
 Database không bao giờ làm việc với đơn vị Row. Khi bạn thực hiện lệnh `DELETE`:
+
 1. Dữ liệu các dòng chữ bị xóa, nhưng **các trang giấy A4 (Block) vật lý vẫn còn nguyên vẹn trong file dữ liệu**.
 2. Mốc **High Water Mark (HWM)** - mốc đánh dấu dung lượng đỉnh mà bảng từng chiếm giữ - không hề bị hạ xuống.
 
 ### Kế hoạch Thực thi: [[Full Table Scan]]
+
 - Câu lệnh `SELECT *` không có điều kiện `WHERE` nên Optimizer bắt buộc phải chọn chiến lược **Full Table Scan**.
 - Thuật ngữ "Full" ở đây nghĩa là **quét toàn bộ các Block nằm dưới mốc High Water Mark**, bất kể Block đó có chứa dữ liệu sống hay chỉ chứa Dead Tuples/khoảng trống rỗng!
 - Trong bản demo, bảng `vk` chiếm tới **221.000 Blocks** (tương đương khoảng **1,69 GB** dung lượng). Database bắt buộc phải bốc toàn bộ 1,69 GB dữ liệu rỗng này từ Ổ cứng ném lên RAM, gây nghẽn I/O nghiêm trọng.
@@ -70,5 +75,6 @@ Database không bao giờ làm việc với đơn vị Row. Khi bạn thực hi�
 ---
 
 ## 🔗 Liên kết Liên quan
+
 - Khái niệm nền tảng: [[Block (Page)]], [[Record (Tuple)]], [[Buffer Cache]], [[VACUUM & Dọn rác Database]]
 - Nguyên lý: [[Nguyên lý 3+2 trong Database]], [[Tư duy tối ưu Database (Database Tuning Mindset)]]

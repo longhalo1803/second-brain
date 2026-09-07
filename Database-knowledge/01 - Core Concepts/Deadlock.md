@@ -45,6 +45,7 @@ sequenceDiagram
 ## 2. Cơ chế Xử lý của Database (Deadlock Detection)
 
 Hầu hết các Database hiện đại đều có một tiến trình ngầm (**Deadlock Detector**) chạy định kỳ (mỗi vài trăm mili-giây):
+
 1. Quét đồ thị chờ đợi (Wait-For Graph).
 2. Khi phát hiện chu trình (Cycle), Database sẽ chọn ra một transaction làm "nạn nhân" (**Deadlock Victim**) dựa trên chi phí rollback thấp nhất.
 3. Database tự động **ROLLBACK** transaction nạn nhân và ném ra lỗi mã lỗi (ví dụ: `ORA-00060` trong Oracle, `Deadlock found when trying to get lock` trong MySQL, `error 1205` trong SQL Server).
@@ -61,5 +62,6 @@ Hầu hết các Database hiện đại đều có một tiến trình ngầm (*
 ---
 
 ## 🔗 Liên kết Mở rộng
+
 - Khái niệm liên quan: [[Lock]], [[Foreign Key]], [[Transaction & MVCC]]
 - Bài tổng hợp: [[Tổng hợp Lock và Deadlock trong Database]], [[Case - Tối ưu Foreign Key và Lock leo thang]]

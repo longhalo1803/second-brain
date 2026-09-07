@@ -24,6 +24,7 @@ updated: 2026-08-26
 ## 1. Phân biệt Database và Instance
 
 Rất nhiều kỹ sư nhầm lẫn hai khái niệm này:
+
 - **Database (Cơ sở dữ liệu):** Là tập hợp các **tập tin vật lý lưu trữ trên ổ đĩa (Disk Files)** bao gồm Data Files (chứa các [[Block (Page)]]), Redo Log Files/WAL Files, Control Files.
 - **Instance (Thực thể xử lý):** Là tập hợp các **cấu trúc bộ nhớ trên RAM** và các **tiến trình nền (Background Processes)** chạy trên hệ điều hành để quản lý và truy xuất vào Database.
 
@@ -61,5 +62,6 @@ Rất nhiều kỹ sư nhầm lẫn hai khái niệm này:
 ---
 
 ## 🔗 Liên kết Mở rộng
+
 - Khái niệm liên quan: [[Buffer Cache]], [[Block (Page)]], [[Execution Plan]], [[Transaction & MVCC]]
 - Nguyên lý: [[Nguyên lý 3+2 trong Database]], [[Quy trình 6 bước xử lý câu lệnh SQL]]

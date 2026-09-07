@@ -46,20 +46,23 @@ aliases:
 Là một kỹ sư và kiến trúc sư hệ thống, bạn không chỉ nhìn vào thời gian chạy mà phải đặt nó lên bàn cân với dung lượng bộ nhớ. **[[Space Complexity]]** là lượng không gian RAM phụ trợ mà thuật toán chiếm dụng thêm để xử lý.
 
 > [!IMPORTANT]
-> **Định luật bất thành văn của Hệ thống:** *Chúng ta thường xuyên đánh đổi bộ nhớ (RAM/Space) để mua lại tốc độ xử lý (Time).*
+> **Định luật bất thành văn của Hệ thống:** _Chúng ta thường xuyên đánh đổi bộ nhớ (RAM/Space) để mua lại tốc độ xử lý (Time)._
 
 ### Ví Dụ Minh Họa: Bài Toán "Phân Loại Hạt Đậu"
+
 - **Tình huống:** Bạn có hộp Đen chứa lẫn đậu đen/trắng, và hộp Trắng chứa lẫn đậu đen/trắng. Cần chuyển toàn bộ đậu đen về hộp Đen, đậu trắng về hộp Trắng.
 - **Cách 1: Tiết kiệm RAM, Tốn Thời Gian ($O(1)$ Space $\to$ Chậm):** Bạn chỉ có 2 bàn tay. Bạn nhặt 1 hạt đậu trắng từ hộp Đen, cầm trên tay rồi bới tìm hạt đậu đen ở hộp Trắng để đổi chỗ. Việc bới móc và đổi chỗ từng cặp cực kỳ tốn thời gian.
 - **Cách 2: Đánh đổi RAM lấy Tốc Độ ($O(N)$ Space $\to$ Siêu Tốc):** Đặt thêm một **chiếc hộp thứ 3 (Bộ nhớ phụ - Extra Container)**. Bạn đổ toàn bộ đậu trắng từ hộp Đen sang hộp tạm này $\to$ Đổ toàn bộ đậu đen từ hộp Trắng sang hộp Đen $\to$ Đổ đậu trắng từ hộp tạm sang hộp Trắng. Xong trong chớp mắt!
 
 ### Ứng Dụng Trong Kỹ Thuật Lập Trình
+
 - Khi đối mặt với thuật toán tra cứu chậm $O(n^2)$, ta dùng cấu trúc [[Hash Table & HashSet|Hash Table]] hoặc mảng đệm [[LRU Cache|Cache]] ($O(n)$ Space) để lưu sẵn kết quả. Thao tác kiểm tra tồn tại từ $O(n)$ trở thành $O(1)$.
 - Tăng chi phí bộ nhớ từ $O(1) \to O(n)$, nhưng giảm thời gian từ $O(n^2) \to O(n)$. Đây là sự đánh đổi kinh điển và tối ưu trong phát triển phần mềm hiện đại.
 
 ---
 
 ## 🧠 Thẻ Ghi Nhớ Nhanh (Spaced Repetition)
+
 Tại sao thuật toán $O(\log n)$ lại nhanh vượt trội khi dữ liệu lớn? #card
 ?
 Vì sau mỗi bước, thuật toán loại bỏ được một nửa ($50\%$) khối lượng dữ liệu còn lại. Ví dụ với 1 tỷ phần tử ($\approx 2^{30}$), chỉ mất khoảng 30 bước tính.

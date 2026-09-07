@@ -21,6 +21,7 @@ aliases:
 ---
 
 ## 1. Bản Chất Cốt Lõi (Mental Model)
+
 - **Quy tắc:** **LIFO (Last In, First Out)** — Phần tử nào được đưa vào sau cùng sẽ được lấy ra đầu tiên.
 - **Thao tác chính:**
   - `push(x)`: Đặt phần tử lên đỉnh (Top) $\to$ [[O(1) - Constant Time\|$O(1)$]].
@@ -31,6 +32,7 @@ aliases:
 ---
 
 ## 2. Ứng Dụng Thực Tế & Thiết Kế Hệ Thống
+
 - **Call Stack của Hệ Điều Hành & Runtime:** Theo dõi các lời gọi hàm đệ quy trong [[Space Complexity]] và [[Recursion & Memoization]].
 - **Tính năng Undo / Redo:** Trình soạn thảo Word, Photoshop (mỗi thao tác gõ được push vào stack, bấm Ctrl+Z là pop ra).
 - **Trình duyệt Web:** Nút Back trên trình duyệt lưu lịch sử URL vào Stack.
@@ -39,17 +41,20 @@ aliases:
 ---
 
 ## 3. Các Pattern & Kỹ Thuật Nâng Cao
+
 - **Monotonic Stack (Ngăn xếp đơn điệu):** Giữ các phần tử luôn tăng hoặc giảm dần để tìm "Phần tử lớn hơn gần nhất" (Next Greater Element) trong [[O(n) - Linear Time|$O(n)$]].
 - Duyệt cây / đồ thị theo chiều sâu ([[Graph Representations & Traversal|DFS - Depth First Search]]).
 
 ---
 
 ## 🧠 Thẻ Ghi Nhớ Nhanh (Spaced Repetition)
+
 Quy tắc hoạt động của Stack là gì và độ phức tạp của push/pop? #card
 ?
 Quy tắc **LIFO (Last In, First Out)**. Độ phức tạp của cả `push`, `pop`, `peek` đều là **$O(1)$**.
 Nêu 3 ứng dụng thực tế của Stack trong phần mềm? #card
 ?
+
 1. Tính năng **Undo/Redo** (Ctrl+Z).
 2. Nút **Back** của trình duyệt web.
 3. **Call Stack** quản lý các tầng gọi hàm đệ quy của CPU/Runtime.

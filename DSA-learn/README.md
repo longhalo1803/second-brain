@@ -16,8 +16,8 @@ updated: 2026-08-28
 # 🧭 DSA Master Vault - Cấu Trúc Dữ Liệu & Giải Thuật
 
 > Kho lưu trữ tri thức chuyên sâu về **Cấu trúc Dữ liệu, Giải thuật, Algorithmic Patterns & Tư duy Thiết kế Hệ thống**. Tối ưu hóa cho phương pháp Mental Models và ôn tập ngắt quãng (Spaced Repetition).
-> 
-> 📌 *Quy định chung về Frontmatter, cấu trúc Note 5 phần và quy trình nạp tri thức tuân thủ theo: [Universal Specification](../README.md#📐-5-quy-định-chung-khi-nạp-tri-thức-universal-specification).*
+>
+> 📌 _Quy định chung về Frontmatter, cấu trúc Note 5 phần và quy trình nạp tri thức tuân thủ theo: [Universal Specification](../README.md#📐-5-quy-định-chung-khi-nạp-tri-thức-universal-specification)._
 
 ---
 
@@ -25,8 +25,8 @@ updated: 2026-08-28
 
 Toàn bộ Vault tuân thủ 3 nguyên tắc tư duy bất di bất dịch:
 
-1. **Mental Model First (Mô hình tư duy trực quan):** Mọi khái niệm đều phải được hình tượng hóa bằng các ví dụ đời thực sinh động (ví dụ: *xé đôi từ điển* cho Binary Search, *buổi tiệc speed dating* cho $O(n^2)$, *chiếc hộp thứ 3* cho Trade-off RAM vs Tốc độ).
-2. **Trade-offs Oriented (Lăng kính đánh đổi):** Không có cấu trúc dữ liệu nào "hoàn hảo", chỉ có cấu trúc dữ liệu "phù hợp nhất". Luôn đặt lên bàn cân: *Thời gian vs Bộ nhớ (Time vs Space)*, *Đọc nhanh vs Ghi nhanh (Read vs Write)*, *Chính xác tuyệt đối vs Tiết kiệm RAM (Exact vs Probabilistic)*.
+1. **Mental Model First (Mô hình tư duy trực quan):** Mọi khái niệm đều phải được hình tượng hóa bằng các ví dụ đời thực sinh động (ví dụ: _xé đôi từ điển_ cho Binary Search, _buổi tiệc speed dating_ cho $O(n^2)$, _chiếc hộp thứ 3_ cho Trade-off RAM vs Tốc độ).
+2. **Trade-offs Oriented (Lăng kính đánh đổi):** Không có cấu trúc dữ liệu nào "hoàn hảo", chỉ có cấu trúc dữ liệu "phù hợp nhất". Luôn đặt lên bàn cân: _Thời gian vs Bộ nhớ (Time vs Space)_, _Đọc nhanh vs Ghi nhanh (Read vs Write)_, _Chính xác tuyệt đối vs Tiết kiệm RAM (Exact vs Probabilistic)_.
 3. **Systems & Patterns View (Góc nhìn Kiến trúc sư):** Nắm vững các "Khuôn mẫu" (Algorithmic Patterns) để biến bài toán phức tạp từ $O(n^2) \to O(n)$, và thấu hiểu cách Big Tech ứng dụng DSA vào Database Indexing, Caching, Routing hay Streaming Data.
 
 ---
@@ -88,17 +88,22 @@ updated: YYYY-MM-DD
 ## 🔌 4. Hệ Thống 4 Templates & Plugin Hỗ Trợ
 
 Vault đã được tích hợp sẵn 4 Template chuẩn trong thư mục `Templates/`:
+
 - `Template - Data Structure.md` : Dành cho Cấu trúc dữ liệu (Mental model, Bảng Big-O, Trade-offs, Mã nguồn).
 - `Template - Algorithm.md` : Dành cho Thuật toán.
 - `Template - Algorithmic Pattern.md` : Dành cho Mẫu thuật toán thực chiến.
 - `Template - LeetCode Problem.md` : Dành cho phân tích bài tập LeetCode.
 
 ### Ôn tập Spaced Repetition Flashcards (`#card`):
+
 Ở cuối mỗi bài học, tạo 2-3 câu hỏi bản chất kèm thẻ `#card` để hệ thống Spaced Repetition tự động nhắc nhở ôn tập hàng ngày:
+
 ```markdown
 ## 🧠 Thẻ Ghi Nhớ Nhanh (Spaced Repetition)
+
 Điểm yếu chí mạng của Binary Search Tree không tự cân bằng là gì? #card
 ?
+
 - Khi chèn mảng đã sắp xếp, cây bị thoái hóa thành Linked List với chiều cao O(N), làm tốc độ tìm kiếm giảm từ O(log N) xuống O(N).
 ```
 

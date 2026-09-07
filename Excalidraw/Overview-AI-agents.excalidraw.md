@@ -1,15 +1,14 @@
 ---
-
 excalidraw-plugin: parsed
 tags: [excalidraw]
-
 ---
-==⚠  Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠== You can decompress Drawing data with the command palette: 'Decompress current Excalidraw file'. For more info check in plugin settings under 'Saving'
 
+==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠== You can decompress Drawing data with the command palette: 'Decompress current Excalidraw file'. For more info check in plugin settings under 'Saving'
 
 # Excalidraw Data
 
 ## Text Elements
+
 AI Agent: everything inside the box is ephemernal ^sWexCtVC
 
 User Prompt ^po8F3qzm
@@ -51,7 +50,7 @@ Episodic Memory
 - dated events
 - past chat history ^fPgFOctK
 
-RAG for relevance + 
+RAG for relevance +
 SQL for recency ^LZTSbcaT
 
 Harness
@@ -71,7 +70,8 @@ Distill into facts ^bgztnCaY
 Save the message ^QloDrS3M
 
 Agentic Tools
- e.g.
+e.g.
+
 - schedule meeting
 - read/write in CRM
 - fetch payment info ^Ej9VvYzD
@@ -81,7 +81,6 @@ Tool calls ^mgJskBki
 Response ^p5hpbMDO
 
 Loop ^aolobMWS
-
 
 1 trace per run
 (Langfuse, LangSmith) ^0AHGZu5S
@@ -95,7 +94,7 @@ Eval (Was it good ?) ^cd4WLu1p
 Tracks tokens, latency, errors ^DaQIAZ9u
 
 Observe (Was it healthy ?)
- ^05pTYVLe
+^05pTYVLe
 
 'Where/why it was broken ?' ^2usIa824
 
@@ -104,18 +103,18 @@ Diagnose ^B3nV6of4
 Gate ^7hmmhnXO
 
 Ship the fix safety:
- 
+
 - new prompt version
 - model config
 - tool change
-RAM params (top-k) ^KgGltYIZ
+  RAM params (top-k) ^KgGltYIZ
 
 Release ^FXGMCfO2
 
 eval passed ^MW7T80iK
 
 eval not passed
-fix bug, re-run, 
+fix bug, re-run,
 re-trace, re-eval ^yVfcoyJS
 
 Improve system prompt + config ^uhV0e97h
@@ -123,10 +122,13 @@ Improve system prompt + config ^uhV0e97h
 LLM Ops ^Hja3o39U
 
 ## Embedded Files
+
 643b12c4c3513f077efdec99120efcb373c1a4d4: [[Pasted Image 20260826105807_783.png]]
 
 %%
+
 ## Drawing
+
 ```compressed-json
 N4KAkARALgngDgUwgLgAQQQDwMYEMA2AlgCYBOuA7hADTgQBuCpAzoQPYB2KqATLZMzYBXUtiRoIACyhQ4zZAHoFAc0JRJQgEYA6bGwC2CgF7N6hbEcK4OCtptbErHALRY8RMpWdx8Q1TdIEfARcZgRmBShcZQUebR4ANm0AFho6IIR9BA4oZm4AbXAwUDBSiBJuCGYAdSwAYSgANTq00shYREqoLChWssxuZwB2AEZtAFZkkaGhhIAOIYAGRZGR
 
@@ -404,4 +406,5 @@ z55ASALF54/9v4gBVBEIMSwNESAR0niZBhUI2CBGZC759b7kc7GpB+mZQA5BHuX+E2BTar78+/3uLJlR
 
 wgYIGA0yOjT+iJrXXXG1M3V9PgMAUjWX7R+r7Yu1fBxfhAEl/6z3mQgBHAWIrCMuKOOFvU4wUX61pqtWJHOEB5j0TDZ8fuPmhcj+Nn7u+Sf6FwaY+Wfn8M8LbUiHd+Cfw119VMADX96IGwK74BkHhNtHzgcHHIadpwDLqCAA
 ```
+
 %%

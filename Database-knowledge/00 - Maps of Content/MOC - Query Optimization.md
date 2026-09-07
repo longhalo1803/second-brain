@@ -21,6 +21,7 @@ updated: 2026-08-26
 ---
 
 ## 🎯 Mục tiêu
+
 Cung cấp toàn bộ kiến thức từ lý thuyết đến thực hành về cách Database Engine tiếp nhận, phân tích, lập kế hoạch và thực thi một câu lệnh SQL; từ đó biết cách tối ưu truy vấn đạt hiệu năng cao nhất.
 
 ```mermaid
@@ -41,6 +42,7 @@ graph TD
 ---
 
 ## 📚 1. Quy trình Thực thi & Bộ máy Tối ưu
+
 - **[[Quy trình 6 bước xử lý câu lệnh SQL]]:**
   1. Syntax Check (Kiểm tra cú pháp)
   2. Semantic Check (Kiểm tra ngữ nghĩa & quyền)
@@ -56,6 +58,7 @@ graph TD
 ---
 
 ## ⚡ 2. Kỹ thuật Đọc Dữ liệu (Data Access & Join)
+
 - **[[Data Access Methods]]:**
   - `[[Full Table Scan]]`: Quét toàn bộ các Block dữ liệu của bảng.
   - `[[Index Scan]]` / `[[Index Seek]]`: Tìm kiếm theo cây B-Tree.
@@ -68,6 +71,7 @@ graph TD
 ---
 
 ## 💡 3. Các Nguyên lý & Bí kíp Thực chiến
+
 - **[[Tư duy tối ưu Database (Database Tuning Mindset)]]:** Chuyển từ tư duy "đếm Row" sang tư duy "đếm Block".
 - **[[Tại sao Database không chọn Index (Bản chất Cost-Based Optimizer)]]:** Giải mã bản chất Cost-Based Optimizer qua thực nghiệm đo đếm I/O trên Oracle & SQL Server.
 - **[[Nguyên lý Không va chạm trong tối ưu SQL]]:** Tối ưu câu lệnh để triệt tiêu thời gian chờ đợi tài nguyên.
@@ -78,6 +82,7 @@ graph TD
 ---
 
 ## 🧩 4. Case Studies Thực tế
+
 - 💥 **[[Case - Hai bảng giống nhau nhưng hiệu năng khác nhau]]:** Lệch Statistic khiến Optimizer chọn sai Join Method.
 - 💥 **[[Case - Khi nào Index phản tác dụng (Ô tô tải vs Xe máy)]]:** Vấn đề Random I/O trên tập kết quả lớn.
 - 💥 **[[Case - Table 0 row nhưng truy vấn vẫn cực chậm]]:** Full Table Scan trên bảng rỗng nhưng dung lượng Block khổng lồ.

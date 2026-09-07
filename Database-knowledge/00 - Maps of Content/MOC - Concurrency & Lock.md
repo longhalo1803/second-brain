@@ -22,6 +22,7 @@ updated: 2026-08-26
 ---
 
 ## 🎯 Mục tiêu
+
 Giải quyết bài toán "điểm nghẽn" lớn nhất trong các hệ thống High Concurrency (hàng triệu giao dịch/giây): Xử lý tranh chấp tài nguyên (Resource Contention), loại bỏ hiện tượng treo hệ thống do Lock leo thang (Lock Escalation) và Deadlock.
 
 ```mermaid
@@ -38,6 +39,7 @@ graph LR
 ---
 
 ## 🛡️ 1. Các Khái niệm Cốt lõi về Khóa
+
 - **[[Lock]]:**
   - **Shared Lock (S - Khóa Đọc):** Cho phép nhiều tiến trình cùng đọc nhưng cấm sửa.
   - **Exclusive Lock (X - Khóa Ghi):** Độc quyền sửa dữ liệu, cấm tất cả các tiến trình khác đọc/sửa.
@@ -49,6 +51,7 @@ graph LR
 ---
 
 ## ⚡ 2. Nguyên lý & Triết lý Phòng chống Nghẽn
+
 - **[[Nguyên lý Không va chạm trong tối ưu SQL]]:**
   - Tách biệt tác vụ Đọc nặng (Báo cáo thống kê, Analytics) ra khỏi tác vụ Ghi thời gian thực (OLTP).
   - Sử dụng hàng đợi (Message Queue) để làm phẳng đỉnh tải (Traffic Peak).
@@ -58,5 +61,6 @@ graph LR
 ---
 
 ## 🛠️ 3. Tình huống Thực chiến & Phân tích Lỗi
+
 - 💥 **[[Case - Tối ưu Foreign Key và Lock leo thang]]:** Cách xóa/sửa 1 dòng ở bảng Cha làm khóa toàn bộ bảng Con 10 triệu dòng.
 - 💥 **[[Tổng hợp Lock và Deadlock trong Database]]:** Bản tổng hợp toàn diện các loại Lock, cách đọc Deadlock Graph và các phương pháp phòng tránh triệt để trong code ứng dụng.

@@ -64,5 +64,6 @@ $$	ext{Selectivity} = rac{	ext{Số dòng thỏa điều kiện}}{	ext{Tổng s
 ---
 
 ## 🔗 Liên kết Liên quan
+
 - Khái niệm nền tảng: [[Index]], [[Block (Page)]], [[Data Access Methods]], [[Cost]], [[SQL Optimizer]]
 - Nguyên lý & Thực chứng: [[Tư duy tối ưu Database (Database Tuning Mindset)]], [[Nguyên lý 3+2 trong Database]], [[Tại sao Database không chọn Index (Bản chất Cost-Based Optimizer)]]

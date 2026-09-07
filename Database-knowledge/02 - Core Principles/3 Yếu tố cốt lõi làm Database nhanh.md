@@ -72,6 +72,7 @@ link: https://youtu.be/j_4xM8Bv1sY?si=w7v_1W_5t1qV_2rT
 ---
 
 ## 🔗 Liên kết Điều hướng
+
 - MOC liên quan: [[MOC - Database Overview]], [[MOC - Concurrency & Lock]]
 - Đào sâu Yếu tố 2: [[Nguyên lý Không va chạm trong tối ưu SQL]], [[Quy trình 6 bước xử lý câu lệnh SQL]]
 - Đào sâu Yếu tố 3: [[Tổng hợp Lock và Deadlock trong Database]], [[Case - Tối ưu Foreign Key và Lock leo thang]]

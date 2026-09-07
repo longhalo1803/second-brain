@@ -21,6 +21,7 @@ aliases:
 ---
 
 ## 1. Bản Chất Cốt Lõi (Mental Model)
+
 - **Mục tiêu:** Tìm vị trí của phần tử mục tiêu (Target) trong một mảng **đã được sắp xếp** với thời gian siêu tốc [[O(log n) - Logarithmic Time\|$O(\log n)$]].
 - **Ý tưởng:** So sánh Target với phần tử nằm ở chính giữa mảng (`mid`):
   - Nếu `arr[mid] == target`: Tìm thấy ngay!
@@ -31,11 +32,11 @@ aliases:
 
 ## 2. Bảng Độ Phức Tạp
 
-| Độ Phức Tạp | Giá Trị | Giải Thích |
-| :--- | :--- | :--- |
-| **Thời gian tốt nhất (Best Case)** | [[O(1) - Constant Time\|$O(1)$]] | Trúng ngay phần tử ở giữa ở bước đầu |
-| **Thời gian trung bình & xấu nhất** | [[O(log n) - Logarithmic Time\|$O(\log n)$]] | Mỗi bước loại bỏ được $50\%$ dữ liệu |
-| **Không gian bộ nhớ (Space)** | [[O(1) - Constant Time\|$O(1)$]] | Dùng 2 con trỏ `left`, `right` (vòng lặp) |
+| Độ Phức Tạp                         | Giá Trị                                      | Giải Thích                                |
+| :---------------------------------- | :------------------------------------------- | :---------------------------------------- |
+| **Thời gian tốt nhất (Best Case)**  | [[O(1) - Constant Time\|$O(1)$]]             | Trúng ngay phần tử ở giữa ở bước đầu      |
+| **Thời gian trung bình & xấu nhất** | [[O(log n) - Logarithmic Time\|$O(\log n)$]] | Mỗi bước loại bỏ được $50\%$ dữ liệu      |
+| **Không gian bộ nhớ (Space)**       | [[O(1) - Constant Time\|$O(1)$]]             | Dùng 2 con trỏ `left`, `right` (vòng lặp) |
 
 ---
 
@@ -43,29 +44,30 @@ aliases:
 
 ```typescript
 function binarySearch(nums: number[], target: number): number {
-    let left = 0;
-    let right = nums.length - 1;
-    
-    while (left <= right) {
-        // Tránh lỗi tràn số nguyên (Integer Overflow) khi left + right vượt 2^31 - 1
-        const mid = left + Math.floor((right - left) / 2);
-        
-        if (nums[mid] === target) {
-            return mid;
-        } else if (nums[mid] < target) {
-            left = mid + 1;
-        } else {
-            right = mid - 1;
-        }
+  let left = 0;
+  let right = nums.length - 1;
+
+  while (left <= right) {
+    // Tránh lỗi tràn số nguyên (Integer Overflow) khi left + right vượt 2^31 - 1
+    const mid = left + Math.floor((right - left) / 2);
+
+    if (nums[mid] === target) {
+      return mid;
+    } else if (nums[mid] < target) {
+      left = mid + 1;
+    } else {
+      right = mid - 1;
     }
-    
-    return -1; // Không tìm thấy
+  }
+
+  return -1; // Không tìm thấy
 }
 ```
 
 ---
 
 ## 4. Các Biến Thể Nâng Cao & Binary Search Trên Kết Quả (BS on Answer)
+
 - Tìm vị trí xuất hiện đầu tiên (First Occurrence / `lower_bound`).
 - Tìm vị trí chèn phần tử (Search Insert Position).
 - **Binary Search on Answer Range:** Tìm giá trị tối ưu nhỏ nhất/lớn nhất thỏa mãn điều kiện (VD: Bài toán chia kẹo, vận chuyển hàng hóa Koko Eating Bananas).
@@ -73,6 +75,7 @@ function binarySearch(nums: number[], target: number): number {
 ---
 
 ## 🧠 Thẻ Ghi Nhớ Nhanh (Spaced Repetition)
+
 Điều kiện tiên quyết bắt buộc để áp dụng Binary Search là gì? #card
 ?
 Tập dữ liệu đầu vào **bắt buộc phải được sắp xếp trước** theo thứ tự (hoặc có tính chất đơn điệu Monotonicity).

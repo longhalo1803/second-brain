@@ -21,6 +21,7 @@ aliases:
 ---
 
 ## 1. Bản Chất Cốt Lõi (Mental Model)
+
 Khi lượng dữ liệu $n$ tăng gấp 10 lần, thời gian xử lý hoặc số lượng phép tính tăng vọt lên **100 lần** (theo cấp số nhân bình phương $n^2$). Nếu $n = 1.000$, số bước là $1.000.000$. Nếu $n = 100.000$, số bước là $10.000.000.000$ (10 tỷ phép tính $\to$ treo máy).
 
 > [!TIP]
@@ -29,12 +30,13 @@ Khi lượng dữ liệu $n$ tăng gấp 10 lần, thời gian xử lý hoặc s
 ---
 
 ## 2. Dấu Hiệu Nhận Biết (Code Triggers)
+
 - **Hai vòng lặp lồng nhau (Nested Loops)** phụ thuộc vào biến $n$:
   ```typescript
   for (let i = 0; i < n; i++) {
-      for (let j = 0; j < n; j++) {
-          // Xử lý từng cặp (i, j)
-      }
+    for (let j = 0; j < n; j++) {
+      // Xử lý từng cặp (i, j)
+    }
   }
   ```
 - Các thuật toán duyệt vét cạn toàn bộ các cặp đôi phần tử trong danh sách (Pairwise comparisons).
@@ -42,6 +44,7 @@ Khi lượng dữ liệu $n$ tăng gấp 10 lần, thời gian xử lý hoặc s
 ---
 
 ## 3. Cấu Trúc Dữ Liệu & Thuật Toán Liên Quan
+
 - Thuật toán sắp xếp cơ bản duyệt trâu: `[[Bubble Sort]]`, `[[Selection Sort]]`, `[[Insertion Sort]]`.
 - Các bài toán tìm kiếm cặp phần tử có tổng bằng $K$ (Two Sum bản Brute-force).
 - Ma trận $N \times N$: Khởi tạo hoặc duyệt qua toàn bộ các ô trong bảng 2 chiều.
@@ -49,6 +52,7 @@ Khi lượng dữ liệu $n$ tăng gấp 10 lần, thời gian xử lý hoặc s
 ---
 
 ## 4. Cách Tối Ưu Thực Tế (Architect's View)
+
 - **Báo Động Đỏ (Red Flag):** Trong các ứng dụng sản xuất (Production), thấy code chạy ở mức $O(n^2)$ trên dữ liệu người dùng là nguy cơ tiềm tàng gây sập server (DDoS chính mình).
 - **Chiến Lược Giải Cứu:**
   1. **Đánh đổi RAM lấy Tốc độ:** Dùng [[Hash Table & HashSet|Hash Table]] ($O(n)$ Space) để nhớ các giá trị của vòng lặp thứ nhất, triệt tiêu vòng lặp lồng thứ hai $\to$ Đưa về $O(n)$ Time (ví dụ: Giải bài Two Sum trong $O(n)$).
@@ -57,7 +61,9 @@ Khi lượng dữ liệu $n$ tăng gấp 10 lần, thời gian xử lý hoặc s
 ---
 
 ## 🧠 Thẻ Ghi Nhớ Nhanh (Spaced Repetition)
+
 Khi gặp thuật toán $O(n^2)$ do 2 vòng lặp lồng nhau, 2 chiến lược tối ưu phổ biến nhất là gì? #card
 ?
+
 1. Dùng **Hash Table** để tra cứu trong $O(1)$, giảm thời gian xuống $O(n)$ (đánh đổi $O(n)$ Space).
 2. **Sắp xếp** mảng trong $O(n \log n)$ rồi dùng kỹ thuật **Two Pointers** trong $O(n)$, tổng thời gian là $O(n \log n)$ và giữ $O(1)$ Space.

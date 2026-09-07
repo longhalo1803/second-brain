@@ -165,12 +165,12 @@ So sánh SSL và TLS
 
 ### **Điểm khác biệt chính**
 
-|Đặc điểm|SSL|TLS|
-|---|---|---|
-|Bắt tay (Handshake)|Kết nối rõ ràng, nhiều bước hơn.|Kết nối ngầm, ít bước hơn, nhanh hơn.|
-|Thông báo cảnh báo|Gồm 2 loại: Cảnh báo, nghiêm trọng và không mã hóa.|Đa dạng hơn, có thêm thông báo đóng phiên, được mã hóa.|
-|Xác thực thông báo|Sử dụng MD5 (không an toàn).|Sử dụng HMAC (an toàn hơn).|
-|Bộ mã hóa (Cipher Suites)|Hỗ trợ thuật toán cũ, có lỗ hổng.|Sử dụng thuật toán nâng cao, an toàn hơn.|
+| Đặc điểm                  | SSL                                                 | TLS                                                     |
+| ------------------------- | --------------------------------------------------- | ------------------------------------------------------- |
+| Bắt tay (Handshake)       | Kết nối rõ ràng, nhiều bước hơn.                    | Kết nối ngầm, ít bước hơn, nhanh hơn.                   |
+| Thông báo cảnh báo        | Gồm 2 loại: Cảnh báo, nghiêm trọng và không mã hóa. | Đa dạng hơn, có thêm thông báo đóng phiên, được mã hóa. |
+| Xác thực thông báo        | Sử dụng MD5 (không an toàn).                        | Sử dụng HMAC (an toàn hơn).                             |
+| Bộ mã hóa (Cipher Suites) | Hỗ trợ thuật toán cũ, có lỗ hổng.                   | Sử dụng thuật toán nâng cao, an toàn hơn.               |
 
 ### **Tình trạng sử dụng hiện tại**
 

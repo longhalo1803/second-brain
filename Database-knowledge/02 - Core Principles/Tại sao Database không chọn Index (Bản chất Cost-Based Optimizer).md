@@ -33,6 +33,7 @@ link: https://youtu.be/GYn8dwwPBvo?si=FmX-FKi27W3GravP
 ## 1. Nghịch lý Kinh điển của Lập trình viên
 
 Trong quá trình phát triển ứng dụng, rất nhiều lập trình viên gặp phải tình huống trớ trêu:
+
 - Có một bảng dữ liệu lớn (ví dụ bảng `Users` với hơn **2.4 triệu bản ghi**).
 - Câu lệnh SQL rất đơn giản: chỉ lọc tìm kiếm trên đúng một cột duy nhất (ví dụ: `reputation > ...` hoặc `ORDER BY reputation`).
 - Cột đó **đã được đánh Index cẩn thận** (`idx_reputation`).
@@ -73,6 +74,7 @@ graph TD
 Thực hiện bài kiểm tra trên bảng `Users` (> 2.4 triệu dòng) với câu truy vấn lọc theo cột `reputation` (đã có index `idx_reputation`):
 
 ### Phương pháp Thực nghiệm Chuẩn mực:
+
 1. **Xóa sạch bộ nhớ đệm Buffer Cache** trước mỗi lần chạy để kết quả đo đếm I/O vật lý hoàn toàn minh bạch:
    - SQL Server: `DBCC DROPCLEANBUFFERS;`
    - Oracle: `ALTER SYSTEM FLUSH BUFFER_CACHE;`
@@ -146,6 +148,7 @@ SELECT /*+ INDEX(users idx_reputation) */ * FROM users ORDER BY reputation;
 Trong quá trình phân tích và tối ưu hóa dự án, việc dùng Hint là một công cụ mạnh mẽ để **kiểm tra giả định và đối chiếu chi phí** (không nên lạm dụng Hint trong mã Production):
 
 ### Trên Microsoft SQL Server:
+
 ```sql
 -- Bật đo đếm I/O
 SET STATISTICS IO ON;
@@ -160,6 +163,7 @@ SELECT * FROM users WITH (INDEX(idx_reputation)) WHERE reputation > 100;
 ```
 
 ### Trên Oracle Database:
+
 ```sql
 -- Bật theo dõi tài nguyên tự động
 SET AUTOTRACE ON;
@@ -176,7 +180,7 @@ SELECT /*+ INDEX(users idx_reputation) */ * FROM users WHERE reputation > 100;
 
 ## 6. 4 Câu hỏi Tư duy Kiến trúc Chuyên sâu (Architect Questions)
 
-Khi hiểu sâu công thức $	ext{Cost} = f(	ext{Block I/O}, 	ext{CPU})$ của CBO, bạn có thể tự mình trả lời các câu hỏi lớn về thiết kế hệ thống:
+Khi hiểu sâu công thức $ ext{Cost} = f( ext{Block I/O}, ext{CPU})$ của CBO, bạn có thể tự mình trả lời các câu hỏi lớn về thiết kế hệ thống:
 
 ```
                   +-------------------------------------------------+
@@ -189,14 +193,15 @@ Khi hiểu sâu công thức $	ext{Cost} = f(	ext{Block I/O}, 	ext{CPU})$ của 
    - **Có!** Vì tốc độ Random I/O của SSD NVMe nhanh hơn HDD rất nhiều, trọng số chi phí $W_{io}$ giảm xuống. Lúc này, Optimizer có thể sẽ chuyển từ Full Table Scan sang chọn Index Scan cho cùng một câu lệnh.
 1. **Chuyển đổi Hệ quản trị (MySQL => Oracle / Postgres) có làm thay đổi việc chọn Index không?**
    - **Chắc chắn có!** Mỗi Engine có một Cost Model, giải thuật đánh giá Index, và cách tổ chức lưu trữ vật lý ([[Block (Page)]]) khác nhau hoàn toàn.
-3. **Nâng cấp Phiên bản Database (Upgrade Version) có rủi ro thay đổi Kế hoạch thực thi không?**
+1. **Nâng cấp Phiên bản Database (Upgrade Version) có rủi ro thay đổi Kế hoạch thực thi không?**
    - **Có!** Đây là rủi ro lớn nhất trong các dự án Migration/Upgrade. Một câu lệnh đang chạy nhanh ở bản cũ có thể bị Optimizer bản mới chọn lại Plan khác do bộ tham số CBO được cập nhật.
-4. **Tại sao học từ Kiến trúc Bản chất lại giúp ta làm chủ toàn bộ Hệ thống?**
+1. **Tại sao học từ Kiến trúc Bản chất lại giúp ta làm chủ toàn bộ Hệ thống?**
    - Khi hiểu cách Database tính toán từ tầng đáy (Block, Cache, Cost, Random I/O), bạn không còn tối ưu theo kiểu "thử - sai ở phần ngọn" mà có thể **dự đoán chính xác mọi đường đi của dữ liệu**.
 
 ---
 
 ## 🔗 Liên kết Điều hướng Mạng lưới
+
 - MOC liên quan: [[MOC - Query Optimization]], [[MOC - Database Overview]]
 - Khái niệm nền tảng: [[Cost]], [[SQL Optimizer]], [[Index]], [[Block (Page)]], [[Execution Plan]], [[Buffer Cache]], [[Data Access Methods]]
 - Nguyên lý & Case Study liên quan:

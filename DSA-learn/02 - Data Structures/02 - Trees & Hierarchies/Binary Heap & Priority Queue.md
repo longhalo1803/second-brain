@@ -28,9 +28,10 @@ aliases:
 ---
 
 ## 1. Bản Chất Cốt Lõi (Mental Model)
+
 - **Định nghĩa:** Là một cây nhị phân gần hoàn chỉnh (Complete Binary Tree) thỏa mãn **Tính chất Heap (Heap Property)**:
-  - *Max-Heap:* Nút cha luôn lớn hơn hoặc bằng các nút con $\to$ Phần tử **Lớn nhất** luôn nằm ở đỉnh (Root).
-  - *Min-Heap:* Nút cha luôn nhỏ hơn hoặc bằng các nút con $\to$ Phần tử **Nhỏ nhất** luôn nằm ở đỉnh (Root).
+  - _Max-Heap:_ Nút cha luôn lớn hơn hoặc bằng các nút con $\to$ Phần tử **Lớn nhất** luôn nằm ở đỉnh (Root).
+  - _Min-Heap:_ Nút cha luôn nhỏ hơn hoặc bằng các nút con $\to$ Phần tử **Nhỏ nhất** luôn nằm ở đỉnh (Root).
 - **Cài đặt cực kỳ thông minh trong RAM:** Heap thường **không dùng con trỏ**, mà được lưu gọn gàng bên trong một [[Array & Dynamic Array|Mảng 1 chiều]]:
   - Nút con trái của vị trí $i$: `2 * i + 1`
   - Nút con phải của vị trí $i$: `2 * i + 2`
@@ -40,16 +41,17 @@ aliases:
 
 ## 2. Bảng Độ Phức Tạp (Complexity Sheet)
 
-| Thao Tác | Độ Phức Tạp | Bản Chất |
-| :--- | :--- | :--- |
-| **Xem phần tử ưu tiên nhất (Peek Min/Max)** | [[O(1) - Constant Time\|$O(1)$]] | Luôn nằm ở đầu mảng `arr[0]` |
+| Thao Tác                                                  | Độ Phức Tạp                                  | Bản Chất                                                 |
+| :-------------------------------------------------------- | :------------------------------------------- | :------------------------------------------------------- |
+| **Xem phần tử ưu tiên nhất (Peek Min/Max)**               | [[O(1) - Constant Time\|$O(1)$]]             | Luôn nằm ở đầu mảng `arr[0]`                             |
 | **Trích xuất phần tử cực đại/cực tiểu (Extract Min/Max)** | [[O(log n) - Logarithmic Time\|$O(\log n)$]] | Lấy `arr[0]`, đổi chỗ với phần tử cuối và `heapify-down` |
-| **Chèn phần tử mới (Insert / Push)** | [[O(log n) - Logarithmic Time\|$O(\log n)$]] | Thêm vào cuối mảng và `heapify-up` |
-| **Xây dựng Heap từ mảng thô (Build Heap)** | [[O(n) - Linear Time\|$O(n)$]] | Sử dụng giải thuật Floyd's Build Heap |
+| **Chèn phần tử mới (Insert / Push)**                      | [[O(log n) - Logarithmic Time\|$O(\log n)$]] | Thêm vào cuối mảng và `heapify-up`                       |
+| **Xây dựng Heap từ mảng thô (Build Heap)**                | [[O(n) - Linear Time\|$O(n)$]]               | Sử dụng giải thuật Floyd's Build Heap                    |
 
 ---
 
 ## 3. Ứng Dụng Thực Tế & Thiết Kế Hệ Thống
+
 - **Lập lịch tác vụ CPU (Operating System Process Scheduler):** Tác vụ nào có độ ưu tiên cao nhất sẽ được đưa lên đầu để CPU xử lý trước.
 - **Phòng Cấp Cứu Bệnh Viện (Triage System):** Bệnh nhân nguy kịch nhất luôn được cấp cứu trước, không phụ thuộc vào việc ai đến trước (khác với FIFO Queue).
 - **Thuật toán Dijkstra & Prim:** Tìm đường đi ngắn nhất trên [[Graph Representations & Traversal|Đồ thị]].
@@ -58,6 +60,7 @@ aliases:
 ---
 
 ## 🧠 Thẻ Ghi Nhớ Nhanh (Spaced Repetition)
+
 Tại sao Binary Heap lại được cài đặt bằng Mảng (Array) thay vì Node con trỏ? #card
 ?
 Vì Heap là cây nhị phân gần hoàn chỉnh, việc ánh xạ các nút sang mảng theo công thức chỉ số (`2i+1`, `2i+2`) giúp **tiết kiệm bộ nhớ con trỏ** và tận dụng tối đa **CPU Cache Locality**.

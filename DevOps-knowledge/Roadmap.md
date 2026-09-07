@@ -1,4 +1,4 @@
-[]()![[Pasted image 20260619091959.png|532]]
+[](<>)![[Pasted image 20260619091959.png|532]]
 
 Khóa học "DevOps Engineer in 3 Months" được thiết kế nhằm giúp bạn trang bị đầy đủ kỹ năng để có thể sẵn sàng làm việc (job-ready) trong vòng 3 tháng. Dưới đây là lộ trình chi tiết các bước bạn cần trải qua dựa trên hệ thống các bài học:
 

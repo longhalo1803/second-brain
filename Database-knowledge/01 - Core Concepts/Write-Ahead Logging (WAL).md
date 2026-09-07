@@ -168,6 +168,7 @@ Nếu ghi Dirty Block xuống Data File trước nhưng chưa kịp ghi Redo Log
 
 - **Oracle** tách riêng Redo Log (chỉ phục vụ đi tới) và Undo Segment (lưu dữ liệu cũ để đi lùi và đọc nhất quán). Rủi ro: Nếu Undo Tablespace bị đầy, toàn bộ lệnh DML trên Database sẽ bị dừng toàn diện.
 - **SQL Server** gộp chung cả thông tin Redo và Undo vào một file Transaction Log (`.ldf`) duy nhất. Rủi ro: Transaction Log phình to khổng lồ, nếu đặt trên ổ cứng chậm sẽ bóp nghẹt toàn bộ IOPS của hệ thống.
+
 <!--ID: 1725345600003-->
 
 ---

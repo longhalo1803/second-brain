@@ -28,6 +28,7 @@ link: https://youtu.be/kU9o4p4-u08?si=Z6yZ28sA3B0f7UqF
 ## 1. Tầm nhìn Kiến trúc trong Hệ thống Lớn (Core Banking, Chứng khoán)
 
 Trong các hệ thống lõi tài chính, ngân hàng, chứng khoán hoặc sàn thương mại điện tử quy mô lớn:
+
 - Một giây nghẽn database có thể gây thiệt hại hàng tỷ đồng.
 - Vấn đề hiệu năng không đơn thuần là câu chuyện "thêm RAM, nâng cấp CPU" (Scale-Up), mà là **bản thiết kế kiến trúc xử lý dữ liệu ngay từ đầu**.
 
@@ -55,5 +56,6 @@ graph TD
 ---
 
 ## 🔗 Liên kết Điều hướng
+
 - MOC liên quan: [[MOC - Database Overview]], [[MOC - Query Optimization]], [[MOC - Concurrency & Lock]]
 - Lộ trình phát triển: [[Lộ trình học Database toàn diện cho Developer]]

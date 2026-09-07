@@ -77,13 +77,13 @@ flowchart TD
 
 ### 4.1. Ba Lô Phân Số (Fractional Knapsack) vs Ba Lô 0/1 (0/1 Knapsack)
 
-| Tiêu Chí               | Fractional Knapsack (Bột vàng)                                   | 0/1 Knapsack (Thỏi vàng nguyên khối)                           |
+| Tiêu Chí | Fractional Knapsack (Bột vàng) | 0/1 Knapsack (Thỏi vàng nguyên khối) |
 | :--------------------- | :--------------------------------------------------------------- | :------------------------------------------------------------- | --------------------- |
-| **Bản chất vật phẩm**  | Dạng bột, chất lỏng $\to$ **Có thể bẻ vụn, chia nhỏ**            | Dạng khối cứng $\to$ **Hoặc lấy toàn bộ, hoặc không lấy gì**   |
-| **Tiêu chí tham lam**  | Tỷ suất lợi nhuận: $\rho_i = \frac{v_i}{w_i}$ (Value per Weight) | Lấy $\rho_i$ cao nhất trước                                    |
-| **Kết quả giải thuật** | 🟢 **Greedy TỐI ƯU TUYỆT ĐỐI**                                   | ❌ **Greedy THẤT BẠI** (tạo ra khoảng trống lỡ cỡ trong ba lô) |
-| **Cách giải quyết**    | Tham lam theo tỷ suất $\rho_i$ giảm dần                          | Bắt buộc dùng [[Recursion & Memoization                        | Quy hoạch động (DP)]] |
-| **Độ phức tạp**        | $O(N \log N)$ (chỉ tốn bước sắp xếp tỷ suất)                     | $O(N \times W)$ (tốn bảng quy hoạch động)                      |
+| **Bản chất vật phẩm** | Dạng bột, chất lỏng $\to$ **Có thể bẻ vụn, chia nhỏ** | Dạng khối cứng $\to$ **Hoặc lấy toàn bộ, hoặc không lấy gì** |
+| **Tiêu chí tham lam** | Tỷ suất lợi nhuận: $\rho_i = \frac{v_i}{w_i}$ (Value per Weight) | Lấy $\rho_i$ cao nhất trước |
+| **Kết quả giải thuật** | 🟢 **Greedy TỐI ƯU TUYỆT ĐỐI** | ❌ **Greedy THẤT BẠI** (tạo ra khoảng trống lỡ cỡ trong ba lô) |
+| **Cách giải quyết** | Tham lam theo tỷ suất $\rho_i$ giảm dần | Bắt buộc dùng [[Recursion & Memoization                        | Quy hoạch động (DP)]] |
+| **Độ phức tạp** | $O(N \log N)$ (chỉ tốn bước sắp xếp tỷ suất) | $O(N \times W)$ (tốn bảng quy hoạch động) |
 
 ### 4.2. Xếp Lịch Sự Kiện / Phòng Họp (Interval Scheduling)
 

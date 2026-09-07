@@ -1,17 +1,16 @@
 ---
-
 excalidraw-plugin: parsed
 tags: [excalidraw]
-
 ---
-==⚠  Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠== You can decompress Drawing data with the command palette: 'Decompress current Excalidraw file'. For more info check in plugin settings under 'Saving'
 
+==⚠ Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠== You can decompress Drawing data with the command palette: 'Decompress current Excalidraw file'. For more info check in plugin settings under 'Saving'
 
 # Excalidraw Data
 
 ## Text Elements
+
 SELECT * FROM
-employee WHERE 
+employee WHERE
 emp_id = 100 ^kehP1hQx
 
 Đúng cú pháp ? ^boXNzPvL
@@ -27,11 +26,11 @@ Tạo ra chi tiết các bước thực hiện ^QimWd7bR
 Thực thi câu lệnh ^AnebAzJH
 
 Cảnh báo lỗi
-Ví dụ: 
+Ví dụ:
 ORA-00923: FROM keyword not found where expected ^W0iWxwtS
 
 Cảnh báo lỗi
-Ví dụ: 
+Ví dụ:
 ORA-00923: table or view does not exist ^5nmjqj8D
 
 Chưa có (HARD PARSE) ^1uVdCmyT
@@ -50,24 +49,24 @@ Sai ^N7KxmhuG
 
 1, Check cú pháp
 2, Check ngữ nghĩa: Hệ thống sẽ xem mình đang muốn tương tác với bảng gì (kiểm tra xem table | cột trong bảng | quyền truy cập của user có tồn tại hay không)
-3,  Kiểm tra xem đã có ai thực hiện câu lệnh này trước đó chưa
-    - TH1: chưa có 
-        -> Thực hiện lựa chọn [[Execution Plan]] -> tạo + Chạy từng bước build trong câu lệnh
-         => tiêu tốn tài nguyên
-    - TH2: đã có 
-        -> Thực thi câu lệnh giựa trên toàn bộ thông tin đã lưu trước đó
-        => đỡ tốn tài nguyên hơn ^agJeYQG9
+3, Kiểm tra xem đã có ai thực hiện câu lệnh này trước đó chưa - TH1: chưa có
+-> Thực hiện lựa chọn [[Execution Plan]] -> tạo + Chạy từng bước build trong câu lệnh
+=> tiêu tốn tài nguyên - TH2: đã có
+-> Thực thi câu lệnh giựa trên toàn bộ thông tin đã lưu trước đó
+=> đỡ tốn tài nguyên hơn ^agJeYQG9
 
-Kiểm tra ngữ nghĩa 
+Kiểm tra ngữ nghĩa
 (Rất nhanh) ^LdtdzfX6
 
-Phần hiệu năng 
+Phần hiệu năng
 thực sự của SQL ^do4g2kAz
 
 3 ^AVa1yaKH
 
 %%
+
 ## Drawing
+
 ```compressed-json
 N4KAkARALgngDgUwgLgAQQQDwMYEMA2AlgCYBOuA7hADTgQBuCpAzoQPYB2KqATLZMzYBXUtiRoIACyhQ4zZAHoFAc0JRJQgEYA6bGwC2CgF7N6hbEcK4OCtptbErHALRY8RMpWdx8Q1TdIEfARcZgRmBShcZR5tHgAWOJo6IIR9BA4oZm4AbXAwUDAiiBJuCABJZXwAa3xlAAYAKWSiyFhEMsDsKI4qpH5izG5nADYADhHtEfGxgEZ6ngBmAFZF
 
@@ -279,4 +278,5 @@ EBbpAxcKmCN4E6gDLN49YoNDGCFNAi65tApM3hH9slrQiFwktEMOPA+gJKDkgpAAOBcoUw26AzDpAHMM
 
 6pwytDGChkoiq2aBw7gDb9OUsSN9DrjkySYA/w48OJhxw6+BXMpSMkiPmybaIjfg5YEAA===
 ```
+
 %%

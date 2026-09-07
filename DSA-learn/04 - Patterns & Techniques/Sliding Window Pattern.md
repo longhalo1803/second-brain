@@ -21,6 +21,7 @@ aliases:
 ---
 
 ## 1. Bản Chất Cốt Lõi (Mental Model)
+
 - **Mục tiêu:** Tối ưu các bài toán tìm kiếm trên **dãy con liên tiếp (contiguous subarray / substring)** từ $O(n^2)$ hoặc $O(n \cdot k)$ xuống [[O(n) - Linear Time\|$O(n)$]].
 - **Ý tưởng:** Duy trì một "cửa sổ" `[left..right]` trượt dần trên mảng:
   - Khi dịch chuyển cửa sổ sang phải 1 bước: Ta chỉ cần **cộng thêm phần tử mới bước vào** và **trừ đi phần tử vừa trượt ra khỏi cửa sổ**, thay vì phải tính toán lại toàn bộ các phần tử bên trong từ đầu.
@@ -34,33 +35,34 @@ aliases:
 
 ```typescript
 function dynamicSlidingWindow(s: string): number {
-    let left = 0;
-    let maxLen = 0;
-    const charMap = new Map<string, number>(); // Lưu tần suất hoặc vị trí ký tự
-    
-    for (let right = 0; right < s.length; right++) {
-        // 1. Nạp phần tử mới vào cửa sổ (Mở rộng bên phải)
-        const char = s[right];
-        charMap.set(char, (charMap.get(char) || 0) + 1);
-        
-        // 2. Co hẹp cửa sổ từ bên trái nếu vi phạm điều kiện
-        while (/* conditionViolated */ false) {
-            const leftChar = s[left];
-            charMap.set(leftChar, charMap.get(leftChar)! - 1);
-            left++;
-        }
-        
-        // 3. Cập nhật kết quả tối ưu
-        maxLen = Math.max(maxLen, right - left + 1);
+  let left = 0;
+  let maxLen = 0;
+  const charMap = new Map<string, number>(); // Lưu tần suất hoặc vị trí ký tự
+
+  for (let right = 0; right < s.length; right++) {
+    // 1. Nạp phần tử mới vào cửa sổ (Mở rộng bên phải)
+    const char = s[right];
+    charMap.set(char, (charMap.get(char) || 0) + 1);
+
+    // 2. Co hẹp cửa sổ từ bên trái nếu vi phạm điều kiện
+    while (/* conditionViolated */ false) {
+      const leftChar = s[left];
+      charMap.set(leftChar, charMap.get(leftChar)! - 1);
+      left++;
     }
-    
-    return maxLen;
+
+    // 3. Cập nhật kết quả tối ưu
+    maxLen = Math.max(maxLen, right - left + 1);
+  }
+
+  return maxLen;
 }
 ```
 
 ---
 
 ## 🧠 Thẻ Ghi Nhớ Nhanh (Spaced Repetition)
+
 Dấu hiệu nhận biết bài toán cần áp dụng Sliding Window là gì? #card
 ?
 Khi đề bài yêu cầu tìm kiếm, đếm hoặc tính toán trên một **dãy con liên tiếp (Contiguous Subarray / Substring)** lớn nhất, nhỏ nhất hoặc thỏa mãn một điều kiện số lượng.

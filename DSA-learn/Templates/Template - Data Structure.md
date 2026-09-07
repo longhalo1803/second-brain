@@ -18,20 +18,21 @@ aliases:
 ---
 
 ## 1. Bản Chất Cốt Lõi (Mental Model)
-- **Định nghĩa:** 
-- **Hình dung sinh động:** 
-- **Cách tổ chức trong bộ nhớ (Memory Layout):** *(Contiguous Array, Node Con trỏ, Hash Bucket...)*
+
+- **Định nghĩa:**
+- **Hình dung sinh động:**
+- **Cách tổ chức trong bộ nhớ (Memory Layout):** _(Contiguous Array, Node Con trỏ, Hash Bucket...)_
 
 ---
 
 ## 2. Bảng Độ Phức Tạp (Complexity Sheet)
 
-| Thao Tác (Operation) | Thời Gian Trung Bình (Average) | Thời Gian Xấu Nhất (Worst) | Không Gian Bộ Nhớ (Space) |
-| :--- | :--- | :--- | :--- |
-| **Truy cập (Access / Read)** | `O(?)` | `O(?)` | `O(1)` |
-| **Tìm kiếm (Search)** | `O(?)` | `O(?)` | `O(1)` |
-| **Chèn (Insert)** | `O(?)` | `O(?)` | `O(1)` |
-| **Xóa (Delete)** | `O(?)` | `O(?)` | `O(1)` |
+| Thao Tác (Operation)         | Thời Gian Trung Bình (Average) | Thời Gian Xấu Nhất (Worst) | Không Gian Bộ Nhớ (Space) |
+| :--------------------------- | :----------------------------- | :------------------------- | :------------------------ |
+| **Truy cập (Access / Read)** | `O(?)`                         | `O(?)`                     | `O(1)`                    |
+| **Tìm kiếm (Search)**        | `O(?)`                         | `O(?)`                     | `O(1)`                    |
+| **Chèn (Insert)**            | `O(?)`                         | `O(?)`                     | `O(1)`                    |
+| **Xóa (Delete)**             | `O(?)`                         | `O(?)`                     | `O(1)`                    |
 
 ---
 
@@ -39,14 +40,15 @@ aliases:
 
 - 🟢 **Ưu điểm lớn nhất (Superpower):**
 - 🔴 **Nhược điểm lớn nhất (Kryptonite / Weakness):**
-- ⚖️ **So sánh đối trọng:** 
+- ⚖️ **So sánh đối trọng:**
   - So với `Cấu trúc khác`: Khi nào nên dùng <% tp.file.title %> và khi nào nên dùng cấu trúc kia?
 
 ---
 
 ## 4. Ứng Dụng Thực Tế & Thiết Kế Hệ Thống (System Architect)
-- **Hệ điều hành / Database:** 
-- **Các bài toán thực tế:** 
+
+- **Hệ điều hành / Database:**
+- **Các bài toán thực tế:**
 
 ---
 
@@ -54,33 +56,36 @@ aliases:
 
 ```typescript
 class CustomDataStructure<T> {
-    // Cài đặt cấu trúc dữ liệu bằng TypeScript
-    private items: T[];
+  // Cài đặt cấu trúc dữ liệu bằng TypeScript
+  private items: T[];
 
-    constructor() {
-        this.items = [];
-    }
+  constructor() {
+    this.items = [];
+  }
 
-    public push(item: T): void {
-        this.items.push(item);
-    }
+  public push(item: T): void {
+    this.items.push(item);
+  }
 
-    public pop(): T | undefined {
-        return this.items.pop();
-    }
+  public pop(): T | undefined {
+    return this.items.pop();
+  }
 }
 ```
 
 ---
 
 ## 6. Các Mẫu Bài Toán & LeetCode Điển Hình (Patterns & Problems)
+
 - [[Two Pointers Pattern]]
 - `[[Problem Example]]`
 
 ---
 
 ## 🧠 Thẻ Ghi Nhớ Nhanh (Spaced Repetition)
+
 Điểm mạnh và điểm yếu cốt lõi của <% tp.file.title %> là gì? #card
 ?
+
 - Điểm mạnh: ...
 - Điểm yếu: ...
