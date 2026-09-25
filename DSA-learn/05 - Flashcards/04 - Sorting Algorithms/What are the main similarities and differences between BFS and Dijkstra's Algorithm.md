@@ -31,6 +31,6 @@ aliases:
 
 - **Non-final distances:** in BFS, a node's distance is computed only once as soon as it is discovered. In Dijkstra, discovered nodes have provisional distances that can be reduced later.
 - **Selection criterion:** at each step, Dijkstra chooses the discovered but not yet _visited_ node with the **minimum** $\textsf{dist}[\cdot]$ value.
-- **Update (_**relaxation**_):** the distance $\textsf{dist}[u]$ is updated whenever a shorter path to $u$ is found.📌 Remember: a node is visited
+- **Update (_**relaxation**\_):** the distance $\textsf{dist}[u]$ is updated whenever a shorter path to $u$ is found.📌 Remember: a node is visited
   when we have
   explored all of its neighbors.

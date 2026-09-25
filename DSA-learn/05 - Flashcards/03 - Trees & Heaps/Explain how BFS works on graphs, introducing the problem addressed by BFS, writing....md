@@ -26,24 +26,24 @@ aliases:
 - **Problem addressed:**
   Breadth-First Search (BFS) systematically explores the vertices of a graph $G=(V,E)$ starting from a source $s$, visiting all nodes at distance $k$ from $s$ before exploring any node at distance $k+1$. It solves the problem of finding the shortest distance (in terms of number of edges) from $s$ to all reachable nodes.
 - **Pseudocode and commentary:**`BFS(G, s):
-  for each u in V - {s}:
-      color[u] = WHITE        // unvisited
-      d[u] = INFINITY         // distance from s
-      pi[u] = NIL             // predecessor in BFS tree
-  color[s] = GRAY             // visited but not finished
-  d[s] = 0
-  pi[s] = NIL
-  Q = EmptyQueue()
-  Enqueue(Q, s)               // FIFO management
-  while Q is not empty:
-      u = Dequeue(Q)
-      for each v in Adjacent[u]:
-          if color[v] == WHITE:
-              color[v] = GRAY
-              d[v] = d[u] + 1
-              pi[v] = u
-              Enqueue(Q, v)
-      color[u] = BLACK        // exploration finished
+for each u in V - {s}:
+    color[u] = WHITE        // unvisited
+    d[u] = INFINITY         // distance from s
+    pi[u] = NIL             // predecessor in BFS tree
+color[s] = GRAY             // visited but not finished
+d[s] = 0
+pi[s] = NIL
+Q = EmptyQueue()
+Enqueue(Q, s)               // FIFO management
+while Q is not empty:
+    u = Dequeue(Q)
+    for each v in Adjacent[u]:
+        if color[v] == WHITE:
+            color[v] = GRAY
+            d[v] = d[u] + 1
+            pi[v] = u
+            Enqueue(Q, v)
+    color[u] = BLACK        // exploration finished
 `_Commentary_: The fundamental data structure is the **FIFO** queue $Q$. It ensures that nodes are dequeued strictly in order of their distance from $s$. Colors prevent redundant re-explorations and infinite loops.
 - **Use for shortest paths with equal edge weights:**
 - **When:** When the graph has uniform edge weights (e.g., all edges have unit weight or the same constant $c > 0$).
