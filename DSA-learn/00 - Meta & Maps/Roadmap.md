@@ -10,6 +10,10 @@ updated: 2026-08-27
 aliases:
   - Lộ trình DSA
   - DSA Roadmap
+difficulty: fundamental
+sources:
+  - "[[CLRS - Introduction to Algorithms]]"
+cross_domain: []
 ---
 
 # 📋 Lộ Trình Học DSA Cho Kỹ Sư & Kiến Trúc Sư Hệ Thống
@@ -56,7 +60,7 @@ _Đây là nền tảng của lưu trữ dữ liệu. Hãy tạo các thẻ và 
 - 🔁 **Kỹ thuật Đệ quy & Ghi nhớ:** [[Recursion & Memoization|Đệ quy (Recursion) & Ghi nhớ (Memoization)]] — Cấu trúc bắt buộc gồm Base case (điều kiện dừng) và Recursive case. Phân tích chi phí Call Stack trong [[Space Complexity]].
 - 🧩 **Quy hoạch động toàn diện (Dynamic Programming):** [[Dynamic Programming|Quy hoạch động (Dynamic Programming - DP)]] — Triết lý không tính lại những gì đã biết, Top-Down (Memoization) vs Bottom-Up (Tabulation), tối ưu không gian về $O(1)$, bài toán lưới 2D Unique Paths, trùm cuối 0/1 Knapsack và khung 3 bước giải quyết mọi bài toán DP.
 - 🪙 **Thuật toán Tham lam (Greedy Algorithm):** [[Greedy Algorithm|Thuật toán Tham lam (Greedy Algorithm)]] — Quyết định tối ưu cục bộ tức thời, 2 điều kiện sống còn (Greedy Choice Property & Optimal Substructure), ứng dụng xếp lịch phòng họp, Fractional Knapsack vs 0/1 Knapsack, và so sánh đối đầu cùng Dynamic Programming.
-- 📊 **Thuật toán sắp xếp cơ sở ($O(n^2)$):** `[[Bubble Sort]]`, `[[Selection Sort]]`, `[[Insertion Sort]]`. Biết để hiểu lý do tại sao chúng quá chậm khi dữ liệu chạm mốc hàng triệu bản ghi và không được dùng trong hệ thống thực tế.
+- 📊 **Thuật toán sắp xếp cơ sở ($O(n^2)$):** [[Bubble Sort]], [[Selection Sort]], [[Insertion Sort]]. Biết để hiểu lý do tại sao chúng quá chậm khi dữ liệu chạm mốc hàng triệu bản ghi và không được dùng trong hệ thống thực tế.
 
 ---
 
@@ -88,7 +92,7 @@ _Học các cấu trúc dữ liệu kết hợp và chuyên biệt giải quyế
 
 - 🏔️ [[Binary Heap & Priority Queue|Cấu trúc Heap (Min/Max Heap)]]: Luôn đẩy phần tử ưu tiên nhất lên đỉnh trong $O(1)$, cập nhật $O(\log n)$. _Ứng dụng:_ Task scheduler CPU, Top-K elements, giải thuật Dijkstra.
 - 🕸️ [[Graph Representations & Traversal|Đồ thị (Graphs)]]: Giải quyết dữ liệu mạng lưới chằng chịt (Social Network, Google Maps). Học cách duyệt theo chiều sâu (DFS - dùng Stack) và duyệt theo chiều rộng (BFS - dùng Queue).
-- 🔗 `[[Disjoint Set Union (DSU)]]`: Tìm mối liên kết trong hàng triệu nhóm dữ liệu với kỹ thuật Path Compression.
+- 🔗 [[Disjoint Set Union (DSU)]]: Tìm mối liên kết trong hàng triệu nhóm dữ liệu với kỹ thuật Path Compression.
 - 🌸 [[Bloom Filter|Bộ lọc Bloom (Bloom Filter)]]: Cấu trúc xác suất tốn cực ít RAM. Trả lời CHẮC CHẮN KHÔNG (100%) hoặc CÓ THỂ CÓ (sai số nhỏ). _Ứng dụng:_ Web cache, phòng ngừa cache penetration, chặn URL độc hại.
 - 🔄 [[LRU Cache|Bộ nhớ đệm LRU (LRU Cache)]]: Kết hợp Hash Table ($O(1)$) + Doubly Linked List (giữ thứ tự). Quyết định loại bỏ dữ liệu ít dùng nhất khi bộ nhớ đầy.
 

@@ -1,17 +1,22 @@
 ---
+title: Độ Phức Tạp Không Gian (Space Complexity)
+aliases:
+  - Space Complexity
+  - Độ phức tạp không gian
+  - Auxiliary Space
 tags:
   - dsa
   - big-o
   - space-complexity
 stage: 1
-type: mental-model
+type: principle
+difficulty: fundamental
 status: completed
 created: 2026-08-24
-updated: 2026-08-27
-aliases:
-  - Space Complexity
-  - Độ phức tạp không gian
-  - Auxiliary Space
+updated: 2026-10-01
+sources:
+  - "[[CLRS - Introduction to Algorithms]]"
+cross_domain: []
 ---
 
 # 💾 Độ Phức Tạp Không Gian (Space Complexity)
@@ -20,37 +25,90 @@ aliases:
 
 ---
 
-## 1. Bản Chất Cốt Lõi (Mental Model)
+## 1. Bản Đồ Khái Niệm (Mermaid DAG)
 
-- **Không phải kích thước dữ liệu gốc (Input Size):** Rất nhiều người nhầm lẫn rằng bộ nhớ chứa mảng đầu vào được tính vào Space Complexity. Thực chất, Space Complexity (hay chuẩn xác hơn là **Auxiliary Space / Working Storage**) đo lường **lượng RAM phụ trợ mà thuật toán tự động sinh thêm ra trong quá trình tính toán**.
-- **Đo lường sự phình to theo $N$:** Đánh giá xem khi quy mô dữ liệu đầu vào ($n$) tăng gấp bội, thuật toán sẽ tiêu tốn thêm bao nhiêu ô nhớ trong trường hợp xấu nhất (Worst-case).
-- **Nguy cơ tiềm ẩn:** Nếu không kiểm soát Space Complexity, hệ thống sẽ gặp các lỗi nghiêm trọng như `Out of Memory (OOM)` làm sập process, hoặc tràn ngăn xếp cuộc gọi `Stack Overflow` khi gọi đệ quy quá sâu.
-
----
-
-## 2. Các Cấp Độ Space Complexity Thường Gặp
-
-| Cấp Độ                                             | Tên Gọi & Hành Vi                                                                                                          | Ví Dụ Điển Hình                                                                                                                         |
-| :------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------- |
-| [[O(1) - Constant Time\|$O(1)$ Space]]             | **Hoạt động tại chỗ (In-place):** Bộ nhớ phụ trợ cố định, chỉ dùng vài biến con trỏ hoặc biến tạm.                         | Tìm kiếm nhị phân dạng vòng lặp (Iterative [[Binary Search]]), kỹ thuật [[Two Pointers Pattern\|Hai con trỏ]].                          |
-| [[O(log n) - Logarithmic Time\|$O(\log n)$ Space]] | **Chi phí ẩn của Ngăn xếp gọi hàm (Call Stack):** Mỗi lần đệ quy chia đôi dữ liệu, hệ thống lưu một stack frame trong RAM. | Đệ quy [[Binary Search]], đệ quy [[Quick Sort]].                                                                                        |
-| [[O(n) - Linear Time\|$O(n)$ Space]]               | **Cấp phát cấu trúc dữ liệu mới có kích thước tỷ lệ với $N$:** Tạo mảng phụ, bảng băm hoặc danh sách mới.                  | [[Merge Sort]] (cần mảng phụ để merge), khởi tạo [[Hash Table & HashSet\|Hash Table]] để lưu $n$ phần tử, BFS [[Queue & Deque\|Queue]]. |
-| [[O(n^2) - Quadratic Time\|$O(n^2)$ Space]]        | **Ma trận lưới $N \times N$:** Cấp phát bảng 2 chiều.                                                                      | Biểu diễn [[Graph Representations & Traversal\|Đồ thị bằng Ma trận kề (Adjacency Matrix)]] kích thước $V \times V$.                     |
+```mermaid
+graph TD
+    TotalSpace["Tổng Không Gian Bộ Nhớ (Total Space)"] --> InputSpace["1. Input Space: Bộ nhớ chứa dữ liệu đầu vào (Cố định theo bài toán)"]
+    TotalSpace --> AuxSpace["2. Auxiliary Space (Bộ nhớ phụ trợ - Đo bằng Space Complexity)"]
+    
+    AuxSpace --> StackMem["Ngăn Xếp Gọi Hàm (Call Stack Frame): Đệ quy O(depth)"]
+    AuxSpace --> HeapMem["Vùng Nhớ Động (Heap Space): Biến tạm, Mảng phụ, Hash Table, Queue"]
+    
+    StackMem --> Risk1["Rủi ro: Stack Overflow (SIGSEGV) khi vượt quá ulimit -s"]
+    HeapMem --> Risk2["Rủi ro: Out of Memory (OOM Killer) khi RAM cạn kiệt"]
+```
 
 ---
 
-## 3. Bản Chất Trade-off: Đánh Đổi RAM Lấy Tốc Độ
+## 2. Chân Lý Vô Điều Kiện (First Principles)
 
-Xem chi tiết ví dụ minh họa chiếc hộp thứ 3 tại [[Time Complexity#3. Trade-off (Sự Đánh Đổi) giữa Time Complexity và Space Complexity|Time vs Space Trade-off]].
-
-Khi tối ưu hóa thuật toán:
-
-- Muốn tốc độ nhanh: Cấp phát thêm bộ nhớ phụ như [[Hash Table & HashSet|Hash Table]], [[Recursion & Memoization|Bảng ghi nhớ Memoization]] để đưa thời gian từ $O(n^2) \to O(n)$.
-- Khi bộ nhớ bị giới hạn nghiêm ngặt ($O(1)$ Space bắt buộc): Không được dùng Hash Table. Thay vào đó, ta sử dụng các kỹ thuật xử lý tại chỗ như sắp xếp In-place hoặc [[Two Pointers Pattern|Hai con trỏ]].
+> [!NOTE] Tiên Đề Bộ Nhớ Phụ Trợ (Auxiliary Space) & Giới Hạn Phần Cứng
+> **Space Complexity của một thuật toán chỉ đo lường lượng bộ nhớ RAM phụ trợ phát sinh trong quá trình chạy, KHÔNG tính kích thước của tập dữ liệu đầu vào:**
+> $$ \text{Total Space}(n) = \text{Input Space}(n) + \text{Auxiliary Space}(n) $$
+>
+> 1. **Thuật toán tại chỗ (In-place Algorithm):** Khi một thuật toán chỉ sử dụng một số lượng biến cố định ($O(1)$ Auxiliary Space) để biến đổi trực tiếp trên mảng đầu vào (như [[Quick Sort]], [[Two Pointers Pattern]]), nó đạt mức an toàn bộ nhớ cao nhất.
+> 2. **Hậu quả vận hành:** Bộ nhớ RAM là hữu hạn. Khi tiến trình sử dụng bộ nhớ vượt quá ngưỡng cgroup hoặc RAM vật lý, nhân Linux sẽ kích hoạt ****Linux OOM Killer**** gửi tín hiệu `SIGKILL` tiêu diệt tiến trình ngay lập tức.
 
 ---
 
-## 4. Lời Khuyên Của Kiến Trúc Sư Hệ Thống (Architect's Note)
+## 3. Trực Giác Motivated Discovery
+
+> [!TIP] Động Lực 3Blue1Brown: Xưởng Mộc Của Bác Thợ
+> Bạn có một khúc gỗ lim nặng 100kg cần đẽo thành chiếc ghế:
+>
+> - **Input Space:** Khúc gỗ 100kg là vật liệu có sẵn mang đến xưởng (dữ liệu đầu vào). Dù bạn có làm gì thì khúc gỗ đó vẫn ở đó.
+> - **Auxiliary Space (Space Complexity):** Là diện tích mặt bàn và số lượng xô chậu bác thợ phải kê thêm trong xưởng để đựng vỏ bào, mạt cưa, keo dán trong lúc đẽo ghế.
+>   - Bác thợ khéo tay đẽo trực tiếp trên khúc gỗ, không kê thêm bàn nào $\to O(1)$ In-place!
+>   - Bác thợ khác phải kê thêm 10 chiếc bàn phụ bằng đúng kích thước khúc gỗ để dán từng miếng ghép $\to O(n)$ Space!
+
+---
+
+## 4. Các Cấp Độ Space Complexity Thường Gặp
+
+| Cấp Độ | Tên Gọi & Hành Vi | Ví Dụ Điển Hình |
+| :--- | :--- | :--- |
+| [[O(1) - Constant Time\|$O(1)$ Space]] | **Tại chỗ (In-place):** Bộ nhớ phụ cố định, chỉ dùng vài biến con trỏ. | [[Binary Search]] vòng lặp, [[Two Pointers Pattern]]. |
+| [[O(log n) - Logarithmic Time\|$O(\log n)$ Space]] | **Chi phí Call Stack:** Mỗi lần chia đôi dữ liệu lưu 1 stack frame. | Đệ quy [[Binary Search]], đệ quy [[Quick Sort]]. |
+| [[O(n) - Linear Time\|$O(n)$ Space]] | **Cấp phát cấu trúc dữ liệu mới theo $N$:** Mảng phụ, bảng băm. | [[Merge Sort]] (mảng phụ merge), [[Hash Table & HashSet]]. |
+| [[O(n^2) - Quadratic Time\|$O(n^2)$ Space]] | **Bảng lưới $N \times N$:** Ma trận hai chiều. | [[Graph Representations & Traversal\|Ma trận kề (Adjacency Matrix)]] $V \times V$. |
+
+---
+
+## 5. Minh Họa Mã Nguồn (TypeScript)
+
+So sánh giải thuật đảo mảng $O(1)$ Space (In-place) vs $O(n)$ Space (Cấp phát mảng mới):
+
+```typescript
+// 1. O(1) Space: Đảo mảng tại chỗ bằng Two Pointers (Không tốn thêm RAM)
+export function reverseInPlace(nums: number[]): void {
+  let left = 0;
+  let right = nums.length - 1;
+
+  while (left < right) {
+    const temp = nums[left];
+    nums[left] = nums[right];
+    nums[right] = temp;
+    left++;
+    right--;
+  }
+}
+
+// 2. O(n) Space: Tạo mảng mới sao chép toàn bộ phần tử
+export function reverseWithExtraMemory(nums: number[]): number[] {
+  const result: number[] = new Array(nums.length); // Cấp phát thêm n ô nhớ trên Heap!
+
+  for (let i = 0; i < nums.length; i++) {
+    result[i] = nums[nums.length - 1 - i];
+  }
+
+  return result;
+}
+```
+
+---
+
+## 6. Lời Khuyên Của Kiến Trúc Sư Hệ Thống (Architect's Note)
 
 1. **Cẩn trọng với Đệ Quy (Recursion Stack):** Code đệ quy thanh lịch và ngắn gọn, nhưng mỗi tầng đệ quy tốn một Stack Frame trong RAM. Nếu số tầng đệ quy lên tới hàng chục nghìn, chương trình sẽ crash ngay lập tức vì `Stack Overflow`. Luôn cân nhắc chuyển sang dạng vòng lặp (Iterative) khi làm việc với dữ liệu lớn.
 2. **Cơ chế ngôn ngữ lập trình (Tail Call Optimization):** Một số ngôn ngữ như Swift hay C++ hỗ trợ tối ưu đệ quy đuôi (Tail Call Optimization), nhưng các ngôn ngữ như Python hay JavaScript mặc định không tối ưu Call Stack. Hãy thấu hiểu runtime của ngôn ngữ bạn đang dùng.
@@ -59,9 +117,10 @@ Khi tối ưu hóa thuật toán:
 
 ## 🧠 Thẻ Ghi Nhớ Nhanh (Spaced Repetition)
 
-Phân biệt Space Complexity và Auxiliary Space? #card
+Space Complexity đo lường điều gì và có tính kích thước mảng đầu vào không? #card
 ?
-**Space Complexity** = Bộ nhớ dữ liệu đầu vào (Input) + Bộ nhớ phụ trợ (Auxiliary Space). Khi đánh giá hiệu quả thuật toán, các kỹ sư thường tập trung vào **Auxiliary Space** (bộ nhớ phát sinh thêm do thuật toán yêu cầu).
-Tại sao thuật toán đệ quy lại tiêu tốn bộ nhớ ngay cả khi không khai báo mảng mới? #card
+Space Complexity (Auxiliary Space) chỉ đo lượng bộ nhớ phụ trợ mà thuật toán tự sinh thêm trong quá trình tính toán (biến tạm, cấu trúc dữ liệu mới, call stack). Nó **hoàn toàn KHÔNG tính** kích thước của dữ liệu đầu vào.
+
+Tại sao Merge Sort lại tốn $O(n)$ Space trong khi Quick Sort chỉ tốn $O(\log n)$ Space? #card
 ?
-Vì mỗi lần hàm đệ quy tự gọi chính nó, hệ điều hành phải cấp phát một **Stack Frame** trong Call Stack để lưu trữ địa chỉ trả về và các biến cục bộ, dẫn đến độ phức tạp không gian ít nhất là $O(\text{chiều sâu đệ quy})$.
+Vì Merge Sort bắt buộc phải cấp phát một mảng tạm thời kích thước $N$ để hòa trộn (merge) hai nửa mảng đã sắp xếp, trong khi Quick Sort phân hoạch tại chỗ (In-place) và chỉ tiêu tốn bộ nhớ ngăn xếp cuộc gọi (Call Stack) tương ứng với chiều cao cây đệ quy $O(\log n)$.

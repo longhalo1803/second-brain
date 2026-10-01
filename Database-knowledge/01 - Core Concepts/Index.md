@@ -52,7 +52,7 @@ flowchart TD
     end
 
     subgraph ACCESS["4. Phương Thức Vận Hành"]
-        CLUST & SECOND --> SEEK["[[Index Seek]]: Duyệt dọc O(log_B N)"]
+        CLUST & SECOND --> SEEK["Index Seek: Duyệt dọc O(log_B N)"]
         CLUST & SECOND --> SCAN["Index Scan: Trượt ngang Leaf"]
         SEEK --> COVER["Covering Index: Triệt tiêu Bookmark Lookup"]
     end

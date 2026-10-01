@@ -4,7 +4,7 @@ tags:
   - data-structure
   - linear
 stage: 2
-type: data-structure
+type: concept
 status: completed
 created: 2026-08-27
 updated: 2026-08-27
@@ -14,6 +14,10 @@ aliases:
   - Doubly Linked List
   - Danh sách liên kết
   - Linked Lists
+difficulty: fundamental
+sources:
+  - "[[CLRS - Introduction to Algorithms]]"
+cross_domain: []
 ---
 
 # 🔗 Danh Sách Liên Kết (Linked List)
@@ -22,28 +26,65 @@ aliases:
 
 ---
 
-## 1. Bản Chất Cốt Lõi (Mental Model)
+## 1. Bản Đồ Khái Niệm (Mermaid DAG)
+
+```mermaid
+graph TD
+    LL["Danh Sách Liên Kết (Linked List)"] --> SLL["1. Singly Linked List (1 Chiều)"]
+    LL --> DLL["2. Doubly Linked List (2 Chiều)"]
+    
+    SLL --> SLL_Node["Node: [Value | Next*]"]
+    SLL_Node --> SLL_Ops["Thao tác: Prepend O(1), Append O(1), Shift O(1), Pop O(n)"]
+    
+    DLL --> DLL_Node["Node: [*Prev | Value | Next*]"]
+    DLL_Node --> DLL_Ops["Thao tác: Prepend O(1), Append O(1), Shift O(1), Pop O(1)"]
+    
+    SLL_Ops & DLL_Ops --> Sys["Hệ thống: LRU Cache, B+Tree Leaf Chaining, Memory Free List"]
+```
+
+---
+
+## 2. Chân Lý Vô Điều Kiện (First Principles)
+
+> [!NOTE] Tiên Đề Bộ Nhớ Phi Liên Tục & Chi Phí Con Trỏ (Pointer Overhead)
+> **Linked List tổ chức các nút (Node) nằm rải rác trên vùng nhớ Heap, liên kết với nhau bằng con trỏ địa chỉ bộ nhớ:**
+>
+> 1. **Triệt tiêu chi phí cấp phát liên tục:** Khác với [[Array & Dynamic Array]], việc chèn/xóa phần tử khi đã có con trỏ chỉ tốn đúng **$\Theta(1)$** mà không cần dịch chuyển dữ liệu hay tái cấp phát mảng.
+> 2. **Cái giá phải trả của con trỏ (Cache Locality):** 
+>    - Mỗi node tốn thêm $8$ bytes (Singly) hoặc $16$ bytes (Doubly trên hệ thống 64-bit) để lưu con trỏ.
+>    - Các node nằm rải rác trong RAM làm mất tính định xứ không gian (**Spatial Locality**), khiến tỷ lệ CPU Cache Miss cao hơn đáng kể so với Mảng khi duyệt tuần tự.
+
+---
+
+## 3. Trực Giác Motivated Discovery
+
+> [!TIP] Động Lực 3Blue1Brown: Trò Chơi Đi Tìm Kho Báu Bằng Manh Mối
+> Bạn tham gia một trò chơi săn kho báu:
+>
+> Tại điểm xuất phát (`Head`), bạn nhận được mảnh giấy ghi: *"Manh mối 1 ở gốc cây sồi, manh mối tiếp theo ở đáy giếng"*. Bạn tới đáy giếng, nhặt mảnh giấy ghi: *"Manh mối 2 ở chuồng ngựa, tiếp theo ở gác chuông"*.
+>
+> Bạn không thể nhảy một bước tới gác chuông (không có Random Access $O(1)$) vì bạn không biết gác chuông nằm ở đâu nếu chưa mở mảnh giấy ở đáy giếng! Nhưng nếu muốn chèn thêm một trạm dừng vào giữa gốc cây và đáy giếng, bạn chỉ cần sửa nội dung mảnh giấy tại gốc cây trong $O(1)$!
+
+---
+
+## 4. Bản Chất Cốt Lõi (Mental Model)
 
 - **Định nghĩa:** Là tập hợp các nút (Node) nằm rải rác bất kỳ đâu trong bộ nhớ RAM, được kết nối với nhau thông qua các **con trỏ tham chiếu (Pointers)**. Mỗi Node gồm 2 phần: `Value` (Dữ liệu) và `Next` (Địa chỉ node tiếp theo).
 - **Phân loại:**
   - _Singly Linked List:_ Con trỏ 1 chiều (`Node -> Next`).
   - _Doubly Linked List:_ Con trỏ 2 chiều (`Node -> Prev` và `Node -> Next`).
-- **Hình dung:** Giống như một đoàn tàu lửa nối toa bằng các móc xích, hoặc trò chơi săn kho báu: mỗi manh mối chỉ chứa dữ liệu và một tấm bản đồ chỉ đường tới vị trí của manh mối tiếp theo.
+- **Hình dung:** Giống như một đoàn tàu lửa nối toa bằng các móc xích, hoặc trò chơi săn kho báu.
 
 ---
 
-![[Pasted image 20260907115804.png]]
+## 5. Bảng Độ Phức Tạp (Complexity Sheet)
 
-![[Pasted image 20260907115642.png]]
-
-## 2. Bảng Độ Phức Tạp (Complexity Sheet)
-
-| Thao Tác                         | Linked List                      | So Với [[Array & Dynamic Array\|Array]] | Ghi Chú                            |
+| Thao Tác                         | Linked List                      | So Với [[Array & Dynamic Array|Array]] | Ghi Chú                            |
 | :------------------------------- | :------------------------------- | :-------------------------------------- | :--------------------------------- |
-| **Truy cập qua Index ($k$)**     | [[O(n) - Linear Time\|$O(n)$]]   | 🟢 Array ($O(1)$)                       | Phải duyệt tuần tự từ đầu (`head`) |
-| **Tìm kiếm giá trị**             | [[O(n) - Linear Time\|$O(n)$]]   | 🟡 Bằng nhau                            | Duyệt từng node                    |
-| **Chèn/Xóa ở đầu (`head`)**      | [[O(1) - Constant Time\|$O(1)$]] | 🔴 Array ($O(n)$)                       | Chỉ cần đổi con trỏ `head`         |
-| **Chèn/Xóa tại con trỏ đã biết** | [[O(1) - Constant Time\|$O(1)$]] | 🔴 Array ($O(n)$)                       | Không cần dịch chuyển ô nhớ        |
+| **Truy cập qua Index ($k$)**     | [[O(n) - Linear Time|$O(n)$]]   | 🟢 Array ($O(1)$)                       | Phải duyệt tuần tự từ đầu (`head`) |
+| **Tìm kiếm giá trị**             | [[O(n) - Linear Time|$O(n)$]]   | 🟡 Bằng nhau                            | Duyệt từng node                    |
+| **Chèn/Xóa ở đầu (`head`)**      | [[O(1) - Constant Time|$O(1)$]] | 🔴 Array ($O(n)$)                       | Chỉ cần đổi con trỏ `head`         |
+| **Chèn/Xóa tại con trỏ đã biết** | [[O(1) - Constant Time|$O(1)$]] | 🔴 Array ($O(n)$)                       | Không cần dịch chuyển ô nhớ        |
 
 ---
 
@@ -98,7 +139,7 @@ aliases:
 
 > [!NOTE] 🟢 Singly Linked List: Node 1 Chiều
 >
-> ```javascript
+> ```typescript
 > export class Node {
 >   constructor(value) {
 >     this.value = value;
@@ -109,7 +150,7 @@ aliases:
 
 > [!TIP] 🔵 Doubly Linked List: Node 2 Chiều
 >
-> ```javascript
+> ```typescript
 > export class Node {
 >   constructor(value) {
 >     this.value = value;
@@ -125,7 +166,7 @@ aliases:
 
 > [!NOTE] 🟢 Singly Linked List: $O(n)$ do Bắt Buộc Duyệt Tìm Node Áp Chót
 >
-> ```javascript
+> ```typescript
 > pop() {
 >   if (!this.head) return null;
 >   let current = this.head;
@@ -150,7 +191,7 @@ aliases:
 
 > [!TIP] 🔵 Doubly Linked List: $O(1)$ Tức Thời Nhờ Con Trỏ `prev`
 >
-> ```javascript
+> ```typescript
 > pop() {
 >   if (!this.tail) return null;
 >   const removedNode = this.tail;
@@ -175,7 +216,7 @@ aliases:
 
 > [!NOTE] 🟢 Singly Linked List: $O(n)$ Duyệt Xuôi 1 Chiều Từ Head
 >
-> ```javascript
+> ```typescript
 > get(index) {
 >   if (index < 0 || index >= this.length) return null;
 >   let current = this.head;
@@ -190,7 +231,7 @@ aliases:
 
 > [!TIP] 🔵 Doubly Linked List: $O(n/2)$ Phân Nhánh Đi Từ Đầu Gần Hơn
 >
-> ```javascript
+> ```typescript
 > get(index) {
 >   if (index < 0 || index >= this.length) return null;
 >   let current, count;
@@ -222,7 +263,7 @@ aliases:
 
 > [!NOTE] 🟢 Singly Linked List: Thuật Toán 3 Con Trỏ (`prev`, `current`, `next`)
 >
-> ```javascript
+> ```typescript
 > reverse() {
 >   let current = this.head;
 >   this.head = this.tail;
@@ -242,7 +283,7 @@ aliases:
 
 > [!TIP] 🔵 Doubly Linked List: Hoán Đổi Hai Con Trỏ `next` $\rightleftarrows$ `prev`
 >
-> ```javascript
+> ```typescript
 > reverse() {
 >   if (!this.head) return this;
 >   let current = this.head;
@@ -297,7 +338,7 @@ aliases:
 
 > [!example]- 💻 Bấm để xem mã nguồn chi tiết: `SinglyLinkedList.js`
 >
-> ```javascript
+> ```typescript
 > // SinglyLinkedList.js
 >
 > export class Node {
@@ -477,7 +518,7 @@ aliases:
 
 > [!tip]- 💻 Bấm để xem mã nguồn chi tiết: `DoublyLinkedList.js`
 >
-> ```javascript
+> ```typescript
 > // DoublyLinkedList.js
 >
 > export class Node {
@@ -678,7 +719,7 @@ aliases:
 
 > [!note]- 🧪 Bấm để xem code chạy thử và output console: `index.js`
 >
-> ```javascript
+> ```typescript
 > // index.js
 > import { SinglyLinkedList } from "./SinglyLinkedList.js";
 > import { DoublyLinkedList } from "./DoublyLinkedList.js";

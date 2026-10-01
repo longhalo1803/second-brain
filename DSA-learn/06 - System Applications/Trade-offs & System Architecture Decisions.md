@@ -1,4 +1,9 @@
 ---
+title: Ma Trận Đánh Đổi & Quyết Định Thiết Kế Hệ Thống (System Trade-offs)
+aliases:
+  - System Trade-offs
+  - Trade-offs & System Architecture Decisions
+  - Đánh đổi trong thiết kế hệ thống
 tags:
   - dsa
   - system-design
@@ -6,72 +11,134 @@ tags:
   - architecture
 stage: 6
 type: architecture
+difficulty: intermediate
 status: completed
 created: 2026-08-27
-updated: 2026-08-27
-aliases:
-  - System Trade-offs
-  - Trade-offs & System Architecture Decisions
-  - Đánh đổi trong thiết kế hệ thống
+updated: 2026-10-01
+sources:
+  - "[[CLRS - Introduction to Algorithms]]"
+cross_domain:
+  - "[[Database-knowledge/01 - Core Concepts/Buffer Cache]]"
+  - "[[Database-knowledge/01 - Core Concepts/Index]]"
 ---
 
-# 🏛️ Ma Trận Đánh Đổi & Quyết Định Thiết Kế Hệ Thống (Trade-offs in System Architecture)
+# 🏛️ Ma Trận Đánh Đổi & Quyết Định Thiết Kế Hệ Thống (System Trade-offs)
 
 > [[00 - Master Dashboard|🧭 Dashboard]] / [[Master MOC|🗺️ Master MOC]] / [[Roadmap|📋 Roadmap]]
 
 ---
 
-## 1. Triết Lý Cốt Lõi
+## 1. Bản Đồ Khái Niệm (Mermaid DAG)
 
-Trong kỹ thuật phần mềm và thiết kế hệ thống quy mô lớn:
-
-> _"Không có giải pháp hoàn hảo. Mọi quyết định kỹ thuật đều là một **Sự Đánh Đổi (Trade-off)** có chủ đích."_
-
-Nhiệm vụ của người kỹ sư/kiến trúc sư không phải là tìm ra cấu trúc "xịn nhất", mà là chọn cấu trúc có **ưu điểm giải quyết đúng nút thắt cổ chai** và **nhược điểm nằm trong ngưỡng chấp nhận được** của hệ thống.
+```mermaid
+graph TD
+    Client["Client / HTTP Request"] --> Gateway["API Gateway / Router<br/><b>Trie (Prefix Tree)</b>: Khớp URL Path trong O(L)"]
+    Gateway --> App["Application Layer (RAM)<br/><b>LRU Cache</b>: Hash Table + Doubly Linked List (O(1))"]
+    App --> Guard["Cache Penetration Guard<br/><b>Bloom Filter</b>: Triệt tiêu 99% truy vấn rác đọc đĩa (O(k))"]
+    Guard --> DB["Database Engine (Disk I/O)<br/><b>B+Tree Index</b>: Đọc dải O(log n) | <b>LSM-Tree</b>: Ghi Append O(1)"]
+    
+    subgraph DecisionMatrix ["Ma Trận Đánh Đổi Kiến Trúc"]
+        direction LR
+        TS["Time vs Space"]
+        RW["Read vs Write"]
+        EP["Exact vs Probabilistic"]
+    end
+    DB -.-> DecisionMatrix
+```
 
 ---
 
-## 2. Bảng Ma Trận Đánh Đổi Cốt Lõi (Core Trade-off Matrix)
+## 2. Chân Lý Vô Điều Kiện (First Principles)
 
-| Chiều Đánh Đổi                                                 | Lựa Chọn A (Tối ưu tiêu chí này)                                                                                                | Lựa Chọn B (Tối ưu tiêu chí kia)                                                                           | Bối Cảnh Thực Tế                                                                    |
-| :------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------- |
-| **Thời Gian vs Không Gian (Time vs Space)**                    | Dùng [[Hash Table & HashSet\|Hash Table]] ($O(1)$ Time) $\to$ Tốn thêm $O(n)$ RAM                                               | Dùng In-place [[Two Pointers Pattern\|Two Pointers]] ($O(1)$ Space) $\to$ Mất công sort $O(n \log n)$      | Hệ thống nhúng (Embedded) chọn B; Máy chủ Backend chọn A.                           |
-| **Đọc Nhanh vs Ghi Nhanh (Read-heavy vs Write-heavy)**         | Dùng [[Array & Dynamic Array\|Array]] / B-Tree Index $\to$ Đọc cực nhanh $O(1)/O(\log n)$, nhưng ghi/chèn chậm do phải re-index | Dùng [[Linked List]] / LSM-Tree $\to$ Ghi chớp nhoáng $O(1)$ Append-only, nhưng đọc phải quét qua memtable | CSDL SQL (Read-heavy) chọn A; CSDL Time-series / Log (Write-heavy) chọn B.          |
-| **Độ Chính Xác vs Tiết Kiệm RAM (Exact vs Probabilistic)**     | Dùng `HashSet` lưu toàn bộ String $\to$ Chính xác $100\%$, ngốn hàng chục GB RAM                                                | Dùng [[Bloom Filter]] $\to$ Chỉ tốn vài chục MB RAM, chấp nhận rủi ro $1\%$ Dương tính giả                 | Kiểm tra URL độc hại, ngăn chặn Cache Penetration chọn B.                           |
-| **Sắp Xếp In-place vs Ổn Định Tuyệt Đối (Stability vs Space)** | Dùng [[Quick Sort]] $\to$ In-place $O(\log n)$ Space, nhưng Unstable và có thể dính Worst-case                                  | Dùng [[Merge Sort]] $\to$ Luôn luôn $O(n \log n)$ và Stable, nhưng tốn $O(n)$ RAM phụ                      | Sắp xếp dữ liệu trong RAM chọn A; Sắp xếp dữ liệu Linked List hoặc trên đĩa chọn B. |
+> [!NOTE] Tiên Đề Không Có Bữa Trưa Miễn Phí (No Free Lunch) Trong Kiến Trúc Hệ Thống
+> **Không tồn tại bất kỳ cấu trúc dữ liệu hoặc thuật toán nào tối ưu tuyệt đối trên mọi chiều không gian, thời gian và thông lượng:**
+>
+> 1. **Định luật bảo toàn độ phức tạp:** Để tăng tốc độ ở một chiều (ví dụ: đưa thời gian tra cứu về $O(1)$), hệ thống bắt buộc phải trả giá bằng tài nguyên ở một chiều khác (tiêu tốn thêm $O(n)$ RAM hoặc làm chậm tốc độ ghi do phải cập nhật chỉ mục).
+> 2. **Sự phù hợp bối cảnh (Context is King):** Một giải pháp "tồi" trong bối cảnh này ($O(n)$ Linear Scan) lại là giải pháp tối ưu số 1 trong bối cảnh khác (duyệt mảng nhỏ $N \le 16$ tận dụng CPU Cache Prefetching).
 
 ---
 
-## 3. Kiến Trúc Sư Áp Dụng DSA Vào Đời Thực Như Thế Nào?
+## 3. Trực Giác Motivated Discovery
 
-```
-[Web Client]
-     │
-     ▼
-[Nginx / API Gateway] ──► Trie Prefix Tree (Khớp Router URL trong O(L))
-     │
-     ▼
-[App Layer / Memory] ──► LRU Cache (Hash Table + Doubly Linked List O(1))
-     │
-     ▼
-[Storage Engine]    ──► Bloom Filter (Tránh đọc đĩa vô ích)
-     │
-     ▼
-[Disk Database]     ──► B+ Tree / LSM Tree (Tối ưu Disk I/O Blocks)
-```
+> [!TIP] Động Lực 3Blue1Brown: Chọn Phương Tiện Đi Lại
+> Bạn muốn chọn một phương tiện giao thông hoàn hảo nhất:
+>
+> - **Máy bay ($O(1)$ siêu tốc):** Bay xuyên lục địa chỉ mất vài giờ, nhưng chi phí nhiên liệu khổng lồ (ngốn RAM) và không thể hạ cánh xuống đầu ngõ nhà bạn.
+> - **Xe máy ($O(n)$ cơ động):** Đi chậm hơn máy bay, nhưng luồn lách vào từng ngõ ngách, chi phí cực rẻ và đậu ở bất kỳ đâu ($O(1)$ Space).
+> - **Tàu hỏa ($O(n \log n)$ ổn định):** Chở được hàng ngàn tấn hàng hóa an toàn trong mọi thời tiết xấu (Merge Sort ổn định), nhưng cần đường ray riêng biệt ($O(n)$ bộ nhớ phụ).
+>
+> Không ai lái máy bay đi chợ mua bó rau, và cũng không ai chạy xe máy đi vòng quanh trái đất. Thiết kế hệ thống là chọn đúng phương tiện cho đúng hành trình.
 
-1. **Khớp URL Request:** Sử dụng [[Trie (Prefix Tree)|Trie]] để tìm handler tương ứng trong thời gian bằng độ dài URL $O(L)$, độc lập với hàng nghìn API routes.
-2. **Bộ nhớ đệm tầng ứng dụng:** Sử dụng [[LRU Cache]] để phục vụ $90\%$ request đọc thường xuyên trong $O(1)$.
-3. **Trước khi chạm vào ổ cứng:** Sử dụng [[Bloom Filter]] để kiểm tra nhanh xem key có trong database không; nếu không có thì hủy request ngay lập tức mà không tốn I/O đĩa.
-4. **Tổ chức chỉ mục Database:** Sử dụng B+ Tree (biến thể nâng cao của [[Binary Search Tree (BST)|BST]]) để nhóm dữ liệu thành các Block tương thích với phần cứng ổ đĩa SSD/HDD.
+---
+
+## 4. Bảng Ma Trận Đánh Đổi Cốt Lõi (Core Trade-off Matrix)
+
+| Chiều Đánh Đổi | Lựa Chọn A (Tối ưu khía cạnh này) | Lựa Chọn B (Tối ưu khía cạnh kia) | Bối Cảnh Thực Tế |
+| :--- | :--- | :--- | :--- |
+| **Thời Gian vs Bộ Nhớ (Time vs Space)** | Dùng [[Hash Table & HashSet\|Hash Table]] ($O(1)$ Time) $\to$ Tốn thêm $O(n)$ RAM | Dùng In-place [[Two Pointers Pattern\|Two Pointers]] ($O(1)$ Space) $\to$ Tốn công sort $O(n \log n)$ | Hệ thống nhúng (Embedded) chọn B; Máy chủ Cloud chọn A. |
+| **Đọc Nhanh vs Ghi Nhanh (Read vs Write)** | Dùng [[Array & Dynamic Array\|Array]] / B+Tree Index $\to$ Đọc siêu tốc $O(\log n)$, ghi chậm do re-index | Dùng [[Linked List]] / LSM-Tree $\to$ Ghi chớp nhoáng $O(1)$ Append-only, đọc chậm do phải merge | SQL OLAP chọn A; CSDL Time-series / Log (Cassandra, ClickHouse) chọn B. |
+| **Chính Xác vs Tiết Kiệm (Exact vs Probabilistic)** | Dùng `HashSet` lưu chuỗi đầy đủ $\to$ Chính xác $100\%$, ngốn hàng chục GB RAM | Dùng [[Bloom Filter]] $\to$ Tốn vài chục MB RAM, chấp nhận $1\%$ sai số dương tính giả | Lọc URL độc hại, ngăn Cache Penetration chọn B. |
+| **In-place vs Ổn Định (Stability vs Space)** | Dùng [[Quick Sort]] $\to$ In-place $O(\log n)$ Space, nhưng Unstable | Dùng [[Merge Sort]] $\to$ Luôn $O(n \log n)$ và Stable, nhưng tốn $O(n)$ RAM phụ | Sắp xếp dữ liệu RAM chọn A; Sắp xếp danh sách tài chính chọn B. |
+
+---
+
+## 5. Minh Họa Mã Nguồn (TypeScript)
+
+Mô phỏng sự đánh đổi giữa Hash Table ($O(1)$ Lookup, tốn RAM) vs Sorted Array ($O(\log n)$ Lookup, $0$ RAM phụ):
+
+```typescript
+// LỰA CHỌN A: Ưu tiên Tốc độ - Dùng Hash Map (O(1) Time, O(n) RAM phụ)
+export class FastLookupStore {
+  private map = new Map<number, string>();
+
+  insert(id: number, data: string): void {
+    this.map.set(id, data);
+  }
+
+  find(id: number): string | undefined {
+    return this.map.get(id); // O(1) Time
+  }
+}
+
+// LỰA CHỌN B: Ưu tiên Bộ nhớ - Dùng Mảng Sắp Xếp (O(log n) Time, O(1) RAM phụ)
+export class MemoryEfficientStore {
+  private keys: number[] = [];
+  private values: string[] = [];
+
+  insert(id: number, data: string): void {
+    // Chèn giữ mảng luôn sắp xếp
+    let i = this.keys.length - 1;
+    while (i >= 0 && this.keys[i] > id) {
+      this.keys[i + 1] = this.keys[i];
+      this.values[i + 1] = this.values[i];
+      i--;
+    }
+    this.keys[i + 1] = id;
+    this.values[i + 1] = data;
+  }
+
+  find(id: number): string | undefined {
+    // Binary Search O(log n) không tốn thêm 1 byte RAM phụ nào
+    let low = 0, high = this.keys.length - 1;
+    while (low <= high) {
+      const mid = low + Math.floor((high - low) / 2);
+      if (this.keys[mid] === id) return this.values[mid];
+      if (this.keys[mid] < id) low = mid + 1;
+      else high = mid - 1;
+    }
+    return undefined;
+  }
+}
+```
 
 ---
 
 ## 🧠 Thẻ Ghi Nhớ Nhanh (Spaced Repetition)
 
-Khi nào một hệ thống chấp nhận đánh đổi độ chính xác tuyệt đối để dùng cấu trúc dữ liệu xác suất như Bloom Filter? #card
+Nguyên lý "No Free Lunch" trong thiết kế hệ thống phần mềm phát biểu điều gì? #card
 ?
-Khi quy mô dữ liệu quá khổng lồ (hàng tỷ bản ghi), việc lưu trữ chính xác tốn hàng trăm GB RAM, và hệ thống chấp nhận một tỷ lệ **dương tính giả cực nhỏ** mà không làm ảnh hưởng đến tính toàn vẹn của nghiệp vụ.
-Giải thích sự đánh đổi giữa Read-Heavy và Write-Heavy trong việc đánh chỉ mục (Indexing)? #card
+Không có một cấu trúc dữ liệu hay thuật toán nào hoàn hảo ở mọi khía cạnh. Mọi sự gia tăng về tốc độ thực thi (Time) đều phải trả giá bằng dung lượng bộ nhớ (Space), tính phức tạp khi ghi dữ liệu (Write Overhead), hoặc sự đánh đổi về tính nhất quán (Consistency).
+
+Tại sao các hệ quản trị CSDL ghi nhiều (Write-heavy như Cassandra) lại chọn LSM-Tree thay vì B+Tree? #card
 ?
-Tạo thêm Index giúp tăng tốc độ đọc (Read) từ $O(n) \to O(\log n)$ hoặc $O(1)$, nhưng sẽ làm chậm tốc độ ghi (Write/Insert/Update) vì mỗi thao tác ghi đều buộc phải cập nhật lại toàn bộ cây Index tương ứng.
+Vì B+Tree ghi ngẫu nhiên (Random Write) xuống đĩa tốn chi phí tìm kiếm và phân tách trang (Page Split), trong khi LSM-Tree chuyển toàn bộ thao tác ghi thành ghi tuần tự liên tục (Append-only) vào MemTable và SSTable trong $O(1)$, đánh đổi việc đọc phải quét qua nhiều tầng dữ liệu.

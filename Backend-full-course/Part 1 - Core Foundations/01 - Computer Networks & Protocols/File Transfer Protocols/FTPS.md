@@ -27,12 +27,12 @@ updated: 2026-09-25
 
 ```mermaid
 graph TD
-    Client["FTPS Client"] <== "1. Control Channel (Port 21 / 990) + TLS Handshake" ==> Server["FTPS Server"]
-    Client <== "2. Data Channel (PROT P) + TLS Handshake" ==> Server
+    Client["FTPS Client"] <-->|"1. Control Channel (Port 21 / 990) + TLS Handshake"| Server["FTPS Server"]
+    Client <-->|"2. Data Channel (PROT P) + TLS Handshake"| Server
 
     subgraph Mode["2 Chế Độ Triển Khai FTPS"]
-        M1["Explicit FTPS (FTPES - Khuyên dùng):<br>Khởi đầu Port 21 bình thường, nâng cấp qua lệnh AUTH TLS"]
-        M2["Implicit FTPS (Cũ / Legacy):<br>Bắt buộc mã hóa ngay từ đầu qua Port chuyên dụng 990"]
+        M1["Explicit FTPS (FTPES - Khuyên dùng):<br/>Khởi đầu Port 21 bình thường, nâng cấp qua lệnh AUTH TLS"]
+        M2["Implicit FTPS (Cũ / Legacy):<br/>Bắt buộc mã hóa ngay từ đầu qua Port chuyên dụng 990"]
     end
 ```
 

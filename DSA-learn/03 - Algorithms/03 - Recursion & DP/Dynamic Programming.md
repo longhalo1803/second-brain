@@ -12,10 +12,14 @@ tags:
   - dynamic-programming
   - optimization
 stage: 3
-type: algorithm
+type: concept
 status: completed
 created: 2026-09-07
 updated: 2026-09-07
+difficulty: intermediate
+sources:
+  - "[[CLRS - Introduction to Algorithms]]"
+cross_domain: []
 ---
 
 # 🧩 Quy Hoạch Động Toàn Diện (Dynamic Programming - DP)

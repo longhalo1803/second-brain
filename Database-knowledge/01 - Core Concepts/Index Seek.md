@@ -37,8 +37,8 @@ flowchart TD
     end
 
     SQL -->|1. Bắt đầu tìm kiếm| ROOT
-    ROOT -->|2. So sánh khóa: id >= 5000 & < 10000| BR
-    BR -->|3. Điều hướng nhánh: id >= 5400 & < 5500| LEAF
+    ROOT -->|2. So sánh khóa: khoảng 5000 đến 10000| BR
+    BR -->|3. Điều hướng nhánh: khoảng 5400 đến 5500| LEAF
     LEAF -->|4. Định vị chính xác bản ghi: id = 5420| FOUND["Tìm thấy Khóa + RowID (RID)"]
 
     subgraph DataFile["Data Block (Bảng Gốc)"]

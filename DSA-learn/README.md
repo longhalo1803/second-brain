@@ -11,6 +11,10 @@ tags:
 type: reference
 created: 2026-08-27
 updated: 2026-09-30
+difficulty: fundamental
+sources:
+  - "[[CLRS - Introduction to Algorithms]]"
+cross_domain: []
 ---
 
 # 🧭 DSA Master Vault - Cấu Trúc Dữ Liệu & Giải Thuật

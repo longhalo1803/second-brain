@@ -27,13 +27,13 @@ updated: 2026-09-25
 
 ```mermaid
 graph TD
-    NMS["Hệ Thống Quản Lý Trung Tâm (NMS)<br>Zabbix / Prometheus SNMP Exporter / Datadog"]
+    NMS["Hệ Thống Quản Lý Trung Tâm (NMS)<br/>Zabbix / Prometheus SNMP Exporter / Datadog"]
     Agent["SNMP Agent (Chạy trên Router, Switch, Linux Server)"]
-    MIB["Cơ Sở Dữ Liệu Quản Lý (MIB)<br>Cây Phân Cấp Các Mã OID (.1.3.6.1.4.1...)"]
+    MIB["Cơ Sở Dữ Liệu Quản Lý (MIB)<br/>Cây Phân Cấp Các Mã OID (.1.3.6.1.4.1...)"]
 
-    NMS <== "GetRequest / GetNextRequest / SetRequest (UDP Port 161)" ==> Agent
-    Agent --> |Truy vấn / Ghi dữ liệu| MIB
-    Agent -. "Bản Tin Cảnh Báo Khẩn Cấp: SNMP Trap (UDP Port 162)" .-> NMS
+    NMS <-->|"GetRequest / GetNextRequest / SetRequest (UDP Port 161)"| Agent
+    Agent -->|Truy vấn / Ghi dữ liệu| MIB
+    Agent -.->|"Bản Tin Cảnh Báo Khẩn Cấp: SNMP Trap (UDP Port 162)"| NMS
 ```
 
 ---

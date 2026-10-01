@@ -13,11 +13,34 @@ aliases:
   - Big-O Notation
   - Ký hiệu Big-O
   - Đánh giá hiệu suất thuật toán
+difficulty: fundamental
+sources:
+  - "[[CLRS - Introduction to Algorithms]]"
+cross_domain: []
 ---
 
 # ⚡ Big-O Notation & Complexity Hub (MOC)
 
 > [[00 - Master Dashboard|🧭 Dashboard]] / [[Master MOC|🗺️ Master MOC]] / **⚡ Big-O MOC**
+
+---
+
+## 🗺️ Bản Đồ Phân Cấp Big-O (Mermaid DAG)
+
+```mermaid
+graph TD
+    MOC["⚡ Big-O Complexity Hub"] --> Time["⏳ Time Complexity"]
+    MOC --> Space["💾 Space Complexity"]
+    MOC --> Thinking["🧠 Algorithmic Thinking"]
+    
+    Time --> O1["🟢 O(1) - Constant Time"]
+    Time --> Ologn["🟢 O(log n) - Logarithmic Time"]
+    Time --> On["🟡 O(n) - Linear Time"]
+    Time --> Onlogn["🟠 O(n log n) - Linearithmic Time"]
+    Time --> On2["🔴 O(n^2) - Quadratic Time"]
+    Time --> O2n["☠️ O(2^n) - Exponential Time"]
+    Time --> Onfact["☢️ O(n!) - Factorial Time"]
+```
 
 ---
 
@@ -47,10 +70,10 @@ Mọi giải thuật trong khoa học máy tính đều được đặt trên b�
 | Cấp Độ            | Ký Hiệu       | Tên Gọi Tiếng Anh | Tăng Trưởng Khi Dữ Liệu $n$ Tăng | Ví Dụ Điển Hình                                                                       | Note Chi Tiết                      |
 | :---------------- | :------------ | :---------------- | :------------------------------- | :------------------------------------------------------------------------------------ | :--------------------------------- |
 | 🟢 Tuyệt đối      | $O(1)$        | Constant Time     | Không đổi (1 thao tác)           | Truy xuất mảng qua index, tra cứu Hash Table                                          | [[O(1) - Constant Time]]           |
-| 🟢 Rất nhanh      | $O(\log n)$   | Logarithmic Time  | Tăng 1 bước khi $n$ gấp đôi      | [[Binary Search\|Tìm kiếm nhị phân]], Cây BST cân bằng                                | [[O(log n) - Logarithmic Time]]    |
-| 🟡 Tuyến tính     | $O(n)$        | Linear Time       | Tỷ lệ thuận $1:1$ với $n$        | Duyệt qua danh sách, [[Linear Search\|Tìm kiếm tuyến tính]]                           | [[O(n) - Linear Time]]             |
-| 🟠 Tựa tuyến tính | $O(n \log n)$ | Linearithmic Time | Nhanh hơn bậc 2, chuẩn sắp xếp   | [[Merge Sort]], [[Quick Sort]], [[Binary Heap & Priority Queue#Heap Sort\|Heap Sort]] | [[O(n log n) - Linearithmic Time]] |
-| 🔴 Bậc hai        | $O(n^2)$      | Quadratic Time    | Tăng theo bình phương $n^2$      | 2 vòng lặp lồng nhau, `[[Bubble Sort]]`, `[[Selection Sort]]`                         | [[O(n^2) - Quadratic Time]]        |
+| 🟢 Rất nhanh      | $O(\log n)$   | Logarithmic Time  | Tăng 1 bước khi $n$ gấp đôi      | [[Binary Search|Tìm kiếm nhị phân]], Cây BST cân bằng                                | [[O(log n) - Logarithmic Time]]    |
+| 🟡 Tuyến tính     | $O(n)$        | Linear Time       | Tỷ lệ thuận $1:1$ với $n$        | Duyệt qua danh sách, [[Linear Search|Tìm kiếm tuyến tính]]                           | [[O(n) - Linear Time]]             |
+| 🟠 Tựa tuyến tính | $O(n \log n)$ | Linearithmic Time | Nhanh hơn bậc 2, chuẩn sắp xếp   | [[Merge Sort]], [[Quick Sort]], [[Binary Heap & Priority Queue#Heap Sort|Heap Sort]] | [[O(n log n) - Linearithmic Time]] |
+| 🔴 Bậc hai        | $O(n^2)$      | Quadratic Time    | Tăng theo bình phương $n^2$      | 2 vòng lặp lồng nhau, [[Bubble Sort]], [[Selection Sort]]                         | [[O(n^2) - Quadratic Time]]        |
 | ☠️ Lũy thừa       | $O(2^n)$      | Exponential Time  | Tăng gấp đôi mỗi khi $n$ tăng 1  | Đệ quy Fibonacci không nhớ, vét cạn mật khẩu                                          | [[O(2^n) - Exponential Time]]      |
 | ☢️ Giai thừa      | $O(n!)$       | Factorial Time    | Phình to cực đại theo $n!$       | Bài toán Người giao hàng (TSP), hoán vị $N$ phần tử                                   | [[O(n!) - Factorial Time]]         |
 

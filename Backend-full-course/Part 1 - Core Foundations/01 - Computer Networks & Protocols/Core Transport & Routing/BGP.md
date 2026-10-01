@@ -26,11 +26,11 @@ updated: 2026-09-25
 
 ```mermaid
 graph LR
-    AS100["AS 100 (Google Cloud)<br>ASN: 15169"] <== "eBGP Session (TCP Port 179)" ==> AS200["AS 200 (VNPT Tier-1)<br>ASN: 45899"]
-    AS200 <== "eBGP Session (TCP Port 179)" ==> AS300["AS 300 (AWS Global)<br>ASN: 16509"]
+    AS100["AS 100 (Google Cloud)<br>ASN: 15169"] <-->|"eBGP Session (TCP Port 179)"| AS200["AS 200 (VNPT Tier-1)<br>ASN: 45899"]
+    AS200 <-->|"eBGP Session (TCP Port 179)"| AS300["AS 300 (AWS Global)<br>ASN: 16509"]
 
     subgraph InsideAS["Nội Bộ Hệ Thống Tự Trị AS 200"]
-        R1["Border Router A"] <--> |iBGP / OSPF| R2["Border Router B"]
+        R1["Border Router A"] <-->|iBGP / OSPF| R2["Border Router B"]
     end
 ```
 

@@ -1,16 +1,22 @@
 ---
+title: Tư Duy Thuật Toán (Algorithmic Thinking)
+aliases:
+  - Algorithmic Thinking
+  - Tư duy thuật toán
+  - Giải quyết vấn đề bằng thuật toán
 tags:
   - dsa
   - mental-model
   - algorithmic-thinking
 stage: 1
-type: mental-model
+type: principle
+difficulty: fundamental
 status: completed
 created: 2026-08-24
-updated: 2026-08-27
-aliases:
-  - Algorithmic Thinking
-  - Tư duy thuật toán
+updated: 2026-10-01
+sources:
+  - "[[CLRS - Introduction to Algorithms]]"
+cross_domain: []
 ---
 
 # 🧠 Tư Duy Thuật Toán (Algorithmic Thinking)
@@ -19,70 +25,111 @@ aliases:
 
 ---
 
-## 1. Bản Chất Cốt Lõi (Mental Model)
+## 1. Bản Đồ Khái Niệm (Mermaid DAG)
 
-- **Không phải là học thuộc code:** Tư duy thuật toán không phải là việc bạn nhớ từng cú pháp của hàng trăm thuật toán.
-- **Kỹ năng bẻ gãy vấn đề (Deconstruction):** Là năng lực chuyển hóa một bài toán mơ hồ ngoài đời thực thành một tập hợp hữu hạn các bước chỉ dẫn rõ ràng, logic mà máy tính có thể thực thi chính xác.
-- **Hình dung sinh động:** Hãy tưởng tượng thuật toán giống như **công thức làm bánh tiêu chuẩn** hay **bản đồ định vị GPS**:
-  - Dù ai là người nấu bánh, nếu tuân theo đúng thứ tự và tỷ lệ nguyên liệu, chiếc bánh luôn ra lò hoàn hảo.
-  - Khi gặp ngã rẽ hoặc tắc đường, thuật toán định tuyến sẽ tự động tính toán lại lộ trình tối ưu nhất dựa trên các quy tắc xác định.
+```mermaid
+graph TD
+    Problem["1. Đề Bài / Vấn Đề Thực Tế"] --> Clarify["2. Làm Rõ Ràng Buộc (Constraints & Edge Cases)"]
+    Clarify --> BruteForce["3. Thiết Kế Giải Pháp Ngây Ngô (Brute Force) Chạy Đúng"]
+    BruteForce --> Analyze["4. Đo Lường Big-O & Xác Định Nút Thắt Cổ Chai (Bottleneck)"]
+    Analyze --> Optimize["5. Tối Ưu Hóa Bằng Mẫu Giải Thuật / Cấu Trúc Dữ Liệu Phù Hợp"]
+    Optimize --> Verify["6. Kiểm Thử Biên (Edge Cases, Overflow, Empty Inputs)"]
+    Verify --> Production["7. Đóng Gói Mã Nguồn Sạch & Bàn Giao Hệ Thống"]
+```
 
 ---
 
-## 2. 5 Nguyên Tắc Vàng Của Một Thuật Toán Chuẩn
+## 2. Chân Lý Vô Điều Kiện (First Principles)
 
-Để bẻ nhỏ bài toán thành các bước máy tính hiểu được, giải pháp của bạn phải thỏa mãn 5 tiêu chí:
+> [!NOTE] Tiên Đề Tính Xác Định & Tính Hữu Hạn (Church-Turing Thesis)
+> **Thuật toán là một chuỗi hữu hạn các chỉ thị cơ bản, không nhập nhằng (unambiguous), biến đổi trạng thái đầu vào (Input) thành kết quả mong muốn (Output) sau một số hữu hạn bước tính:**
+>
+> 1. **Tính xác định (Definiteness):** Máy tính không có trực giác. Mỗi câu lệnh phải tuyệt đối rõ ràng, không được chứa các mệnh đề mơ hồ.
+> 2. **Tính hữu hạn (Finiteness):** Thuật toán bắt buộc phải dừng lại ở mọi trường hợp đầu vào hợp lệ. Nếu rơi vào vòng lặp vô tận, chương trình không phải là một thuật toán.
+> 3. **Quy luật tiến hóa giải thuật:** Mọi giải thuật tối ưu đều bắt nguồn từ một giải thuật cơ bản chạy đúng (Correctness First $\to$ Performance Later). Tối ưu hóa sớm khi chưa đúng logic là nguồn gốc của mọi thảm họa phần mềm.
+
+---
+
+## 3. Trực Giác Motivated Discovery
+
+> [!TIP] Động Lực 3Blue1Brown: Bản Vẽ Kết Cấu Của Kiến Trúc Sư
+> Bạn muốn xây một cây cầu vượt qua con sông:
+>
+> Người thợ nghiệp dư sẽ vội vã xúc cát, trộn xi măng và đổ bê tông ngay ngày đầu tiên. Cây cầu xây xong có thể sập ngay vì nền đất yếu!
+>
+> Kiến trúc sư chuyên nghiệp làm việc hoàn toàn khác:
+> 1. Đo lưu lượng xe và khảo sát lòng sông (Phân tích Input & Constraints).
+> 2. Phác thảo một cây cầu gỗ đơn giản để người đi bộ qua sông tạm thời (Brute Force chạy đúng).
+> 3. Tính toán trọng tải cầu bị rung lắc ở đâu (Xác định Bottleneck).
+> 4. Thay bằng dầm thép và dây văng chịu lực (Tối ưu hóa bằng cấu trúc dữ liệu thích hợp).
+> 5. Thử nghiệm xe tải nặng chạy qua (Kiểm thử Edge Cases).
+
+---
+
+## 4. 5 Tiêu Chí Vàng Của Một Thuật Toán Chuẩn
 
 1. **Định nghĩa rõ Input & Output cùng Điều Kiện Tiên Quyết (Preconditions):**
-   - _Ví dụ:_ Muốn tìm một số trong danh sách: Input là dãy số và số cần tìm, Output là vị trí index (hoặc thông báo `-1`).
-   - _Điều kiện tiên quyết:_ Để áp dụng [[Binary Search|Tìm kiếm nhị phân $O(\log n)$]], Input **bắt buộc phải được sắp xếp trước**.
-2. **Thứ tự thực hiện xác định (Specific Order):** Máy tính là thực thể tuân lệnh mù quáng. Đảo lộn thứ tự các bước sẽ dẫn đến sụp đổ toàn bộ logic.
-3. **Mỗi bước phải tường minh và đơn lẻ (Explicit & Atomic):** Không dùng các lệnh mơ hồ kiểu _"tìm đến khi thấy"_. Mỗi lệnh phải là một thao tác cơ bản (so sánh, gán, tăng biến đếm).
-4. **Luôn trả về kết quả (Produce a result):** Chương trình phải trả về một kết quả rõ ràng (dù là `null`, `-1` hay `false`) để hệ thống biết đã xử lý xong.
-5. **Tính hữu hạn (Finiteness):** Thuật toán bắt buộc phải kết thúc sau một số bước hữu hạn, không được rơi vào vòng lặp vô tận (infinite loop).
+   - _Ví dụ:_ Muốn tìm kiếm bằng [[Binary Search|Binary Search $O(\log n)$]], dữ liệu **bắt buộc phải được sắp xếp trước**.
+2. **Thứ tự thực hiện xác định (Specific Order):** Đảo lộn thứ tự các bước sẽ dẫn đến sụp đổ toàn bộ logic.
+3. **Mỗi bước phải tường minh và đơn lẻ (Atomic):** Mỗi lệnh là một thao tác cơ bản (so sánh, gán, tăng biến đếm).
+4. **Luôn trả về kết quả (Produce a result):** Trả về giá trị rõ ràng (dù là `null`, `-1` hay `false`).
+5. **Tính hữu hạn (Finiteness):** Kết thúc sau số bước hữu hạn, không treo máy.
 
 ---
 
-## 3. Tư Duy Của Kiến Trúc Sư (Architect's Mindset)
+## 5. Minh Họa Quy Trình Tối Ưu Tư Duy (TypeScript)
 
-- **Không có giải pháp "Tốt nhất", chỉ có giải pháp "Phù hợp nhất":** Một giải pháp xuất sắc phụ thuộc hoàn toàn vào bối cảnh:
-  - Dữ liệu tĩnh hay cập nhật liên tục (Read-heavy vs Write-heavy)?
-  - Bộ nhớ RAM có bị thắt chặt không (Embedded systems vs Cloud servers)?
-- **Luôn bắt đầu bằng Brute-Force rồi mới Tối ưu:** Đừng cố viết code tối ưu ngay giây đầu tiên. Hãy giải quyết bài toán bằng cách ngây ngô nhất (Brute Force), đo lường độ phức tạp [[Big-O Notation - MOC|Big O]], sau đó nhận diện nút thắt cổ chai và áp dụng cấu trúc dữ liệu hoặc Pattern thích hợp.
-- **Ranh giới và Trường hợp biên (Edge Cases):** Luôn thử thách thuật toán với các trường hợp cực đoan: Mảng rỗng (`[]`), mảng có 1 phần tử, mảng chứa toàn phần tử trùng lặp, số âm, hoặc giá trị tràn số nguyên (`Integer Overflow`).
+Chuyển đổi bài toán tìm hai số có tổng bằng $S$ từ Brute Force sang Tối ưu:
+
+```typescript
+// BƯỚC 1: Brute Force ngây ngô - O(n^2) Time, O(1) Space
+// Ý tưởng: So khớp từng cặp phần tử
+export function twoSumBruteForce(nums: number[], target: number): [number, number] | null {
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j < nums.length; j++) {
+      if (nums[i] + nums[j] === target) {
+        return [i, j];
+      }
+    }
+  }
+  return null;
+}
+
+// BƯỚC 2: Nhận diện nút thắt: Phép tìm kiếm (target - nums[i]) tốn O(n) bên trong!
+// BƯỚC 3: Thay thế bằng Hash Table để tra cứu trong O(1) -> O(n) Time, O(n) Space
+export function twoSumOptimized(nums: number[], target: number): [number, number] | null {
+  const seen = new Map<number, number>(); // lưu giá trị -> chỉ số
+
+  for (let i = 0; i < nums.length; i++) {
+    const complement = target - nums[i];
+    if (seen.has(complement)) {
+      return [seen.get(complement)!, i];
+    }
+    seen.set(nums[i], i);
+  }
+
+  return null;
+}
+```
 
 ---
 
-## 4. Nghiên Cứu Tình Huống: Trò Chơi Đoán Số (The Guessing Game)
+## 6. Tư Duy Của Kiến Trúc Sư (Architect's Mindset)
 
-_Bài toán: Đoán một số nguyên bí mật nằm trong khoảng từ $1$ đến $100$ với số lần hỏi ít nhất._
-
-### Cách 1: Đoán tuần tự (Brute-force)
-
-- **Bản chất:** Áp dụng [[Linear Search|Tìm kiếm tuyến tính]]. Đoán lần lượt $1, 2, 3, \dots$
-- **Hiệu năng:** Rơi vào độ phức tạp [[O(n) - Linear Time|$O(n)$]]. Trong trường hợp xấu nhất, bạn mất đúng 100 lần đoán.
-
-### Cách 2: Chia để trị (Divide and Conquer)
-
-- **Bản chất:** Áp dụng [[Binary Search|Tìm kiếm nhị phân]]. Hỏi số đó lớn hơn hay nhỏ hơn $50$? Cắt bỏ $50\%$ phạm vi không phù hợp. Lặp lại với điểm giữa mới ($25$ hoặc $75$).
-- **Hiệu năng:** Độ phức tạp [[O(log n) - Logarithmic Time|$O(\log n)$]]. Với 100 số, bạn chỉ mất tối đa $\approx \lceil \log_2(100) \rceil = 7$ lần đoán. Với $1$ triệu số, bạn chỉ mất tối đa $20$ lần đoán!
+- **Không có giải pháp "Tốt nhất", chỉ có giải pháp "Phù hợp nhất":** Tùy thuộc vào dữ liệu tĩnh hay động, đọc nhiều hay ghi nhiều (Read-heavy vs Write-heavy), tài nguyên RAM dồi dào hay thắt chặt.
+- **Ranh giới và Trường hợp biên (Edge Cases):** Luôn thử thách thuật toán với các trường hợp cực đoan: Mảng rỗng (`[]`), mảng 1 phần tử, mảng trùng lặp, số âm, hoặc giá trị tràn số nguyên (`Integer Overflow`).
 
 ---
 
-## 🧠 Thẻ Ghi Nhớ & Câu Hỏi Tự Vấn (Active Recall)
+## 🧠 Thẻ Ghi Nhớ Nhanh (Spaced Repetition)
 
-Nêu 5 nguyên tắc vàng của một thuật toán máy tính? #card
+Quy trình 4 bước chuẩn mực để giải quyết một bài toán thuật toán là gì? #card
 ?
+1. **Làm rõ yêu cầu & Ràng buộc:** Xác định Input, Output, kích thước $N$ và các Edge Cases.
+2. **Thiết kế Brute Force:** Viết giải pháp cơ bản chạy đúng đầu tiên để thiết lập mốc đo hiệu năng.
+3. **Tìm nút thắt cổ chai (Bottleneck):** Dùng Big-O để tìm ra vòng lặp hay phép toán nào đang ngốn thời gian nhất.
+4. **Tối ưu hóa có chủ đích:** Áp dụng cấu trúc dữ liệu hoặc Pattern thuật toán phù hợp để giải quyết đúng nút thắt đó.
 
-1. Input/Output & Preconditions rõ ràng.
-2. Thứ tự các bước xác định.
-3. Mỗi bước tường minh (Atomic).
-4. Luôn trả về kết quả hữu ích.
-5. Thời gian chạy hữu hạn.
-   Khi tiếp cận một bài toán DSA mới, thứ tự tư duy đúng đắn là gì? #card
-   ?
-6. Làm rõ Input/Output và Edge Cases.
-7. Đưa ra giải pháp Brute-force và tính Big-O.
-8. Tìm nút thắt cổ chai (Bottleneck) để tối ưu bằng cấu trúc dữ liệu/Pattern.
-9. Đánh giá Trade-off Time/Space.
-10. Viết code sạch và test các trường hợp biên.
+Tại sao câu châm ngôn "Premature optimization is the root of all evil" lại đặc biệt đúng trong tư duy thuật toán? #card
+?
+Vì tối ưu hóa sớm khi chưa nắm chắc bản chất bài toán và chưa có giải pháp chạy đúng (Correctness) sẽ tạo ra mã nguồn phức tạp, khó debug, dễ phát sinh lỗi logic và lãng phí thời gian vào những đoạn mã không phải là nút thắt cổ chai thực sự.

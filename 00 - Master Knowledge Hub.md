@@ -28,42 +28,42 @@ flowchart TD
     Hub(["🌐 MASTER KNOWLEDGE HUB"]):::main
 
     subgraph D1["🧠 AI & AGENTIC ENGINEERING"]
-        AI["[[AI-knowledge/00 - MOC (Map of Content)|AI Knowledge Hub]]"]
+        AI["AI Knowledge Hub"]
         AI_F["Context RAM & LLM Attention"]
         AI_M["Tri-Memory & RAG Systems"]
         AI_H["Agent Harness & Tool Loops"]
     end
 
     subgraph D2["⚙️ BACKEND & PROTOCOLS"]
-        BE["[[Backend-full-course/Roadmap|Backend Roadmap]]"]
+        BE["Backend Roadmap"]
         BE_P["TCP/IP, UDP, QUIC, BGP"]
         BE_W["HTTP/HTTPS, WebSocket, TLS/SSL"]
         BE_S["System Design & APIs"]
     end
 
     subgraph D3["🗄️ DATABASE ENGINE & TUNING"]
-        DB["[[Database-knowledge/00 - Maps of Content/MOC - Database Overview|Database Overview MOC]]"]
+        DB["Database Overview MOC"]
         DB_S["Disk Block, Page, Buffer Cache & WAL"]
         DB_O["Index B+Tree & Cost Optimizer"]
         DB_L["Lock, MVCC & Deadlock"]
     end
 
     subgraph D4["🧭 DSA & ALGORITHMIC THINKING"]
-        DSA["[[DSA-learn/00 - Meta & Maps/Master MOC|DSA Master MOC]]"]
+        DSA["DSA Master MOC"]
         DSA_M["Big-O Notation & Mental Models"]
         DSA_S["Linear, Trees, Graphs & DSU"]
         DSA_P["LeetCode Algorithmic Patterns"]
     end
 
     subgraph D5["🚀 DEVOPS & INFRASTRUCTURE"]
-        DO["[[DevOps-knowledge/Roadmap|DevOps Roadmap]]"]
+        DO["DevOps Roadmap"]
         DO_C["Docker & Containerization"]
         DO_K["Kubernetes (K8s) & IaC (Terraform)"]
         DO_P["CI/CD Pipeline & Monitoring"]
     end
 
     subgraph D6["🌐 NETWORK & CCNA 200-301"]
-        NET["[[Network-CCNA/00 - Maps of Content/00 - Master Dashboard|CCNA Master Dashboard]]"]
+        NET["CCNA Master Dashboard"]
         NET_L2["Switching: VLAN, Trunk, RSTP, EtherChannel"]
         NET_L3["Routing: IPv4/v6 Subnetting, OSPFv2, NAT"]
         NET_SEC["Security & Automation: ACL, Snooping, DNA-C"]
@@ -78,13 +78,13 @@ flowchart TD
     Hub ==> NET
 
     %% Cross-Domain Links
-    AI -.->|Vector Search & Retrieval| DB
-    BE -.->|Storage & Query Execution| DB
+    AI -.->|Vector Search và Retrieval| DB
+    BE -.->|Storage và Query Execution| DB
     DB -.->|B+Tree, Hash, LRU Cache| DSA
-    BE -.->|Microservices & Ingress| DO
-    AI -.->|Tool Calling & MCP Server| BE
-    NET -.->|L2/L3 Underlay & Transport| BE
-    NET -.->|Campus Infrastructure & VPC| DO
+    BE -.->|Microservices và Ingress| DO
+    AI -.->|Tool Calling và MCP Server| BE
+    NET -.->|L2/L3 Underlay và Transport| BE
+    NET -.->|Campus Infrastructure và VPC| DO
 
     classDef main fill:#1e293b,stroke:#38bdf8,stroke-width:3px,color:#f8fafc,font-weight:bold;
 ```

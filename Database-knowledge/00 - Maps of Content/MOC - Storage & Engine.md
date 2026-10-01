@@ -36,7 +36,7 @@ graph TD
         RL[Redo Log Files / WAL Files]
         IDX[Index Files: B-Tree Nodes]
     end
-    BC <-->|I/O Read & Dirty Write| DF
+    BC <-->|I/O Read và Dirty Write| DF
     RB -->|LGWR Commit Flush| RL
 ```
 

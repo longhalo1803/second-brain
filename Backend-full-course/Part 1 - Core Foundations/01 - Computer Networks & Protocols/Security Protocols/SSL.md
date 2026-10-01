@@ -28,7 +28,7 @@ updated: 2026-09-25
 graph LR
     SSL1["SSL 1.0 (1994 - Lỗi nội bộ, không công bố)"] --> SSL2["SSL 2.0 (1995 - Lỗ hổng nghiêm trọng)"]
     SSL2 --> SSL3["SSL 3.0 (1996 - Thiết kế lại hoàn toàn)"]
-    SSL3 ==> |"Khai tử do lỗ hổng POODLE (RFC 7568)"| TLS1["TLS 1.0 (RFC 2246 - Thực chất là SSL 3.1)"]
+    SSL3 ==>|"Khai tử do lỗ hổng POODLE (RFC 7568)"| TLS1["TLS 1.0 (RFC 2246 - Thực chất là SSL 3.1)"]
     TLS1 --> ModernTLS["TLS 1.2 / TLS 1.3 (Hiện đại)"]
 ```
 

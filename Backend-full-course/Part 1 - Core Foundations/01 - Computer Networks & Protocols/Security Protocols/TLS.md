@@ -27,14 +27,14 @@ updated: 2026-09-25
 
 ```mermaid
 graph TD
-    Client["Client"] <== "1. TLS Handshake (Trao đổi khóa & Xác thực chứng chỉ PKI)" ==> Server["Server"]
-    Server -. "Khóa Phiên Đối Xứng (Symmetric Session Key)" .-> Key["AES-256-GCM / ChaCha20"]
-    Client ==> |"2. Kênh Dữ Liệu Được Mã Hóa Hoàn Toàn (Encrypted Record Layer)"| Server
+    Client["Client"] <-->|"1. TLS Handshake (Trao đổi khóa và Xác thực chứng chỉ PKI)"| Server["Server"]
+    Server -.->|"Khóa Phiên Đối Xứng (Symmetric Session Key)"| Key["AES-256-GCM / ChaCha20"]
+    Client ==>|"2. Kênh Dữ Liệu Được Mã Hóa Hoàn Toàn (Encrypted Record Layer)"| Server
 
     subgraph SecurityTriad["3 Trụ Cột An Ninh Của TLS"]
-        C["Tính Bí Mật (Confidentiality)<br>Mã hóa đối xứng AES/ChaCha20"]
-        A["Tính Xác Thực (Authentication)<br>Chứng chỉ số X.509 PKI"]
-        I["Tính Toàn Vẹn (Integrity)<br>Mã xác thực bản tin AEAD / HMAC"]
+        C["Tính Bí Mật (Confidentiality)<br/>Mã hóa đối xứng AES/ChaCha20"]
+        A["Tính Xác Thực (Authentication)<br/>Chứng chỉ số X.509 PKI"]
+        I["Tính Toàn Vẹn (Integrity)<br/>Mã xác thực bản tin AEAD / HMAC"]
     end
 ```
 

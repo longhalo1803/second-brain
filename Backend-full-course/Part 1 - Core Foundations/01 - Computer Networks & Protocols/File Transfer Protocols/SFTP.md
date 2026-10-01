@@ -27,7 +27,7 @@ updated: 2026-09-25
 
 ```mermaid
 graph TD
-    Client["SFTP Client"] <== "Duy Nhất 1 Kết Nối TCP Cổng 22 (SSH Connection)" ==> Server["SFTP Server (sshd)"]
+    Client["SFTP Client"] <-->|"Duy Nhất 1 Kết Nối TCP Cổng 22 (SSH Connection)"| Server["SFTP Server (sshd)"]
 
     subgraph SSHChannel["Bên Trong Kênh Truyền SSH Được Mã Hóa"]
         direction TB

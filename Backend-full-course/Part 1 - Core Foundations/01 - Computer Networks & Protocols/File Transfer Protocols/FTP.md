@@ -26,8 +26,8 @@ updated: 2026-09-25
 
 ```mermaid
 graph TD
-    Client["FTP Client"] <== "1. Kênh Điều Khiển (Control Channel - TCP Port 21)<br>Duy trì liên tục gửi lệnh & mã trạng thái" ==> Server["FTP Server"]
-    Client <== "2. Kênh Dữ Liệu (Data Channel - Active: Port 20 / Passive: Ephemeral Port)<br>Mở riêng cho từng file hoặc danh sách thư mục" ==> Server
+    Client["FTP Client"] <-->|"1. Kênh Điều Khiển (Control Channel - Port 21)"| Server["FTP Server"]
+    Client <-->|"2. Kênh Dữ Liệu (Data Channel - Active/Passive Port)"| Server
 ```
 
 ---
