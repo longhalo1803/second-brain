@@ -1,17 +1,24 @@
 ---
+title: Kỹ Thuật Cửa Sổ Trượt (Sliding Window Pattern)
+aliases:
+  - Sliding Window
+  - Cửa sổ trượt
+  - Cửa sổ trượt (Sliding Window)
 tags:
   - dsa
   - pattern
   - sliding-window
 stage: 5
 type: pattern
+difficulty: intermediate
 status: completed
+sources:
+  - "[[NeetCode - Algorithmic Patterns]]"
+cross_domain:
+  - "[[Backend-full-course/Part 1 - Core Foundations/01 - Computer Networks & Protocols/Core Transport & Routing/TCP - IP]]"
+  - "[[Backend-full-course/Part 1 - Core Foundations/01 - Computer Networks & Protocols/Core Transport & Routing/QUIC]]"
 created: 2026-08-27
-updated: 2026-08-27
-aliases:
-  - Sliding Window
-  - Cửa sổ trượt
-  - Cửa sổ trượt (Sliding Window)
+updated: 2026-09-30
 ---
 
 # 🪟 Kỹ Thuật Cửa Sổ Trượt (Sliding Window Pattern)
@@ -61,11 +68,19 @@ function dynamicSlidingWindow(s: string): number {
 
 ---
 
+## 3. Ứng Dụng Thực Tế & Liên Kết Đa Miền (Cross-Domain Systems)
+
+- 🌐 **Giao thức Mạng (Backend Protocols):** Cơ chế **Sliding Window Flow Control** trong [[Backend-full-course/Part 1 - Core Foundations/01 - Computer Networks & Protocols/Core Transport & Routing/TCP - IP|TCP/IP]] và [[Backend-full-course/Part 1 - Core Foundations/01 - Computer Networks & Protocols/Core Transport & Routing/QUIC|QUIC]]: Người nhận liên tục quảng bá kích thước cửa sổ nhận (`Receive Window - rwnd`) để người gửi không bơm dữ liệu tràn bộ đệm Socket Buffer.
+- ⏱️ **Kiến trúc Hệ thống (System Design):** Thuật toán Rate Limiting theo **Sliding Window Counter** và **Sliding Window Log** trong API Gateway để giới hạn số lượt request/phút một cách chính xác mà không bị hiện tượng đột biến gấp đôi lưu lượng tại biên chu kỳ như Fixed Window.
+
+---
+
 ## 🧠 Thẻ Ghi Nhớ Nhanh (Spaced Repetition)
 
 Dấu hiệu nhận biết bài toán cần áp dụng Sliding Window là gì? #card
 ?
 Khi đề bài yêu cầu tìm kiếm, đếm hoặc tính toán trên một **dãy con liên tiếp (Contiguous Subarray / Substring)** lớn nhất, nhỏ nhất hoặc thỏa mãn một điều kiện số lượng.
+
 Tại sao Sliding Window lại có độ phức tạp thời gian $O(n)$ dù có 2 vòng lặp (vòng `for` và `while`)? #card
 ?
 Vì mỗi phần tử chỉ được con trỏ `right` thêm vào cửa sổ đúng 1 lần và con trỏ `left` loại bỏ khỏi cửa sổ tối đa 1 lần $\to$ Tổng số thao tác tối đa là $2n = O(n)$.

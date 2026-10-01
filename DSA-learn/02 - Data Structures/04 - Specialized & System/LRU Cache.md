@@ -1,18 +1,26 @@
 ---
+title: Bộ Nhớ Đệm LRU (LRU Cache - Least Recently Used)
+aliases:
+  - LRU Cache
+  - Least Recently Used
+  - Bộ nhớ đệm LRU
 tags:
   - dsa
   - data-structure
   - system-design
   - cache
 stage: 6
-type: data-structure
+type: architecture
+difficulty: intermediate
 status: completed
+sources:
+  - "[[CLRS - Introduction to Algorithms]]"
+  - "[[NeetCode - Algorithmic Patterns]]"
+cross_domain:
+  - "[[Database-knowledge/01 - Core Concepts/Buffer Cache]]"
+  - "[[Database-knowledge/02 - Core Principles/3 Yếu tố cốt lõi làm Database nhanh]]"
 created: 2026-08-27
-updated: 2026-08-27
-aliases:
-  - LRU Cache
-  - Least Recently Used
-  - Bộ nhớ đệm LRU
+updated: 2026-09-30
 ---
 
 # 🔄 Bộ Nhớ Đệm LRU (LRU Cache - Least Recently Used)
@@ -48,11 +56,11 @@ aliases:
 
 ---
 
-## 3. Ứng Dụng Thực Tế Trong Công Nghiệp
+## 3. Ứng Dụng Thực Tế & Liên Kết Đa Miền (Cross-Domain Systems)
 
-- **Hệ điều hành:** Quản lý Page Replacement trong Bộ nhớ ảo (Virtual Memory).
-- **Trình duyệt Web:** Cache các tài nguyên hình ảnh/CSS tải gần nhất.
-- **Cơ sở dữ liệu & Backend:** Buffer Pool trong InnoDB (MySQL), tầng Caching bộ nhớ ứng dụng.
+- 🗄️ **Cơ sở dữ liệu (Database Engine):** Thuật toán LRU và biến thể LRU-K/2Q là xương sống của [[Database-knowledge/01 - Core Concepts/Buffer Cache|Buffer Cache]] trong PostgreSQL và InnoDB Buffer Pool trong MySQL để giữ các Data Page nóng nhất trên RAM (Xem: [[Database-knowledge/02 - Core Principles/3 Yếu tố cốt lõi làm Database nhanh|3 Yếu tố cốt lõi làm Database nhanh]]).
+- 🐧 **Hệ điều hành (Linux Kernel):** Quản lý giải thuật thay thế trang bộ nhớ (Page Replacement Algorithm) trong Virtual Memory Subsystem khi xảy ra thiếu hụt RAM vật lý.
+- 🌐 **Backend Caching:** Kiến trúc của Redis, Memcached và tầng Cache In-memory của Application Server.
 
 ---
 
@@ -63,6 +71,7 @@ Tại sao LRU Cache lại phải kết hợp cả Hash Table và Doubly Linked L
 
 - **Hash Table** giúp tìm kiếm và trỏ tới node trong **$O(1)$**.
 - **Doubly Linked List** giúp xóa node bất kỳ và đẩy lên đầu (cập nhật thứ tự sử dụng) trong **$O(1)$**.
-  Khi cache đầy và cần chèn thêm phần tử mới, node ở vị trí nào sẽ bị loại bỏ? #card
-  ?
-  Node nằm ở **đuôi (Tail)** của Doubly Linked List (phần tử Least Recently Used).
+
+Khi cache đầy và cần chèn thêm phần tử mới, node ở vị trí nào sẽ bị loại bỏ? #card
+?
+Node nằm ở **đuôi (Tail)** của Doubly Linked List (phần tử Least Recently Used).

@@ -1,14 +1,19 @@
 ---
+title: "<% tp.file.title %>"
+aliases:
+  - "<% tp.file.title %>"
 tags:
   - dsa
   - data-structure
 stage: 2
-type: data-structure
+type: concept
+difficulty: fundamental
 status: in-progress
+sources:
+  - "[[CLRS - Introduction to Algorithms]]"
+cross_domain: []
 created: <% tp.date.now("YYYY-MM-DD") %>
 updated: <% tp.date.now("YYYY-MM-DD") %>
-aliases:
-  - "<% tp.file.title %>"
 ---
 
 # 📦 <% tp.file.title %>
@@ -45,10 +50,11 @@ aliases:
 
 ---
 
-## 4. Ứng Dụng Thực Tế & Thiết Kế Hệ Thống (System Architect)
+## 4. Ứng Dụng Thực Tế & Liên Kết Đa Miền (Cross-Domain Systems)
 
-- **Hệ điều hành / Database:**
-- **Các bài toán thực tế:**
+- 🗄️ **Database Engine:**
+- 🌐 **Backend Protocols & System Design:**
+- 🐧 **Linux Kernel / OS Virtual Memory:**
 
 ---
 
@@ -56,7 +62,6 @@ aliases:
 
 ```typescript
 class CustomDataStructure<T> {
-  // Cài đặt cấu trúc dữ liệu bằng TypeScript
   private items: T[];
 
   constructor() {

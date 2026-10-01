@@ -1,15 +1,20 @@
 ---
+title: "<% tp.file.title %>"
+aliases:
+  - "<% tp.file.title %>"
 tags:
   - dsa
   - pattern
   - coding-pattern
 stage: 5
 type: pattern
+difficulty: intermediate
 status: in-progress
+sources:
+  - "[[NeetCode - Algorithmic Patterns]]"
+cross_domain: []
 created: <% tp.date.now("YYYY-MM-DD") %>
 updated: <% tp.date.now("YYYY-MM-DD") %>
-aliases:
-  - "<% tp.file.title %>"
 ---
 
 # 🎯 <% tp.file.title %>
@@ -66,7 +71,15 @@ function patternTemplate<T>(arr: T[]): number {
 
 ---
 
-## 5. Danh Sách Bài Tập Thực Chiến (LeetCode Top Pick)
+## 5. Ứng Dụng Thực Tế & Liên Kết Đa Miền (Cross-Domain Systems)
+
+- 🌐 **Backend Protocols & Networking:**
+- 🗄️ **Database Engine & Query Processing:**
+- ⏱️ **Distributed Systems & Rate Limiting:**
+
+---
+
+## 6. Danh Sách Bài Tập Thực Chiến (LeetCode Top Pick)
 
 | Bài Tập         | Mức Độ    | Trọng Tâm / Biến Thể | Ghi Chú Lời Giải |
 | :-------------- | :-------- | :------------------- | :--------------- |
