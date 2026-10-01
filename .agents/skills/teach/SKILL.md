@@ -74,6 +74,13 @@ Mọi câu hỏi trắc nghiệm gọi qua `ask_question` (cả Pha 1 Probe lẫ
 3. **Tuyệt đối KHÔNG gắn `(Recommended)`:** Đây là bài kiểm tra tư duy kỹ thuật, không phải menu lựa chọn tính năng. Không được mớm bất kỳ dấu hiệu nào cho đáp án đúng.
 4. **Đáp án nhiễu tinh vi (High-Quality Distractors):** Các đáp án sai phải phản ánh đúng những ngộ nhận kinh điển trong thực tế (ví dụ: ngộ nhận về thuật toán, hiểu sai cơ chế phần cứng, nhầm lẫn giữa Time vs Space, hoặc nhầm giữa Seek vs Scan).
 5. **Đồng nhất về văn phong & độ dài:** Cả 4 lựa chọn phải có độ dài tương đương, văn phong kỹ thuật chuẩn chỉ và cấu trúc câu đối xứng. Người học không thể dựa vào mẹo "câu dài nhất/ngắn nhất là đáp án đúng".
+6. **Quy trình phản hồi kết quả bắt buộc (Post-Quiz Feedback Protocol):**
+   Ngay sau khi người học chọn đáp án trong popup `ask_question`, AI Agent **BẮT BUỘC** thực hiện phản hồi theo đúng 4 bước trước khi chuyển tiếp:
+   - **Phán xét Đúng/Sai rõ ràng:** Tuyên bố dứt khoát lựa chọn của người học là **ĐÚNG** hay **SAI**.
+   - **Báo cáo đáp án chuẩn:** Trích xuất nguyên văn đáp án đúng.
+   - **Giải thích ngắn gọn đáp án đúng:** Nêu nguyên lý gốc chứng minh tính đúng đắn.
+   - **Bóc tách lỗi sai (nếu người học chọn sai):** Giải thích rõ ràng phương án người học chọn bị sai ở đâu, ngộ nhận kỹ thuật là gì.
+   - **Chỉ tiếp tục công việc/node tiếp theo sau khi đã hoàn tất quy trình phản hồi trên.**
 
 ## 📋 Chuẩn Định Dạng Note Obsidian
 

@@ -6,13 +6,14 @@ Mọi AI Agent khi làm việc trong workspace này BẮT BUỘC tuân thủ cá
 
 ---
 
-## 🗺️ 1. CẤU TRÚC KHO CHỨA (5 DOMAINS)
+## 🗺️ 1. CẤU TRÚC KHO CHỨA (6 DOMAINS)
 
 1. **`AI-knowledge/`**: AI Agents, Context RAM, RAG, LangGraph, LLMOps.
 2. **`Database-knowledge/`**: Disk Storage, Buffer Cache, B+Tree, MVCC, Locks.
 3. **`DSA-learn/`**: Cấu trúc dữ liệu, Giải thuật, Big-O, Mental Models.
 4. **`Backend-full-course/`**: Protocols (TCP/IP, QUIC, HTTP/3), System Design.
 5. **`DevOps-knowledge/`**: Linux Kernel, Docker, K8s, Terraform, Observability.
+6. **`Network-CCNA/`**: Cisco CCNA 200-301, L2 Switching, L3 Routing (OSPF), ACL, Automation.
 
 ---
 
@@ -35,7 +36,7 @@ aliases:
   - Tên tiếng Anh chuẩn
   - Viết tắt / Từ đồng nghĩa
 tags:
-  - domain (ai, database, dsa, backend, devops)
+  - domain (ai, database, dsa, backend, devops, network)
   - sub-topic
 type: concept | principle | practical | pattern | moc | reference
 status: completed | in-progress | review-needed
@@ -78,3 +79,10 @@ updated: YYYY-MM-DD
 3. **KHÔNG bao giờ** thêm tiền tố `(Recommended)`.
 4. **Đáp án nhiễu tinh vi**: Phản ánh ngộ nhận thực tế.
 5. **Đồng nhất văn phong & độ dài**.
+6. **Quy trình phản hồi kết quả bắt buộc (Post-Quiz Feedback Protocol)**:
+   Ngay sau khi user chọn đáp án từ `ask_question`, Agent **BẮT BUỘC** thực hiện phản hồi theo đúng 4 bước trước khi thực hiện bất kỳ công việc nào tiếp theo:
+   - **Phán xét Đúng/Sai rõ ràng**: Tuyên bố dứt khoát lựa chọn của user là **ĐÚNG** hay **SAI**.
+   - **Công bố đáp án chuẩn**: Nêu chính xác nội dung câu trả lời đúng.
+   - **Giải thích ngắn gọn đáp án đúng**: Nêu nguyên lý cốt lõi tại sao đáp án đó đúng.
+   - **Bóc tách lỗi sai (nếu user chọn sai)**: Chỉ rõ phương án user đã chọn bị sai ở điểm nào và ngộ nhận kỹ thuật nằm ở đâu.
+   - **Chỉ tiếp tục công việc/node tiếp theo sau khi đã hoàn tất quy trình phản hồi trên**.

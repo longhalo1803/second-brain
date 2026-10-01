@@ -62,12 +62,20 @@ flowchart TD
         DO_P["CI/CD Pipeline & Monitoring"]
     end
 
+    subgraph D6["🌐 NETWORK & CCNA 200-301"]
+        NET["[[Network-CCNA/00 - Maps of Content/00 - Master Dashboard|CCNA Master Dashboard]]"]
+        NET_L2["Switching: VLAN, Trunk, RSTP, EtherChannel"]
+        NET_L3["Routing: IPv4/v6 Subnetting, OSPFv2, NAT"]
+        NET_SEC["Security & Automation: ACL, Snooping, DNA-C"]
+    end
+
     %% Hub to Domains
     Hub ==> AI
     Hub ==> BE
     Hub ==> DB
     Hub ==> DSA
     Hub ==> DO
+    Hub ==> NET
 
     %% Cross-Domain Links
     AI -.->|Vector Search & Retrieval| DB
@@ -75,13 +83,15 @@ flowchart TD
     DB -.->|B+Tree, Hash, LRU Cache| DSA
     BE -.->|Microservices & Ingress| DO
     AI -.->|Tool Calling & MCP Server| BE
+    NET -.->|L2/L3 Underlay & Transport| BE
+    NET -.->|Campus Infrastructure & VPC| DO
 
     classDef main fill:#1e293b,stroke:#38bdf8,stroke-width:3px,color:#f8fafc,font-weight:bold;
 ```
 
 ---
 
-## 📚 2. Điều Hướng 5 Trụ Cột Tri Thức (Domain Modules)
+## 📚 2. Điều Hướng 6 Trụ Cột Tri Thức (Domain Modules)
 
 | Trụ cột                  | Bản đồ trung tâm (MOC / Roadmap)                                                                | Lĩnh vực trọng tâm                                                                    |
 | :----------------------- | :---------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------ |
@@ -90,6 +100,7 @@ flowchart TD
 | 🧭 **DSA & Patterns**    | [[DSA-learn/00 - Meta & Maps/Master MOC\|🗺️ Master MOC - DSA]]                                  | Big-O, Mental Models, Data Structures, Algorithms, Two Pointers, Sliding Window, DP.  |
 | ⚙️ **Backend Protocols** | [[Backend-full-course/Roadmap\|📋 Roadmap - Backend Engineering]]                               | TCP/IP, UDP, QUIC, BGP, WebSocket, HTTP/3, TLS/SSL, DNS, SFTP/SSH.                    |
 | 🚀 **DevOps & Cloud**    | [[DevOps-knowledge/Roadmap\|📋 Roadmap - DevOps & Cloud Native]]                                | Linux Kernel, Docker Multi-stage, Kubernetes Ingress, Terraform IaC, Prometheus.      |
+| 🌐 **Network & CCNA**    | [[Network-CCNA/00 - Maps of Content/00 - Master Dashboard\|📋 MOC - Network & Cisco CCNA]]      | OSI, Switching L2 (VLAN, STP), Routing L3 (OSPF, NAT), ACL, DNA-C, Packet Tracer.    |
 
 ---
 

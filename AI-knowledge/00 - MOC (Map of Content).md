@@ -18,8 +18,12 @@ graph TD
     MOC(["🗺️ 00 - MOC: AI AGENT KNOWLEDGE HUB"]):::main
 
     subgraph M1 ["01. NGUYÊN LÝ ĐẦU TIÊN (First Principles)"]
-        M1_1["01.1 - LLM Stateless Mechanics & Attention"]:::foundation
+        M1_1["01.1 - LLM Stateless Mechanics & Next Token"]:::foundation
         M1_2["01.2 - Context RAM & Payload Assembly"]:::foundation
+        M1_3["01.3 - Static vs Dynamic Embedding"]:::foundation
+        M1_4["01.4 - RNN Bottleneck vs Transformer Parallelism"]:::foundation
+        M1_5["01.5 - Scaled Dot-Product Self-Attention"]:::foundation
+        M1_6["01.6 - Multi-Head Attention & Subspaces"]:::foundation
     end
 
     subgraph M2 ["02. HỆ THỐNG TRÍ NHỚ (Memory Systems)"]
@@ -70,8 +74,12 @@ graph TD
     M6 -.->|Continuous Feedback Loop| M4
 
     %% Clickable Navigation Links
-    click M1_1 "01 - Fundamentals & First Principles/01.1 - LLM Stateless Mechanics & Attention" "Mở bài 01.1"
-    click M1_2 "01 - Fundamentals & First Principles/01.2 - Context RAM & Payload Assembly" "Mở bài 01.2"
+    click M1_1 "AI-knowledge/01 - Fundamentals & First Principles/01.1 - LLM Stateless Mechanics & Next Token Prediction" "Mở bài 01.1"
+    click M1_2 "AI-knowledge/01 - Fundamentals & First Principles/01.2 - Context RAM & Payload Assembly" "Mở bài 01.2"
+    click M1_3 "AI-knowledge/01 - Fundamentals & First Principles/01.3 - Static vs Dynamic Embedding" "Mở bài 01.3"
+    click M1_4 "AI-knowledge/01 - Fundamentals & First Principles/01.4 - Sequence Processing: RNN Bottleneck vs Transformer Parallelism" "Mở bài 01.4"
+    click M1_5 "AI-knowledge/01 - Fundamentals & First Principles/01.5 - Scaled Dot-Product Self-Attention" "Mở bài 01.5"
+    click M1_6 "AI-knowledge/01 - Fundamentals & First Principles/01.6 - Multi-Head Attention & Representation Subspaces" "Mở bài 01.6"
 
     click M2_1 "02 - Memory Systems/02.1 - Tri-Memory Architecture Overview" "Mở bài 02.1"
     click M2_2 "02 - Memory Systems/02.2 - Procedural Memory & Skill Engineering" "Mở bài 02.2"
@@ -100,10 +108,14 @@ graph TD
 
 ## 📚 Mục Lục Chi Tiết Theo Chủ Đề (Domain Modules)
 
-### 🔹 [[01 - Fundamentals & First Principles/01.1 - LLM Stateless Mechanics & Attention|01. Fundamentals & First Principles]]
+### 🔹 [[AI-knowledge/01 - Fundamentals & First Principles/01.1 - LLM Stateless Mechanics & Next Token Prediction|01. Fundamentals & First Principles]]
 
-- [[01 - Fundamentals & First Principles/01.1 - LLM Stateless Mechanics & Attention|01.1 - LLM Stateless Mechanics & Attention]]: Bản chất toán học $y = f(x)$, cơ chế vô trạng thái, không gian VRAM và Attention Matrix.
-- [[01 - Fundamentals & First Principles/01.2 - Context RAM & Payload Assembly|01.2 - Context RAM & Payload Assembly]]: Giải mã "Context RAM", phân định vị trí thực thi (Client vs Cloud Backend vs LLM Provider).
+- [[AI-knowledge/01 - Fundamentals & First Principles/01.1 - LLM Stateless Mechanics & Next Token Prediction|01.1 - LLM Stateless Mechanics & Next Token Prediction]]: Bản chất toán học $y = f(x; \theta)$, hàm không trạng thái, vòng lặp sinh tự hồi quy và bộ nhớ KV Cache.
+- [[AI-knowledge/01 - Fundamentals & First Principles/01.2 - Context RAM & Payload Assembly|01.2 - Context RAM & Payload Assembly]]: Giải mã "Context RAM", phân định vị trí thực thi (Client vs Cloud Backend vs LLM Provider).
+- [[AI-knowledge/01 - Fundamentals & First Principles/01.3 - Static vs Dynamic Embedding|01.3 - Static vs Dynamic Embedding]]: Bản chất Word2Vec ma trận tra bảng, sự bất lực trước từ đa nghĩa (Polysemy) và cơ chế làm giàu vector ngữ cảnh.
+- [[AI-knowledge/01 - Fundamentals & First Principles/01.4 - Sequence Processing: RNN Bottleneck vs Transformer Parallelism|01.4 - Sequence Processing: RNN Bottleneck vs Transformer Parallelism]]: Nút thắt tuần tự phần cứng của RNN và đột phá song song hóa ma trận $N \times d_{\text{model}}$ trên GPU kèm Positional Encoding.
+- [[AI-knowledge/01 - Fundamentals & First Principles/01.5 - Scaled Dot-Product Self-Attention|01.5 - Scaled Dot-Product Self-Attention]]: Toán học Q, K, V, ý nghĩa hình học của Dot Product, chứng minh phương sai $\sqrt{d_k}$ và triệt tiêu bão hòa gradient trong Softmax.
+- [[AI-knowledge/01 - Fundamentals & First Principles/01.6 - Multi-Head Attention & Representation Subspaces|01.6 - Multi-Head Attention & Representation Subspaces]]: Đa phân vùng không gian con ngữ nghĩa, ghép nối $W_O$, bảo toàn chi phí tính toán và bài toán đánh đổi kiến trúc.
 
 ---
 
